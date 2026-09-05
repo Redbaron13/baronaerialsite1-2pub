@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" role="img" aria-label="Baron Aerial Media">
+  <rect width="16" height="16" fill="#0A0E0A"/>
+  <path fill="#1CC24D" d="M8 1.5 L14 10 H2 Z"/>
+  <rect x="3" y="12" width="10" height="2.5" rx="1.25" fill="#1CC24D"/>
+</svg>

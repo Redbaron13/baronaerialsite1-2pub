@@ -1,0 +1,36 @@
+{
+  "url": "http://127.0.0.1:8080/work",
+  "viewports": {
+    "desktop": {
+      "width": 1280,
+      "height": 800,
+      "status": 200,
+      "title": "Baron Aerial Media",
+      "hasCanvas": false,
+      "bodyTextLen": 1779,
+      "bodyTextHash": "978200c6a8ab149f0304a3ca40eaefde37936b6c3b8f497fb35b528ad2c846f7",
+      "bodyTextPrefix": "Work Capabilities Mission Planner About Contact Plan a Mission →",
+      "horizontalOverflow": false,
+      "consoleErrors": [],
+      "pageErrors": [],
+      "screenshot": "/workspace/screenshots/work.png"
+    },
+    "mobile": {
+      "width": 390,
+      "height": 844,
+      "status": 200,
+      "title": "Baron Aerial Media",
+      "hasCanvas": false,
+      "bodyTextLen": 1714,
+      "bodyTextHash": "86fdcb14a5d9bb37f0fb1e2d4194ab204cce7e4446b6fa3ccd5ede895b7d985e",
+      "bodyTextPrefix": "SELECTED AERIAL WORK Aerial work that makes the site easier to u",
+      "horizontalOverflow": false,
+      "consoleErrors": [],
+      "pageErrors": [],
+      "screenshot": "/workspace/screenshots/work-mobile.png"
+    }
+  },
+  "brandWarnings": [],
+  "authWarnings": [],
+  "verdictFile": "/workspace/screenshots/work.json"
+}

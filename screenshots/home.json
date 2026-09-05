@@ -1,0 +1,36 @@
+{
+  "url": "http://127.0.0.1:8080/",
+  "viewports": {
+    "desktop": {
+      "width": 1280,
+      "height": 800,
+      "status": 200,
+      "title": "Baron Aerial Media",
+      "hasCanvas": false,
+      "bodyTextLen": 3674,
+      "bodyTextHash": "6769ce442f4cbf4ff27212075025871b74cde976d179e0b7b54cbddcdee1ce67",
+      "bodyTextPrefix": "Work Capabilities Mission Planner About Contact Plan a Mission →",
+      "horizontalOverflow": false,
+      "consoleErrors": [],
+      "pageErrors": [],
+      "screenshot": "/workspace/screenshots/home.png"
+    },
+    "mobile": {
+      "width": 390,
+      "height": 844,
+      "status": 200,
+      "title": "Baron Aerial Media",
+      "hasCanvas": false,
+      "bodyTextLen": 3609,
+      "bodyTextHash": "c9ad40a00b1c82176956ce0191faed1a4047a5b43dafc908925ab036c60fda6e",
+      "bodyTextPrefix": "PLANNED AERIAL OPERATIONS · FAA PART 107 REMOTE PILOT See the wh",
+      "horizontalOverflow": false,
+      "consoleErrors": [],
+      "pageErrors": [],
+      "screenshot": "/workspace/screenshots/home-mobile.png"
+    }
+  },
+  "brandWarnings": [],
+  "authWarnings": [],
+  "verdictFile": "/workspace/screenshots/home.json"
+}

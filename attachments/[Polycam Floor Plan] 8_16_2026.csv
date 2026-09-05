@@ -1,0 +1,93 @@
+Floor,Room,Description,Value
+All,Entire Roomplan,Address,41 Oak St East Orange NJ
+All,Entire Roomplan,Latitude,40.754023 m
+All,Entire Roomplan,Longitude,-74.217314 m
+All,Entire Roomplan,Altitude [ft],177' 2.7"
+All,Entire Roomplan,Total exterior floor area [ft^2],265.4
+Floor 1,Entire Floor,Total exterior floor area [ft^2],86.5
+Floor 2,Entire Floor,Total exterior floor area [ft^2],84.0
+Floor 3,Entire Floor,Total exterior floor area [ft^2],94.8
+All,Entire Roomplan,Total livable floor area [ft^2],223.8
+Floor 1,Entire Floor,Total livable floor area [ft^2],74.1
+Floor 2,Entire Floor,Total livable floor area [ft^2],72.1
+Floor 3,Entire Floor,Total livable floor area [ft^2],77.6
+Floor 1,Other 1,Floor area [ft^2],74.1
+Floor 2,Other 2,Floor area [ft^2],72.1
+Floor 3,Living Room,Floor area [ft^2],64.6
+Floor 3,Other 3,Floor area [ft^2],7.6
+Floor 3,Other 4,Floor area [ft^2],5.4
+Floor 1,Other 1,Dimensions [ft],12' 2.1" x 6' 1.0"
+Floor 2,Other 2,Dimensions (bounding box) [ft],12' 2.3" x 6' 0.9"
+Floor 2,Other 2,Dimensions (inscribed) [ft],10' 7.3" x 6' 0.9"
+Floor 3,Living Room,Dimensions [ft],10' 7.3" x 6' 1.1"
+Floor 3,Other 3,Dimensions [ft],6' 1.1" x 1' 3.0"
+Floor 3,Other 4,Dimensions [ft],6' 1.1" x 0' 10.5"
+All,Entire Roomplan,Wall area [ft^2],1954.3
+Floor 1,Entire Floor,Wall area [ft^2],486.6
+Floor 2,Entire Floor,Wall area [ft^2],446.7
+Floor 3,Entire Floor,Wall area [ft^2],1021.0
+Floor 3,Living Room,Wall area [ft^2],531.5
+Floor 1,Other 1,Wall area [ft^2],486.6
+Floor 2,Other 2,Wall area [ft^2],446.7
+Floor 3,Other 3,Wall area [ft^2],256.6
+Floor 3,Other 4,Wall area [ft^2],232.9
+All,Entire Roomplan,Volume [ft^3],3121.39
+Floor 1,Entire Floor,Volume [ft^3],868.21
+Floor 2,Entire Floor,Volume [ft^3],887.60
+Floor 3,Entire Floor,Volume [ft^3],1365.58
+Floor 3,Living Room,Volume [ft^3],1141.39 
+Floor 2,Other 2,Volume [ft^3] (approx),887.60 
+Floor 1,Other 1,Volume [ft^3] (approx),868.21 
+Floor 3,Other 3,Volume [ft^3],129.97 
+Floor 3,Other 4,Volume [ft^3] (approx),94.21 
+Floor 3,Living Room,Ceiling height [ft],17' 8.0" 
+Floor 2,Other 2,Ceiling height [ft] (approx),12' 3.7" 
+Floor 1,Other 1,Ceiling height [ft] (approx),11' 8.6" 
+Floor 3,Other 3,Ceiling height [ft],17' 0.4" 
+Floor 3,Other 4,Ceiling height [ft] (approx),17' 7.2" 
+All,Entire Roomplan,Total perimeter in rooms [ft],135' 1.0"
+Floor 1,Entire Floor,Total perimeter in rooms [ft],36' 6.4"
+Floor 2,Entire Floor,Total perimeter in rooms [ft],36' 6.4"
+Floor 3,Entire Floor,Total perimeter in rooms [ft],62' 0.2"
+Floor 2,Other 2,Perimeter [ft],36' 6.4"
+Floor 1,Other 1,Perimeter [ft],36' 6.4"
+Floor 3,Living Room,Perimeter [ft],33' 4.8"
+Floor 3,Other 3,Perimeter [ft],14' 8.2"
+Floor 3,Other 4,Perimeter [ft],13' 11.2"
+Floor 1,Other 1,Doors total casing length [ft],43' 9.1"
+Floor 3,Living Room,Doors total casing length [ft],27' 8.0"
+Floor 2,Other 2,Doors total casing length [ft],14' 9.2"
+Floor 3,Other 3,Windows total casing length [ft],30' 3.1"
+Floor 3,Living Room,Windows total casing length [ft],14' 6.7"
+All,Entire Roomplan,Total window area [ft^2],22.0
+Floor 1,Entire Floor,Total window area [ft^2],0.0
+Floor 2,Entire Floor,Total window area [ft^2],0.0
+Floor 3,Entire Floor,Total window area [ft^2],22.0
+Floor 3,Other 3,Window dimensions [ft],2' 5.1" x 4' 10.7"
+Floor 3,Living Room,Window dimensions [ft],2' 2.8" x 4' 6.2"
+Floor 3,Living Room,Door dimensions [ft],2' 11.4" x 12' 1.1"
+Floor 1,Other 1,Door dimensions [ft],2' 11.1" x 10' 9.1"
+Floor 1,Other 1,Door dimensions [ft],3' 1.7" x 7' 6.7"
+Floor 2,Other 2,Door dimensions [ft],2' 10.5" x 5' 8.2"
+All,Entire Roomplan,# Stairs,9
+All,Entire Roomplan,# Cabinets,2
+All,Entire Roomplan,# Dining tables,1
+Floor 1,Other 1,Stairs dimensions (w x h x d) [ft],3' 4.6" x 7' 2.1" x 8' 6.7"
+Floor 2,Other 2,Stairs dimensions (w x h x d) [ft],3' 7.6" x 5' 2.1" x 4' 11.7"
+Floor 3,Living Room,Stairs dimensions (w x h x d) [ft],3' 3.9" x 4' 8.4" x 5' 10.7"
+Floor 1,Other 1,Stairs dimensions (w x h x d) [ft],3' 6.2" x 3' 9.6" x 5' 1.9"
+Floor 2,Other 2,Stairs dimensions (w x h x d) [ft],2' 9.0" x 2' 0.5" x 3' 3.1"
+Floor 2,Other 2,Stairs dimensions (w x h x d) [ft],2' 9.8" x 1' 11.9" x 2' 1.5"
+Floor 3,Living Room,Stairs dimensions (w x h x d) [ft],2' 11.0" x 0' 0.9" x 5' 0.3"
+Floor 3,Living Room,Stairs dimensions (w x h x d) [ft],2' 10.3" x 0' 0.9" x 1' 11.1"
+Floor 3,Living Room,Stairs dimensions (w x h x d) [ft],2' 8.7" x 0' 0.2" x 5' 0.0"
+Floor 3,Living Room,Cabinet dimensions (w x h x d) [ft],3' 2.6" x 7' 1.4" x 3' 8.4"
+Floor 3,Other 4,Cabinet dimensions (w x h x d) [ft],2' 10.7" x 1' 8.2" x 0' 11.7"
+Floor 3,Other 4,Dining table dimensions (w x h x d) [ft],2' 6.8" x 2' 8.8" x 1' 2.7"
+All,Key,Dimensions (bounding box),Smallest rectangle that contains the room
+All,Key,Dimensions (inscribed),Largest rectangle that fits inside the room
+All,Key,Dimensions,Rectangular rooms: inscribed dimensions == bounding box dimensions
+All,Settings,Wall thickness [ft] (total wall length: 151' 3.8"),0' 3.9"
+All,Settings,Doors casing width [ft],0' 1.6"
+All,Settings,Windows casing width [ft],0' 1.6"
+All,Settings,Each room area method,Internal wall area excluded

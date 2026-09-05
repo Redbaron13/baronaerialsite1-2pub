@@ -1,0 +1,36 @@
+{
+  "url": "http://127.0.0.1:8080/mission-planner",
+  "viewports": {
+    "desktop": {
+      "width": 1280,
+      "height": 800,
+      "status": 200,
+      "title": "Baron Aerial Media",
+      "hasCanvas": false,
+      "bodyTextLen": 1190,
+      "bodyTextHash": "e0847bb58fe39c6bf2fcda38ffde74b214c94ec8222156a949f7b63f2124b601",
+      "bodyTextPrefix": "Work Capabilities Mission Planner About Contact Plan a Mission →",
+      "horizontalOverflow": false,
+      "consoleErrors": [],
+      "pageErrors": [],
+      "screenshot": "/workspace/screenshots/planner.png"
+    },
+    "mobile": {
+      "width": 390,
+      "height": 844,
+      "status": 200,
+      "title": "Baron Aerial Media",
+      "hasCanvas": false,
+      "bodyTextLen": 1125,
+      "bodyTextHash": "e738d9b46b74cb582c269f5130d80879ccfd2ba2714d98af9d3d40e1e7d5e06f",
+      "bodyTextPrefix": "MISSION PLANNER Not sure what you need? Start here. Pick the clo",
+      "horizontalOverflow": false,
+      "consoleErrors": [],
+      "pageErrors": [],
+      "screenshot": "/workspace/screenshots/planner-mobile.png"
+    }
+  },
+  "brandWarnings": [],
+  "authWarnings": [],
+  "verdictFile": "/workspace/screenshots/planner.json"
+}

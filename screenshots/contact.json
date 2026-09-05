@@ -1,0 +1,36 @@
+{
+  "url": "http://127.0.0.1:8080/contact",
+  "viewports": {
+    "desktop": {
+      "width": 1280,
+      "height": 800,
+      "status": 200,
+      "title": "Baron Aerial Media",
+      "hasCanvas": false,
+      "bodyTextLen": 1324,
+      "bodyTextHash": "1c47d17aa26d8df484dcecc7428d6b317d0fb489662b1e962d52bb50a7d8d7cc",
+      "bodyTextPrefix": "Work Capabilities Mission Planner About Contact Plan a Mission →",
+      "horizontalOverflow": false,
+      "consoleErrors": [],
+      "pageErrors": [],
+      "screenshot": "/workspace/screenshots/contact.png"
+    },
+    "mobile": {
+      "width": 390,
+      "height": 844,
+      "status": 200,
+      "title": "Baron Aerial Media",
+      "hasCanvas": false,
+      "bodyTextLen": 1259,
+      "bodyTextHash": "3561658ce231610dfb74e58fb32ce1ea43101b3ae0af52e9e1fad2dc6706da8b",
+      "bodyTextPrefix": "MISSION DISCOVERY Tell us what you’re trying to accomplish. This",
+      "horizontalOverflow": false,
+      "consoleErrors": [],
+      "pageErrors": [],
+      "screenshot": "/workspace/screenshots/contact-mobile.png"
+    }
+  },
+  "brandWarnings": [],
+  "authWarnings": [],
+  "verdictFile": "/workspace/screenshots/contact.json"
+}

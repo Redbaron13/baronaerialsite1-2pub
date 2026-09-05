@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en" class="no-js">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Plan a Drone Mission — Baron Aerial Media</title>
+  <meta name="description" content="Tell us what you're trying to accomplish. A short mission-discovery brief so we can scope the flight, deliverables and timeline." />
+  <link rel="icon" href="assets/img/logo-mark.png" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600&family=Dancing+Script:wght@600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="assets/css/styles.css" />
+  <script>document.documentElement.classList.remove('no-js');</script>
+</head>
+<body class="theme-light">
+  <header class="site-header">
+    <a class="brand" href="index.html" aria-label="Baron Aerial Media — home"><img src="assets/img/logo.png" alt="Baron Aerial Media" /></a>
+    <nav class="nav" aria-label="Primary">
+      <a href="gallery.html">Work</a>
+      <a href="capabilities.html">Capabilities</a>
+      <a href="mission-planner.html">Mission Planner</a>
+      <a href="about.html">About</a>
+      <a href="contact.html" aria-current="page">Contact</a>
+    </nav>
+    <div class="nav-cta">
+      <a class="btn btn--pill" href="#" aria-disabled="true">Client Portal</a>
+      <button class="nav-toggle btn btn--pill" aria-expanded="false" aria-label="Menu">Menu</button>
+    </div>
+  </header>
+
+  <section class="page-hero">
+    <div class="container" data-reveal>
+      <p class="eyebrow">Mission Discovery</p>
+      <h1>Tell us what you're trying to accomplish.</h1>
+      <p class="lead">This brief is built for real mission planning — objective, site, airspace and deliverables — not just collecting a name and email.</p>
+    </div>
+  </section>
+
+  <section class="section" style="padding-top:0">
+    <div class="container two-col">
+      <!-- FORM -->
+      <form class="form-card" id="missionForm" name="mission-discovery" method="POST" action="/api/contact" data-reveal>
+        <input type="text" name="_gotcha" tabindex="-1" autocomplete="off" aria-hidden="true" style="position:absolute;left:-9999px;opacity:0;height:0;width:0" />
+        <div class="steps" id="formSteps" role="tablist" aria-label="Mission brief steps">
+          <button type="button" class="is-active" data-step="0"><span class="n">1</span> Objective</button>
+          <button type="button" data-step="1"><span class="n">2</span> Site + Timing</button>
+          <button type="button" data-step="2"><span class="n">3</span> Outputs</button>
+          <button type="button" data-step="3"><span class="n">4</span> Contact</button>
+        </div>
+
+        <!-- Step 1 -->
+        <div class="form-step is-active" data-panel="0">
+          <div class="field">
+            <label for="mtype">What type of mission are you planning?</label>
+            <select id="mtype" name="mission_type">
+              <option value="">Select one…</option>
+              <option>Luxury real estate</option><option>Construction</option>
+              <option>Inspection + infrastructure</option><option>Event</option><option>Consulting</option><option>Other</option>
+            </select>
+          </div>
+          <div class="field">
+            <label for="loc">Where is the project located?</label>
+            <input id="loc" name="location" placeholder="Address, city, coordinates or general area" />
+          </div>
+          <div class="field">
+            <label for="timing">When do you need the mission performed?</label>
+            <select id="timing" name="timing">
+              <option value="">Select one…</option>
+              <option>Specific date</option><option>Flexible window</option><option>Recurring progress tracking</option>
+            </select>
+          </div>
+          <div class="field">
+            <label>What final deliverables are most useful?</label>
+            <span class="hint">Photos · Video · 3D model · Orthomosaic · Report · Matterport · Other — pick as many as apply on the next steps.</span>
+          </div>
+        </div>
+
+        <!-- Step 2 -->
+        <div class="form-step" data-panel="1">
+          <div class="field"><label for="site">Tell us about the site</label><textarea id="site" name="site_detail" rows="3" placeholder="Property size, structures, access, anything unusual…"></textarea></div>
+          <div class="field"><label for="airspace">Any airspace or access constraints you know of?</label><input id="airspace" name="airspace" placeholder="Near an airport, restricted area, HOA, gated, etc." /></div>
+          <div class="field"><label for="date">Target date or window</label><input id="date" name="target_date" placeholder="e.g. week of Aug 18, or ‘flexible’" /></div>
+        </div>
+
+        <!-- Step 3 -->
+        <div class="form-step" data-panel="2">
+          <div class="field"><label>Which deliverables do you want?</label>
+            <div class="hint" style="display:flex;flex-wrap:wrap;gap:.5rem;margin-top:.4rem">
+              <label class="btn btn--ghost" style="cursor:pointer"><input type="checkbox" name="deliverables" value="Photos" style="width:auto;margin-right:.4rem"> Photos</label>
+              <label class="btn btn--ghost" style="cursor:pointer"><input type="checkbox" name="deliverables" value="Video" style="width:auto;margin-right:.4rem"> Video</label>
+              <label class="btn btn--ghost" style="cursor:pointer"><input type="checkbox" name="deliverables" value="3D model" style="width:auto;margin-right:.4rem"> 3D model</label>
+              <label class="btn btn--ghost" style="cursor:pointer"><input type="checkbox" name="deliverables" value="Orthomosaic" style="width:auto;margin-right:.4rem"> Orthomosaic</label>
+              <label class="btn btn--ghost" style="cursor:pointer"><input type="checkbox" name="deliverables" value="Report" style="width:auto;margin-right:.4rem"> Report</label>
+              <label class="btn btn--ghost" style="cursor:pointer"><input type="checkbox" name="deliverables" value="Matterport" style="width:auto;margin-right:.4rem"> Matterport</label>
+            </div>
+          </div>
+          <div class="field"><label for="usage">How will the deliverables be used?</label><input id="usage" name="usage" placeholder="Listing, marketing, permitting, progress reporting, insurance…" /></div>
+          <div class="field"><label for="budget">Budget range (optional)</label><input id="budget" name="budget" placeholder="Helps us recommend the right workflow" /></div>
+        </div>
+
+        <!-- Step 4 -->
+        <div class="form-step" data-panel="3">
+          <div class="field"><label for="name">Your name</label><input id="name" name="name" required placeholder="First and last" /></div>
+          <div class="field"><label for="email">Email</label><input id="email" type="email" name="email" required placeholder="you@company.com" /></div>
+          <div class="field"><label for="phone">Phone (optional)</label><input id="phone" name="phone" placeholder="(   )   -    " /></div>
+          <div class="field"><label for="company">Company (optional)</label><input id="company" name="company" placeholder="Company or brokerage" /></div>
+        </div>
+
+        <div style="display:flex;justify-content:space-between;gap:.8rem;margin-top:.5rem">
+          <button type="button" class="btn btn--ghost" data-form-prev hidden>Back</button>
+          <button type="button" class="btn btn--primary" data-form-next>Continue Mission Brief</button>
+          <button type="submit" class="btn btn--primary" data-form-submit hidden>Send Mission Brief</button>
+        </div>
+        <p class="hint" id="formNote" style="margin-top:1rem" hidden></p>
+      </form>
+
+      <!-- WHAT HAPPENS NEXT -->
+      <aside class="panel-dark" data-reveal>
+        <p class="eyebrow">What happens next</p>
+        <h2 style="margin:.4rem 0 .8rem">A useful conversation starts with the mission.</h2>
+        <p style="color:#D1D6CF">We review your objective, location, timing, airspace and desired outputs, then determine what's operationally feasible and which workflow best fits the job.</p>
+        <ul class="next-list">
+          <li><span class="num">01</span><b>Review objective</b></li>
+          <li><span class="num">02</span><b>Check site + airspace</b></li>
+          <li><span class="num">03</span><b>Define scope + deliverables</b></li>
+          <li><span class="num">04</span><b>Schedule mission or consultation</b></li>
+        </ul>
+        <a class="btn btn--primary" href="mailto:kevinbaron.137@gmail.com?subject=Strategy%20Call%20—%20Baron%20Aerial%20Media">Schedule Strategy Call</a>
+      </aside>
+    </div>
+  </section>
+
+  <footer class="site-footer">
+    <div class="container">
+      <a class="brand" href="index.html"><img src="assets/img/logo.png" alt="Baron Aerial Media" /></a>
+      <p class="fine">FAA-compliant aerial imaging · Newark, New Jersey · Serving commercial clients · &copy; <span data-year>2026</span></p>
+      <a class="btn btn--pill" href="#" aria-disabled="true">Team Access</a>
+    </div>
+  </footer>
+
+  <script src="assets/js/motion.js" defer></script>
+</body>
+</html>

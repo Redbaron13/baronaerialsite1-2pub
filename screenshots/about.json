@@ -1,0 +1,36 @@
+{
+  "url": "http://127.0.0.1:8080/about",
+  "viewports": {
+    "desktop": {
+      "width": 1280,
+      "height": 800,
+      "status": 200,
+      "title": "Baron Aerial Media",
+      "hasCanvas": false,
+      "bodyTextLen": 2234,
+      "bodyTextHash": "ce1ccb8440b41e887f6519740f4a4c1ae4bf040742e992014380ef68a0039297",
+      "bodyTextPrefix": "Baron Aerial Media Work Capabilities Mission Planner About Conta",
+      "horizontalOverflow": false,
+      "consoleErrors": [],
+      "pageErrors": [],
+      "screenshot": "/workspace/screenshots/about.png"
+    },
+    "mobile": {
+      "width": 390,
+      "height": 844,
+      "status": 200,
+      "title": "Baron Aerial Media",
+      "hasCanvas": false,
+      "bodyTextLen": 2169,
+      "bodyTextHash": "d5d112af069594abe476d5b02927d69fa8e44c9361f745e6c427993ef4ccf5dc",
+      "bodyTextPrefix": "Baron Aerial Media OWNER-OPERATED The flight is only one part of",
+      "horizontalOverflow": false,
+      "consoleErrors": [],
+      "pageErrors": [],
+      "screenshot": "/workspace/screenshots/about-mobile.png"
+    }
+  },
+  "brandWarnings": [],
+  "authWarnings": [],
+  "verdictFile": "/workspace/screenshots/about.json"
+}

@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en" class="no-js">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Baron Aerial Media — Commercial Drone Intelligence</title>
+  <meta name="description" content="FAA-compliant aerial imaging, mapping, 3D modeling and inspection for real estate, construction, infrastructure and complex commercial missions. Newark, New Jersey." />
+  <link rel="icon" href="assets/img/logo-mark.png" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600&family=Dancing+Script:wght@600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="assets/css/styles.css" />
+  <script>document.documentElement.classList.remove('no-js');</script>
+</head>
+<body>
+
+  <!-- ===================== INTRO "AD" ENTRANCE ===================== -->
+  <div class="intro" id="intro" aria-label="Intro">
+    <div class="intro__media"><video id="introVideo" muted playsinline preload="auto" poster="assets/img/hero-1.jpg"><source src="assets/video/hero-1.mp4" type="video/mp4" /></video></div>
+    <div class="intro__inner">
+      <img class="intro__logo" src="assets/img/logo-light.png" alt="Baron Aerial Media" />
+      <span class="intro__tag">Altitude Changes Everything</span>
+      <p class="intro__line">Commercial drone intelligence — aerial imaging, mapping, 3D modeling and inspection across New Jersey and beyond.</p>
+      <div class="intro__actions">
+        <button class="btn btn--primary" id="introEnter" type="button">Enter Site</button>
+        <button class="btn btn--ghost" id="introSkip" type="button">Skip Intro</button>
+      </div>
+    </div>
+    <div class="intro__progress"><span id="introBar"></span></div>
+  </div>
+
+  <!-- ============================ HEADER =========================== -->
+  <header class="site-header">
+    <a class="brand" href="index.html" aria-label="Baron Aerial Media — home">
+      <img src="assets/img/logo-light.png" alt="Baron Aerial Media" />
+    </a>
+    <nav class="nav" aria-label="Primary">
+      <a href="gallery.html">Work</a>
+      <a href="capabilities.html">Capabilities</a>
+      <a href="mission-planner.html">Mission Planner</a>
+      <a href="about.html">About</a>
+      <a href="contact.html">Contact</a>
+    </nav>
+    <div class="nav-cta">
+      <a class="btn btn--pill" href="#" aria-disabled="true">Client Portal</a>
+      <button class="nav-toggle btn btn--pill" aria-expanded="false" aria-controls="nav" aria-label="Menu">Menu</button>
+    </div>
+  </header>
+
+  <!-- ============================ HERO ============================= -->
+  <section class="hero">
+    <div class="hero__media" id="heroMedia">
+      <video class="is-active" data-hero-clip muted loop playsinline preload="auto" poster="assets/img/hero-1.jpg"><source src="assets/video/hero-1.mp4" type="video/mp4" /></video>
+      <video data-hero-clip muted loop playsinline preload="none" poster="assets/img/hero-2.jpg"><source src="assets/video/hero-2.mp4" type="video/mp4" /></video>
+      <video data-hero-clip muted loop playsinline preload="none" poster="assets/img/hero-3.jpg"><source src="assets/video/hero-3.mp4" type="video/mp4" /></video>
+      <video data-hero-clip muted loop playsinline preload="none" poster="assets/img/realestate-2.jpg"><source src="assets/video/realestate-2.mp4" type="video/mp4" /></video>
+    </div>
+    <div class="hero__scrim"></div>
+
+    <div class="container hero__inner" data-reveal>
+      <p class="eyebrow">Commercial Drone Intelligence</p>
+      <h1 class="reveal-lines">
+        <span class="line"><span>See more.</span></span>
+        <span class="line"><span>Understand more.</span></span>
+        <span class="line"><span>Decide with confidence.</span></span>
+      </h1>
+      <p class="lead">Aerial imaging, mapping, modeling and inspection for real estate, construction, infrastructure and complex commercial missions.</p>
+      <div class="hero__cluster">
+        <a class="btn btn--primary" href="contact.html">Plan a Drone Mission</a>
+        <a class="btn btn--ghost" href="gallery.html">Explore Projects</a>
+      </div>
+    </div>
+
+    <div class="hero__badges" data-reveal>
+      <span class="btn--pill">FAA-Compliant</span>
+      <span class="btn--pill">3D + Mapping</span>
+    </div>
+    <div class="hero__dots" id="heroDots" role="tablist" aria-label="Hero footage">
+      <button class="is-active" aria-label="Sunset skyline"></button>
+      <button aria-label="Interchange aerial"></button>
+      <button aria-label="Tower orbit"></button>
+      <button aria-label="Real estate, golden hour"></button>
+    </div>
+  </section>
+
+  <!-- ============================ STATS ============================ -->
+  <section class="section" style="padding-top:clamp(40px,5vw,64px);padding-bottom:clamp(32px,4vw,48px)">
+    <div class="container">
+      <div class="stats" data-reveal-stagger>
+        <div class="stat"><b>4</b><span>Core Industries</span></div>
+        <div class="stat"><b>360°</b><span>Mission Visibility</span></div>
+        <div class="stat"><b>3D</b><span>Models + Maps</span></div>
+        <div class="stat"><b>1</b><span>End-to-End Workflow</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== CAPABILITIES (image cards) ============== -->
+  <section class="section" style="padding-top:clamp(24px,3vw,40px)">
+    <div class="container">
+      <div class="sec-head" data-reveal>
+        <div><p class="eyebrow">Industry Paths</p><h2>Built for four kinds of&nbsp;work.</h2></div>
+        <a class="arrow-link" href="capabilities.html">All capabilities <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+      </div>
+      <div class="grid grid--2" data-reveal-stagger>
+        <a class="icard icard--tall" href="luxury-real-estate.html">
+          <img src="assets/img/realestate-home.jpg" alt="Aerial of a luxury home in Hainesport, New Jersey" loading="lazy" />
+          <div class="icard__body"><h3>Luxury Real Estate</h3><p>Cinematic listing films and stills that move premium properties faster.</p><span class="arrow-link">Explore <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></div>
+        </a>
+        <a class="icard icard--tall" href="construction.html">
+          <img src="assets/img/work-interchange.jpg" alt="Aerial of a highway interchange" loading="lazy" />
+          <div class="icard__body"><h3>Construction Intelligence</h3><p>Progress capture, volumetrics and site documentation you can act on.</p><span class="arrow-link">Explore <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></div>
+        </a>
+        <a class="icard" href="inspection.html">
+          <img src="assets/img/work-solar.jpg" alt="Drone inspection of a solar array" loading="lazy" />
+          <div class="icard__body"><h3>Inspection + Infrastructure</h3><p>Safe, close-range inspection of roofs, solar, towers and hard-to-reach assets.</p><span class="arrow-link">Explore <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></div>
+        </a>
+        <a class="icard" href="drone-program.html">
+          <img src="assets/img/work-facade.jpg" alt="Facade inspection detail" loading="lazy" />
+          <div class="icard__body"><h3>Drone Program Consulting</h3><p>Stand up a compliant, repeatable in-house drone program end to end.</p><span class="arrow-link">Explore <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></div>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== FULL-BLEED AERIAL BAND ================= -->
+  <section class="band">
+    <img src="assets/img/aerial-9.jpg" alt="360° aerial panorama over the city" loading="lazy" />
+    <div class="container band__inner" data-reveal>
+      <p class="eyebrow">360° Mission Visibility</p>
+      <h2>The whole site, in a single frame.</h2>
+      <p class="lead">High-resolution panoramas, orthomosaics and 3D reconstructions that turn a flight into decisions.</p>
+      <a class="btn btn--primary" href="gallery.html">See the 3D + media gallery</a>
+    </div>
+  </section>
+
+  <!-- ===================== SELECTED WORK STRIP ==================== -->
+  <section class="section">
+    <div class="container"><div class="sec-head" data-reveal>
+      <div><p class="eyebrow">Selected Work</p><h2>Recent flights.</h2></div>
+      <a class="arrow-link" href="gallery.html">Open gallery <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+    </div></div>
+    <div class="strip" data-reveal>
+      <div class="strip__track">
+        <figure><img src="assets/img/realestate-home.jpg" alt="Aerial of a luxury home, Hainesport NJ" loading="lazy"></figure>
+        <figure><img src="assets/img/work-solar.jpg" alt="Solar array inspection" loading="lazy"></figure>
+        <figure><img src="assets/img/realestate-3.jpg" alt="Golden-hour neighborhood aerial" loading="lazy"></figure>
+        <figure><img src="assets/img/work-interchange.jpg" alt="Highway interchange aerial" loading="lazy"></figure>
+        <figure><img src="assets/img/work-firetruck.jpg" alt="Aerial of a fire-service exercise" loading="lazy"></figure>
+        <figure><img src="assets/img/realestate-4.jpg" alt="Residential aerial approach" loading="lazy"></figure>
+        <figure><img src="assets/img/work-roof.jpg" alt="Roof inspection" loading="lazy"></figure>
+        <figure><img src="assets/img/aerial-7.jpg" alt="360 aerial panorama" loading="lazy"></figure>
+        <!-- duplicate set for seamless marquee -->
+        <figure aria-hidden="true"><img src="assets/img/realestate-home.jpg" alt="" loading="lazy"></figure>
+        <figure aria-hidden="true"><img src="assets/img/work-solar.jpg" alt="" loading="lazy"></figure>
+        <figure aria-hidden="true"><img src="assets/img/realestate-3.jpg" alt="" loading="lazy"></figure>
+        <figure aria-hidden="true"><img src="assets/img/work-interchange.jpg" alt="" loading="lazy"></figure>
+        <figure aria-hidden="true"><img src="assets/img/work-firetruck.jpg" alt="" loading="lazy"></figure>
+        <figure aria-hidden="true"><img src="assets/img/realestate-4.jpg" alt="" loading="lazy"></figure>
+        <figure aria-hidden="true"><img src="assets/img/work-roof.jpg" alt="" loading="lazy"></figure>
+        <figure aria-hidden="true"><img src="assets/img/aerial-7.jpg" alt="" loading="lazy"></figure>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================ CTA ============================== -->
+  <section class="section">
+    <div class="container"><div class="cta" data-reveal>
+      <span class="script" style="font-size:1.6rem">Altitude Changes Everything</span>
+      <h2>Ready to plan your next mission?</h2>
+      <p class="lead" style="max-width:52ch;text-align:center">Tell us the site and the goal — we'll scope the flight, the deliverables and the timeline.</p>
+      <a class="btn btn--primary" href="contact.html">Plan a Drone Mission</a>
+    </div></div>
+  </section>
+
+  <!-- ============================ FOOTER =========================== -->
+  <footer class="site-footer">
+    <div class="container">
+      <a class="brand" href="index.html"><img src="assets/img/logo-light.png" alt="Baron Aerial Media" /></a>
+      <p class="fine">FAA-compliant aerial imaging · Newark, New Jersey · Serving commercial clients · &copy; <span data-year>2026</span></p>
+      <a class="btn btn--pill" href="#" aria-disabled="true">Team Access</a>
+    </div>
+  </footer>
+
+  <!-- ===================== ACCESSIBILITY TAB ====================== -->
+  <div class="a11y" id="a11y">
+    <button class="a11y__tab" id="a11yTab" aria-expanded="false" aria-controls="a11yPanel">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="4" r="1.6"/><path d="M4 8h16M9 21l3-8 3 8M12 8v5"/></svg>
+      <span class="a11y__label">Accessibility</span>
+    </button>
+    <div class="a11y__panel" id="a11yPanel" role="group" aria-label="Motion controls">
+      <button data-hero="pause" type="button">Pause background <span aria-hidden="true">⏸</span></button>
+      <button data-hero="next" type="button">Next clip <span aria-hidden="true">⏭</span></button>
+      <button data-hero="reduce" type="button" aria-pressed="false">Reduce motion <span aria-hidden="true">◐</span></button>
+    </div>
+  </div>
+
+  <script src="assets/js/motion.js" defer></script>
+</body>
+</html>

@@ -1,0 +1,36 @@
+{
+  "url": "http://127.0.0.1:8080/",
+  "viewports": {
+    "desktop": {
+      "width": 1280,
+      "height": 800,
+      "status": 200,
+      "title": "Baron Aerial Media",
+      "hasCanvas": false,
+      "bodyTextLen": 5926,
+      "bodyTextHash": "1455d7f7a3bbdf816b1699e7b2aceb3ede36eb524db8514d03969948726eaf1e",
+      "bodyTextPrefix": "Baron Aerial Media Work Capabilities Mission Planner About Conta",
+      "horizontalOverflow": false,
+      "consoleErrors": [],
+      "pageErrors": [],
+      "screenshot": "/workspace/screenshots/app-builder-preview.png"
+    },
+    "mobile": {
+      "width": 390,
+      "height": 844,
+      "status": 200,
+      "title": "Baron Aerial Media",
+      "hasCanvas": false,
+      "bodyTextLen": 5861,
+      "bodyTextHash": "54d885886d878dc3ab720987db60fcf017f2760595163bf0fece6a46aabac6e0",
+      "bodyTextPrefix": "Baron Aerial Media PLANNED AERIAL OPERATIONS · FAA PART 107 REMO",
+      "horizontalOverflow": false,
+      "consoleErrors": [],
+      "pageErrors": [],
+      "screenshot": "/workspace/screenshots/app-builder-preview-mobile.png"
+    }
+  },
+  "brandWarnings": [],
+  "authWarnings": [],
+  "verdictFile": "/workspace/screenshots/app-builder-preview.json"
+}

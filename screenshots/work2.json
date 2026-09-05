@@ -1,0 +1,36 @@
+{
+  "url": "http://127.0.0.1:8080/work",
+  "viewports": {
+    "desktop": {
+      "width": 1280,
+      "height": 800,
+      "status": 200,
+      "title": "Baron Aerial Media",
+      "hasCanvas": false,
+      "bodyTextLen": 1817,
+      "bodyTextHash": "ecbe5d4afe4036965eec783e425abedb1259008d79e2ef951c4bf0584084ea9e",
+      "bodyTextPrefix": "Baron Aerial Media Work Capabilities Mission Planner About Conta",
+      "horizontalOverflow": false,
+      "consoleErrors": [],
+      "pageErrors": [],
+      "screenshot": "/workspace/screenshots/work2.png"
+    },
+    "mobile": {
+      "width": 390,
+      "height": 844,
+      "status": 200,
+      "title": "Baron Aerial Media",
+      "hasCanvas": false,
+      "bodyTextLen": 1752,
+      "bodyTextHash": "32d9d8e3b93ae4e135db236b1c69e2c2130496881963c495fb94950fa773ceda",
+      "bodyTextPrefix": "Baron Aerial Media SELECTED AERIAL WORK Aerial work that makes t",
+      "horizontalOverflow": false,
+      "consoleErrors": [],
+      "pageErrors": [],
+      "screenshot": "/workspace/screenshots/work2-mobile.png"
+    }
+  },
+  "brandWarnings": [],
+  "authWarnings": [],
+  "verdictFile": "/workspace/screenshots/work2.json"
+}

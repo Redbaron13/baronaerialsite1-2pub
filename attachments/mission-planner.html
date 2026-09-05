@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en" class="no-js">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Mission Planner — Baron Aerial Media</title>
+  <meta name="description" content="Not sure what you need? Answer one question and we'll point you to the right workflow and deliverables." />
+  <link rel="icon" href="assets/img/logo-mark.png" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" /><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600&family=Dancing+Script:wght@600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="assets/css/styles.css" />
+  <style>
+    .planner-opts{display:grid;grid-template-columns:repeat(4,1fr);gap:1rem}
+    @media(max-width:900px){.planner-opts{grid-template-columns:1fr 1fr}}
+    .planner-opt{text-align:left;padding:1.4rem;border-radius:16px;border:1px solid var(--line);background:#fff;transition:transform .3s var(--ease-out),border-color .3s,box-shadow .3s}
+    .planner-opt:hover,.planner-opt.is-active{transform:translateY(-4px);border-color:var(--green-deep);box-shadow:0 20px 40px -28px rgba(0,0,0,.3)}
+    .planner-opt b{font-family:var(--font-display);display:block;color:#141714;font-size:1.05rem;margin-bottom:.25rem}
+    .planner-opt span{color:var(--muted);font-size:.9rem}
+    .planner-result{margin-top:1.6rem}
+    .planner-result .panel-dark{display:none}
+    .planner-result .panel-dark.is-active{display:block;animation:introUp .5s var(--ease-out) both}
+  </style>
+  <script>document.documentElement.classList.remove('no-js');</script>
+</head>
+<body class="theme-light">
+  <header class="site-header">
+    <a class="brand" href="index.html" aria-label="Baron Aerial Media — home"><img src="assets/img/logo.png" alt="Baron Aerial Media" /></a>
+    <nav class="nav" aria-label="Primary">
+      <a href="gallery.html">Work</a><a href="capabilities.html">Capabilities</a><a href="mission-planner.html" aria-current="page">Mission Planner</a><a href="about.html">About</a><a href="contact.html">Contact</a>
+    </nav>
+    <div class="nav-cta"><a class="btn btn--pill" href="#" aria-disabled="true">Client Portal</a><button class="nav-toggle btn btn--pill" aria-expanded="false" aria-label="Menu">Menu</button></div>
+  </header>
+
+  <section class="page-hero">
+    <div class="container" data-reveal>
+      <p class="eyebrow">Mission Planner</p>
+      <h1>Not sure what you need? Start here.</h1>
+      <p class="lead">Pick the closest goal and we'll point you to the right workflow, typical deliverables and next step.</p>
+    </div>
+  </section>
+
+  <section class="section" style="padding-top:0">
+    <div class="container">
+      <div class="planner-opts" id="planner" data-reveal-stagger>
+        <button class="planner-opt is-active" data-plan="re"><b>Sell a property</b><span>Listing, marketing, brokerage</span></button>
+        <button class="planner-opt" data-plan="con"><b>Document a build</b><span>Progress, volumetrics, mapping</span></button>
+        <button class="planner-opt" data-plan="insp"><b>Inspect an asset</b><span>Roof, solar, tower, facade</span></button>
+        <button class="planner-opt" data-plan="prog"><b>Build a program</b><span>In-house drone capability</span></button>
+      </div>
+
+      <div class="planner-result" id="plannerResult">
+        <div class="panel-dark is-active" data-plan="re">
+          <p class="eyebrow">Recommended path</p><h2 style="margin:.3rem 0 .6rem">Luxury Real Estate</h2>
+          <p style="color:#D1D6CF">Cinematic listing film + hero stills + 360 context. Best when the goal is to make a property unforgettable and move it faster.</p>
+          <p style="margin:1rem 0;color:#A6ABA3">Typical deliverables: aerial film · twilight stills · MLS-ready photos · neighborhood panorama</p>
+          <a class="btn btn--primary" href="luxury-real-estate.html">See real estate work</a> <a class="btn btn--ghost" href="contact.html">Plan this mission</a>
+        </div>
+        <div class="panel-dark" data-plan="con">
+          <p class="eyebrow">Recommended path</p><h2 style="margin:.3rem 0 .6rem">Construction Intelligence</h2>
+          <p style="color:#D1D6CF">Scheduled progress capture with orthomosaics and volumetrics your team can act on.</p>
+          <p style="margin:1rem 0;color:#A6ABA3">Typical deliverables: orthomosaic · elevation + volumes · progress stills · shareable report</p>
+          <a class="btn btn--primary" href="construction.html">See construction work</a> <a class="btn btn--ghost" href="contact.html">Plan this mission</a>
+        </div>
+        <div class="panel-dark" data-plan="insp">
+          <p class="eyebrow">Recommended path</p><h2 style="margin:.3rem 0 .6rem">Inspection + Infrastructure</h2>
+          <p style="color:#D1D6CF">Safe, close-range capture of roofs, solar, towers and facades — no lift, no shutdown.</p>
+          <p style="margin:1rem 0;color:#A6ABA3">Typical deliverables: close-range imagery · solar array scan · annotated findings</p>
+          <a class="btn btn--primary" href="inspection.html">See inspection work</a> <a class="btn btn--ghost" href="contact.html">Plan this mission</a>
+        </div>
+        <div class="panel-dark" data-plan="prog">
+          <p class="eyebrow">Recommended path</p><h2 style="margin:.3rem 0 .6rem">Drone Program Consulting</h2>
+          <p style="color:#D1D6CF">Stand up a compliant, repeatable in-house program — Part 107, workflow, hardware and training.</p>
+          <p style="margin:1rem 0;color:#A6ABA3">Typical deliverables: compliance plan · workflow + hardware spec · team training</p>
+          <a class="btn btn--primary" href="drone-program.html">See consulting</a> <a class="btn btn--ghost" href="contact.html">Plan this mission</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer class="site-footer"><div class="container"><a class="brand" href="index.html"><img src="assets/img/logo.png" alt="Baron Aerial Media" /></a><p class="fine">FAA-compliant aerial imaging · Newark, New Jersey · Serving commercial clients · &copy; <span data-year>2026</span></p><a class="btn btn--pill" href="#" aria-disabled="true">Team Access</a></div></footer>
+
+  <script src="assets/js/motion.js" defer></script>
+  <script>
+    (function(){
+      var opts=document.querySelectorAll('#planner .planner-opt');
+      var res=document.querySelectorAll('#plannerResult .panel-dark');
+      opts.forEach(function(o){o.addEventListener('click',function(){
+        opts.forEach(function(x){x.classList.remove('is-active')});o.classList.add('is-active');
+        var k=o.dataset.plan;res.forEach(function(r){r.classList.toggle('is-active',r.dataset.plan===k)});
+      });});
+    })();
+  </script>
+</body>
+</html>
