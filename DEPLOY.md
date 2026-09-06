@@ -77,11 +77,16 @@ WordPress; it is not installed into WordPress or served from `wp-content`.
 
 ### 1. Build and deploy the stack
 
-In Portainer, create a Git-based stack from this repository using:
+In Portainer, create a **Git Repository** stack from this repository using:
 
 ```
 compose.production.yml
 ```
+
+Use the branch containing this file. Portainer checks out the repository and
+uses the included `Dockerfile` to build the `baronaerial-site:latest` image;
+a standalone Compose upload cannot build this application without a separate
+source checkout or pre-published image.
 
 Create the following stack environment variables in Portainer. Do not commit
 their values to the repository:
@@ -96,27 +101,62 @@ their values to the repository:
 The stack builds a Node 22 image with Nitro's `node-server` preset and exposes
 only internal port `3000`. It has no public host-port mapping.
 
-### 2. Configure the reverse proxy
+### 2. Configure Nginx Proxy Manager
 
-Attach the `site` service and the existing reverse-proxy service to the network
-named by `PROXY_NETWORK`. Create a proxy host with:
+Set `PROXY_NETWORK` to the Docker network shared by Nginx Proxy Manager and
+its proxy hosts (commonly `npm_default`, but use the network name shown by
+your existing Nginx Proxy Manager stack). The network must already exist and
+be marked external to this stack.
 
-| Hostname | Upstream service | Upstream port |
-|---|---|---|
-| `baronaerial.com` | `site` | `3000` |
-| `www.baronaerial.com` | `site` | `3000` |
-| `blog.baronaerial.com` | Existing WordPress service | Existing WordPress port |
+Before creating either Proxy Host, configure Cloudflare DNS records for
+`baronaerial.com`, `www.baronaerial.com`, and `staging.baronaerial.com` to
+resolve to the server.
 
-Enable TLS, force HTTPS, and forward the `Host`, `X-Forwarded-For`, and
-`X-Forwarded-Proto` request headers. Do not publish port `3000` directly on
-the Hetzner host.
+In Nginx Proxy Manager, first inspect existing Proxy Hosts for
+`baronaerial.com` and `www.baronaerial.com`. If a WordPress host already owns
+either name, record its domain names, upstream scheme, hostname/IP, port, SSL
+settings, and any custom configuration. Edit or replace the existing apex/www
+host or hosts so exactly one production host owns both names and uses the
+settings below; do not create a duplicate host. If no host owns either name,
+create the production Proxy Host with:
 
-### 3. Release safely
+| Field | Value |
+|---|---|
+| Domain Names | `baronaerial.com`, `www.baronaerial.com` |
+| Scheme | `http` |
+| Forward Hostname / IP | `site` |
+| Forward Port | `3000` |
+| Cache Assets | Enabled |
+| Block Common Exploits | Enabled |
+| Websockets Support | Enabled |
+
+On the SSL tab, request or select a Let's Encrypt certificate for both domain
+names, enable **Force SSL**, and accept the Terms of Service. Configure the
+certificate after the DNS records have propagated. Keep
+`blog.baronaerial.com` on its separate WordPress Proxy Host; it must not point
+to this stack. If the existing apex/www host also contains `blog.baronaerial.com`,
+first create or retain a dedicated blog host with the recorded WordPress
+upstream, then remove `blog.baronaerial.com` from the production host.
+
+Create a separate staging Proxy Host with the same upstream settings and
+`staging.baronaerial.com` as its Domain Name. On its SSL tab, request or select
+a Let's Encrypt certificate for `staging.baronaerial.com`, enable **Force SSL**,
+and accept the Terms of Service.
+
+### 3. Network and proxy behavior
+
+Docker resolves the `site` hostname across the shared network. Nginx Proxy
+Manager provides the TLS and forwarded request headers automatically. Do not
+publish port `3000` directly on the Hetzner host.
+
+### 4. Release safely
 
 First create the same proxy route at `staging.baronaerial.com`. Confirm the
 site, WebGL fallbacks, contact delivery, and mobile experience there. After
-approval, point the `baronaerial.com` and `www` proxy hosts to `site`. The
-previous WordPress proxy route remains an immediate rollback path.
+approval, point the `baronaerial.com` and `www` Proxy Host to `site`. To roll
+back, edit that same apex/www host and restore the recorded WordPress upstream,
+domain, SSL, and custom settings. The separate `blog.baronaerial.com` WordPress
+host remains unchanged throughout.
 
 ## Legacy manual self-hosting notes
 
