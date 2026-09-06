@@ -1,5 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { useState, type FormEvent, type ReactNode } from "react";
+import { useRef, useState, type FormEvent, type ReactNode } from "react";
 import { Button } from "@/components/ui/button";
 import { PageHero, PageShell } from "@/components/page-shell";
 import { disclaimer, services } from "@/data/site";
@@ -27,35 +27,65 @@ function ContactPage() {
   const [status, setStatus] = useState<"idle" | "sending" | "ok" | "err">("idle");
   const [note, setNote] = useState("");
   const [dels, setDels] = useState<string[]>([]);
+  const formRef = useRef<HTMLFormElement>(null);
+
+  function validateStep(currentStep: number): boolean {
+    const form = formRef.current;
+    if (!form) return false;
+    const data = new FormData(form);
+    const message =
+      currentStep === 0 && !String(data.get("mission_type") || "").trim()
+        ? "Choose the mission type before continuing."
+        : currentStep === 0 && !String(data.get("location") || "").trim()
+          ? "Enter the project location before continuing."
+          : currentStep === 0 && !String(data.get("timing") || "").trim()
+            ? "Choose when you need the mission before continuing."
+            : currentStep === 2 && dels.length === 0
+              ? "Choose at least one deliverable before continuing."
+              : "";
+    setNote(message);
+    setStatus(message ? "err" : "idle");
+    return !message;
+  }
+
+  function continueBrief() {
+    if (validateStep(step)) setStep((current) => Math.min(3, current + 1));
+  }
 
   async function onSubmit(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
     const fd = new FormData(e.currentTarget);
     setStatus("sending");
-    const res = await submitBrief({
-      data: {
-        gotcha: String(fd.get("_gotcha") || ""),
-        missionType: String(fd.get("mission_type") || ""),
-        location: String(fd.get("location") || ""),
-        timing: String(fd.get("timing") || ""),
-        siteDetail: String(fd.get("site_detail") || ""),
-        airspace: String(fd.get("airspace") || ""),
-        targetDate: String(fd.get("target_date") || ""),
-        deliverables: dels,
-        usage: String(fd.get("usage") || ""),
-        budget: String(fd.get("budget") || ""),
-        name: String(fd.get("name") || ""),
-        email: String(fd.get("email") || ""),
-        phone: String(fd.get("phone") || ""),
-        company: String(fd.get("company") || ""),
-      },
-    });
-    if (res.ok) {
-      setStatus("ok");
-      setNote("Brief received. We’ll review objective, site, airspace, and outputs, then follow up.");
-    } else {
+    try {
+      const res = await submitBrief({
+        data: {
+          gotcha: String(fd.get("_gotcha") || ""),
+          missionType: String(fd.get("mission_type") || ""),
+          location: String(fd.get("location") || ""),
+          timing: String(fd.get("timing") || ""),
+          siteDetail: String(fd.get("site_detail") || ""),
+          airspace: String(fd.get("airspace") || ""),
+          targetDate: String(fd.get("target_date") || ""),
+          deliverables: dels,
+          usage: String(fd.get("usage") || ""),
+          budget: String(fd.get("budget") || ""),
+          name: String(fd.get("name") || ""),
+          email: String(fd.get("email") || ""),
+          phone: String(fd.get("phone") || ""),
+          company: String(fd.get("company") || ""),
+        },
+      });
+      if (res.ok) {
+        setStatus("ok");
+        setNote("Brief received. We’ll review objective, site, airspace, and outputs, then follow up.");
+      } else {
+        setStatus("err");
+        setNote(res.error || "Something went wrong.");
+      }
+    } catch (error) {
+      console.error("[mission-brief] Submission failed.", error);
       setStatus("err");
-      setNote(res.error || "Something went wrong.");
+      setNote("We could not send your brief. Please try again shortly.");
     }
   }
 
@@ -76,6 +106,7 @@ function ContactPage() {
           </div>
         ) : (
           <form
+            ref={formRef}
             onSubmit={onSubmit}
             className="rounded-xl bg-fg p-6 shadow-[0_0_0_1px_var(--color-paper-line)] md:p-8"
           >
@@ -87,12 +118,19 @@ function ContactPage() {
               aria-hidden="true"
               className="absolute -left-[9999px] h-0 w-0 opacity-0"
             />
-            <div className="mb-6 flex flex-wrap gap-2" role="tablist" aria-label="Brief steps">
+            <nav className="mb-6 flex flex-wrap gap-2" aria-label="Mission brief steps">
               {STEPS.map((label, i) => (
                 <button
                   key={label}
                   type="button"
-                  onClick={() => setStep(i)}
+                  onClick={() => {
+                    if (i <= step) {
+                      setStep(i);
+                    } else if (i === step + 1 && validateStep(step)) {
+                      setStep(i);
+                    }
+                  }}
+                  aria-current={i === step ? "step" : undefined}
                   className={cn(
                     "inline-flex min-h-10 items-center gap-2 rounded-pill px-3 font-display text-sm font-semibold",
                     i === step ? "bg-green-deep text-fg" : "bg-paper-2 text-ink-muted",
@@ -102,7 +140,7 @@ function ContactPage() {
                   {label}
                 </button>
               ))}
-            </div>
+            </nav>
 
             <div className={cn("grid gap-5", step !== 0 && "hidden")}>
                 <Field label="What type of mission are you planning?" htmlFor="mtype">
@@ -219,7 +257,7 @@ function ContactPage() {
                 Back
               </Button>
               {step < 3 ? (
-                <Button type="button" onClick={() => setStep((s) => Math.min(3, s + 1))}>
+                <Button type="button" onClick={continueBrief}>
                   Continue Mission Brief
                 </Button>
               ) : (

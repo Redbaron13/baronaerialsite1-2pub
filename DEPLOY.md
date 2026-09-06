@@ -69,7 +69,56 @@ Use this if you want one vendor for DNS + app + media.
 
 ---
 
-## Self-host on your server (keep WordPress, add a Node stack)
+## Self-host on your Hetzner server with Portainer
+
+The repository includes `Dockerfile` and `compose.production.yml` for this
+deployment. The React site runs as a separate `site` container alongside
+WordPress; it is not installed into WordPress or served from `wp-content`.
+
+### 1. Build and deploy the stack
+
+In Portainer, create a Git-based stack from this repository using:
+
+```
+compose.production.yml
+```
+
+Create the following stack environment variables in Portainer. Do not commit
+their values to the repository:
+
+| Variable | Value |
+|---|---|
+| `PROXY_NETWORK` | The existing external Docker network used by your reverse proxy |
+| `RESEND_API_KEY` | Resend API key |
+| `MISSION_BRIEF_FROM` | A Resend-verified sender, such as `Baron Aerial Media <missions@baronaerial.com>` |
+| `MISSION_BRIEF_TO` | Inbox that should receive inquiries |
+
+The stack builds a Node 22 image with Nitro's `node-server` preset and exposes
+only internal port `3000`. It has no public host-port mapping.
+
+### 2. Configure the reverse proxy
+
+Attach the `site` service and the existing reverse-proxy service to the network
+named by `PROXY_NETWORK`. Create a proxy host with:
+
+| Hostname | Upstream service | Upstream port |
+|---|---|---|
+| `baronaerial.com` | `site` | `3000` |
+| `www.baronaerial.com` | `site` | `3000` |
+| `blog.baronaerial.com` | Existing WordPress service | Existing WordPress port |
+
+Enable TLS, force HTTPS, and forward the `Host`, `X-Forwarded-For`, and
+`X-Forwarded-Proto` request headers. Do not publish port `3000` directly on
+the Hetzner host.
+
+### 3. Release safely
+
+First create the same proxy route at `staging.baronaerial.com`. Confirm the
+site, WebGL fallbacks, contact delivery, and mobile experience there. After
+approval, point the `baronaerial.com` and `www` proxy hosts to `site`. The
+previous WordPress proxy route remains an immediate rollback path.
+
+## Legacy manual self-hosting notes
 
 If the domain must live on a machine you already pay for:
 

@@ -1,0 +1,14 @@
+.git
+.github
+.grok
+.vercel
+node_modules
+attachments
+artifacts
+screenshots
+*.log
+.env
+.env.*
+!sample.env
+README.md
+DEPLOY.md
