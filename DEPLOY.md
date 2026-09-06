@@ -108,7 +108,11 @@ its proxy hosts (commonly `npm_default`, but use the network name shown by
 your existing Nginx Proxy Manager stack). The network must already exist and
 be marked external to this stack.
 
-In Nginx Proxy Manager, create a Proxy Host with:
+Before creating either Proxy Host, configure Cloudflare DNS records for
+`baronaerial.com`, `www.baronaerial.com`, and `staging.baronaerial.com` to
+resolve to the server.
+
+Create the production Proxy Host with:
 
 | Field | Value |
 |---|---|
@@ -122,9 +126,14 @@ In Nginx Proxy Manager, create a Proxy Host with:
 
 On the SSL tab, request or select a Let's Encrypt certificate for both domain
 names, enable **Force SSL**, and accept the Terms of Service. Configure the
-Cloudflare DNS records for both names to resolve to the server before
-requesting the certificate. Retain the existing WordPress Proxy Host for
-`blog.baronaerial.com`; it should not point to this stack.
+certificate after the DNS records have propagated. Retain the existing
+WordPress Proxy Host for `blog.baronaerial.com`; it should not point to this
+stack.
+
+Create a separate staging Proxy Host with the same upstream settings and
+`staging.baronaerial.com` as its Domain Name. On its SSL tab, request or select
+a Let's Encrypt certificate for `staging.baronaerial.com`, enable **Force SSL**,
+and accept the Terms of Service.
 
 ### 3. Network and proxy behavior
 
