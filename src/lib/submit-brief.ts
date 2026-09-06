@@ -1,4 +1,5 @@
 import { createServerFn } from "@tanstack/react-start";
+import { getRequest } from "@tanstack/react-start/server";
 import { z } from "zod";
 
 const missionBriefSchema = z.object({
@@ -19,6 +20,43 @@ const missionBriefSchema = z.object({
 });
 
 export type MissionBrief = z.infer<typeof missionBriefSchema>;
+
+const submissionSchema = z.object({
+  gotcha: z.string().optional(),
+}).passthrough();
+
+const SUBMISSION_LIMIT = 5;
+const SUBMISSION_WINDOW_MS = 15 * 60 * 1000;
+
+export function parseMissionBriefSubmission(data: unknown): MissionBrief | null {
+  const submission = submissionSchema.parse(data);
+  if (submission.gotcha) return null;
+  return missionBriefSchema.parse(submission);
+}
+
+export class SubmissionRateLimiter {
+  private readonly submissions = new Map<string, number[]>();
+
+  allows(clientId: string, now = Date.now()): boolean {
+    const cutoff = now - SUBMISSION_WINDOW_MS;
+    const recent = (this.submissions.get(clientId) ?? []).filter((submittedAt) => submittedAt > cutoff);
+    if (recent.length >= SUBMISSION_LIMIT) {
+      this.submissions.set(clientId, recent);
+      return false;
+    }
+    recent.push(now);
+    this.submissions.set(clientId, recent);
+    return true;
+  }
+}
+
+const submissionRateLimiter = new SubmissionRateLimiter();
+
+function submissionClientId(): string {
+  const request = getRequest();
+  const forwardedFor = request?.headers.get("x-forwarded-for")?.split(",")[0]?.trim();
+  return forwardedFor || request?.headers.get("x-real-ip")?.trim() || "unknown";
+}
 
 function configured(name: "RESEND_API_KEY" | "MISSION_BRIEF_FROM" | "MISSION_BRIEF_TO"): string | null {
   const value = process.env[name]?.trim();
@@ -76,11 +114,15 @@ async function deliverBrief(brief: MissionBrief): Promise<boolean> {
 }
 
 export const submitBrief = createServerFn({ method: "POST" })
-  .validator(missionBriefSchema)
+  .validator(submissionSchema)
   .handler(async ({ data }) => {
-    if (data.gotcha) return { ok: true as const, ignored: true };
+    const brief = parseMissionBriefSubmission(data);
+    if (!brief) return { ok: true as const, ignored: true };
+    if (!submissionRateLimiter.allows(submissionClientId())) {
+      return { ok: false as const, error: "Please wait a few minutes before sending another brief." };
+    }
     try {
-      if (!(await deliverBrief(data))) {
+      if (!(await deliverBrief(brief))) {
         return { ok: false as const, error: "We could not send your brief. Please try again shortly." };
       }
     } catch (error) {
