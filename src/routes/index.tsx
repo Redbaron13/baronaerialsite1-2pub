@@ -16,7 +16,13 @@ import { audiences, brand, services } from "@/data/site";
 
 export const Route = createFileRoute("/")({
   component: Home,
-  head: () => seo({ title: "Baron Aerial Media — Altitude Changes Everything", description: "FAA Part 107 aerial imaging from Newark, New Jersey. Listings, jobsites, claims, roofs, and site maps — planned against LAANC, Part 107 Waivers, SGI Waivers, and the site itself.", path: "/" }),
+  head: () =>
+    seo({
+      title: "Baron Aerial Media — Altitude Changes Everything",
+      description:
+        "FAA Part 107 aerial imaging from Newark, New Jersey. Listings, jobsites, claims, roofs, and site maps — planned against LAANC, Part 107 Waivers, SGI Waivers, and the site itself.",
+      path: "/",
+    }),
 });
 
 function Home() {
@@ -27,7 +33,9 @@ function Home() {
       <section className="photo-hero relative isolate flex min-h-svh items-center overflow-hidden pt-24">
         <div className="absolute inset-0 -z-20 overflow-hidden">
           <MediaImage
-            src="/media/city-dusk.webp" loading="eager" fetchPriority="high"
+            src="/media/city-dusk.webp"
+            loading="eager"
+            fetchPriority="high"
             alt="Dense city blocks, roads, and tree canopy at dusk — July 8, 2026"
             className="ken-burns"
           />
@@ -39,12 +47,13 @@ function Home() {
             {brand.part107} · {brand.city}
           </p>
           <h1 className="max-w-[14ch] text-[clamp(2.7rem,7vw,5rem)] text-fg">{brand.tagline}</h1>
-          <p className="font-display text-xl font-medium text-green md:text-2xl">{brand.altTagline}.</p>
+          <p className="font-display text-xl font-medium text-green md:text-2xl">
+            {brand.altTagline}.
+          </p>
           <p className="lead">
-            Owner-operated aerial imaging for listings, jobsites, claims, roofs, and site maps. We
-            take the goal, the site, and the window from you first — then screen Airspace Class,
-            LAANC, Part 107 Waivers, SGI Waivers, TFRs, and local permits. The flight is only half
-            the job. Processing and deliverables are the product your team files.
+            Aerial photographs, films, and site maps for property and project teams across
+            North Jersey. Tell us the site and the decision you need to make. We plan the
+            capture and deliver a clear, organized set your team can use.
           </p>
           <div className="mt-2 flex flex-wrap gap-3">
             <Button asChild>
@@ -55,7 +64,8 @@ function Home() {
             </Button>
           </div>
           <p className="text-sm text-muted">
-            Explore the North Munn bridge documentation, Hainesport listing media, and Kuzuri Kijiji mapping packet.
+            Explore the North Munn bridge documentation, Hainesport listing media, and Kuzuri Kijiji
+            mapping packet.
           </p>
         </div>
       </section>
@@ -96,7 +106,10 @@ function Home() {
                 Pick the decision. We plan the flight around it.
               </h2>
             </div>
-            <Link to="/capabilities" className="inline-flex items-center gap-1 font-display text-sm font-semibold text-green">
+            <Link
+              to="/capabilities"
+              className="inline-flex items-center gap-1 font-display text-sm font-semibold text-green"
+            >
               All capabilities
               <ArrowUpRight className="size-4" />
             </Link>
@@ -105,12 +118,25 @@ function Home() {
         <div className="grid gap-4 md:grid-cols-2">
           {homeServices.slice(0, 2).map((s, i) => (
             <Reveal key={s.slug} delay={i * 80}>
-              <ImageCard slug={s.slug} image={s.image} title={s.name} body={s.summary} kicker={s.eyebrow} tall />
+              <ImageCard
+                slug={s.slug}
+                image={s.image}
+                title={s.name}
+                body={s.summary}
+                kicker={s.eyebrow}
+                tall
+              />
             </Reveal>
           ))}
           {homeServices.slice(2).map((s, i) => (
             <Reveal key={s.slug} delay={80 + i * 70}>
-              <ImageCard slug={s.slug} image={s.image} title={s.name} body={s.summary} kicker={s.eyebrow} />
+              <ImageCard
+                slug={s.slug}
+                image={s.image}
+                title={s.name}
+                body={s.summary}
+                kicker={s.eyebrow}
+              />
             </Reveal>
           ))}
         </div>
@@ -130,9 +156,9 @@ function Home() {
               Start with the site and the goal — not a date on a calendar.
             </h2>
             <p className="lead">
-              The Mission Planner maps your objective to a workflow. The brief captures site, timing,
-              constraints, and outputs. Then we review LAANC, Part 107 Waivers, SGI Waivers, and whether
-              the shot is actually flyable.
+              The Mission Planner maps your objective to a workflow. The brief captures site,
+              timing, constraints, and outputs. Then we review LAANC, Part 107 Waivers, SGI Waivers,
+              and whether the shot is actually flyable.
             </p>
             <div className="mt-4">
               <Button asChild>

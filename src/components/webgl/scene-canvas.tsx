@@ -27,7 +27,11 @@ export function SceneCanvas({
   const wrap = useRef<HTMLDivElement>(null);
   const [visible, setVisible] = useState(false);
   const [documentVisible, setDocumentVisible] = useState(true);
-  useEffect(() => { const update = () => setDocumentVisible(!document.hidden); document.addEventListener("visibilitychange", update); return () => document.removeEventListener("visibilitychange", update); }, []);
+  useEffect(() => {
+    const update = () => setDocumentVisible(!document.hidden);
+    document.addEventListener("visibilitychange", update);
+    return () => document.removeEventListener("visibilitychange", update);
+  }, []);
 
   useEffect(() => {
     const el = wrap.current;

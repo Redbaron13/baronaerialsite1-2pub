@@ -9,9 +9,9 @@ services:
       NODE_ENV: production
       HOST: 0.0.0.0
       PORT: 3000
-      RESEND_API_KEY: ${RESEND_API_KEY:?Set this in Portainer}
-      MISSION_BRIEF_FROM: ${MISSION_BRIEF_FROM:?Set a verified Resend sender}
-      MISSION_BRIEF_TO: ${MISSION_BRIEF_TO:?Set the inquiry inbox}
+      DATABASE_URL: ${DATABASE_URL:?Set a persistent PostgreSQL connection}
+      MISSION_BRIEF_TRUST_PROXY: ${MISSION_BRIEF_TRUST_PROXY:-}
+      MISSION_BRIEF_RATE_SECRET: ${MISSION_BRIEF_RATE_SECRET:-}
     expose:
       - "3000"
     networks:

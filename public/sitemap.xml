@@ -1,2 +1,30 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"><url><loc>https://baronaerial.com/</loc></url><url><loc>https://baronaerial.com/about</loc></url><url><loc>https://baronaerial.com/contact</loc></url><url><loc>https://baronaerial.com/trust</loc></url><url><loc>https://baronaerial.com/privacy</loc></url><url><loc>https://baronaerial.com/terms</loc></url><url><loc>https://baronaerial.com/accessibility</loc></url><url><loc>https://baronaerial.com/mission-planner</loc></url><url><loc>https://baronaerial.com/work</loc></url><url><loc>https://baronaerial.com/capabilities</loc></url><url><loc>https://baronaerial.com/capabilities/real-estate</loc></url><url><loc>https://baronaerial.com/capabilities/construction</loc></url><url><loc>https://baronaerial.com/capabilities/inspections</loc></url><url><loc>https://baronaerial.com/capabilities/damage</loc></url><url><loc>https://baronaerial.com/capabilities/roof-solar</loc></url><url><loc>https://baronaerial.com/capabilities/mapping</loc></url><url><loc>https://baronaerial.com/capabilities/events</loc></url><url><loc>https://baronaerial.com/work/bancroft-listing</loc></url><url><loc>https://baronaerial.com/work/north-munn-bridge</loc></url><url><loc>https://baronaerial.com/work/brick-church-village</loc></url><url><loc>https://baronaerial.com/work/jobsite-cut</loc></url><url><loc>https://baronaerial.com/work/envelope-close</loc></url><url><loc>https://baronaerial.com/work/rail-station</loc></url><url><loc>https://baronaerial.com/work/twilight-neighborhood</loc></url><url><loc>https://baronaerial.com/work/warehouse-sunset</loc></url><url><loc>https://baronaerial.com/work/night-lots</loc></url><url><loc>https://baronaerial.com/work/city-dusk</loc></url><url><loc>https://baronaerial.com/work/recreation-field</loc></url><url><loc>https://baronaerial.com/work/kuzuri-kijiji</loc></url><url><loc>https://baronaerial.com/work/night-plaza</loc></url><url><loc>https://baronaerial.com/work/east-orange-cityscape</loc></url><url><loc>https://baronaerial.com/work/commercial-plaza</loc></url><url><loc>https://baronaerial.com/work/civic-campus</loc></url></urlset>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <url><loc>https://baronaerial.com/</loc></url>
+  <url><loc>https://baronaerial.com/work</loc></url>
+  <url><loc>https://baronaerial.com/capabilities</loc></url>
+  <url><loc>https://baronaerial.com/trust</loc></url>
+  <url><loc>https://baronaerial.com/about</loc></url>
+  <url><loc>https://baronaerial.com/contact</loc></url>
+  <url><loc>https://baronaerial.com/mission-planner</loc></url>
+  <url><loc>https://baronaerial.com/privacy</loc></url>
+  <url><loc>https://baronaerial.com/terms</loc></url>
+  <url><loc>https://baronaerial.com/accessibility</loc></url>
+  <url><loc>https://baronaerial.com/capabilities/real-estate</loc></url>
+  <url><loc>https://baronaerial.com/capabilities/construction</loc></url>
+  <url><loc>https://baronaerial.com/capabilities/inspections</loc></url>
+  <url><loc>https://baronaerial.com/capabilities/damage</loc></url>
+  <url><loc>https://baronaerial.com/capabilities/roof-solar</loc></url>
+  <url><loc>https://baronaerial.com/capabilities/mapping</loc></url>
+  <url><loc>https://baronaerial.com/capabilities/events</loc></url>
+  <url><loc>https://baronaerial.com/work/bancroft-listing</loc></url>
+  <url><loc>https://baronaerial.com/work/north-munn-bridge</loc></url>
+  <url><loc>https://baronaerial.com/work/brick-church-village</loc></url>
+  <url><loc>https://baronaerial.com/work/water-tower</loc></url>
+  <url><loc>https://baronaerial.com/work/solar-rooftop</loc></url>
+  <url><loc>https://baronaerial.com/work/kuzuri-kijiji</loc></url>
+  <url><loc>https://baronaerial.com/work/city-context</loc></url>
+  <url><loc>https://baronaerial.com/work/night-highway</loc></url>
+  <url><loc>https://baronaerial.com/work/commercial-plaza</loc></url>
+  <url><loc>https://baronaerial.com/work/civic-campus</loc></url>
+</urlset>

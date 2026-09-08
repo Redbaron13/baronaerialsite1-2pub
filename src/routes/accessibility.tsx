@@ -4,7 +4,12 @@ import { PageHero, PageShell } from "@/components/page-shell";
 
 export const Route = createFileRoute("/accessibility")({
   component: A11yPage,
-  head: () => seo({ title: "Accessibility — Baron Aerial Media", description: "Accessibility commitment for the Baron Aerial Media website.", path: "/accessibility" }),
+  head: () =>
+    seo({
+      title: "Accessibility — Baron Aerial Media",
+      description: "Accessibility commitment for the Baron Aerial Media website.",
+      path: "/accessibility",
+    }),
 });
 
 function A11yPage() {

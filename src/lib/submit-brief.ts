@@ -10,7 +10,10 @@ const missionBriefSchema = z.object({
   siteDetail: z.string().trim().max(5000),
   airspace: z.string().trim().max(5000),
   targetDate: z.string().trim().max(5000),
-  deliverables: z.array(z.string().trim().max(5000).min(1)).min(1, "Choose at least one deliverable."),
+  deliverables: z
+    .array(z.string().trim().max(5000).min(1))
+    .max(20)
+    .min(1, "Choose at least one deliverable."),
   usage: z.string().trim().max(5000),
   budget: z.string().trim().max(5000),
   name: z.string().trim().max(5000).min(1, "Enter your name."),
@@ -37,9 +40,13 @@ export class SubmissionRateLimiter {
 
   allows(clientId: string, now = Date.now()): boolean {
     const cutoff = now - SUBMISSION_WINDOW_MS;
-    for (const [key, times] of this.submissions) if (!times.some(t => t > cutoff)) this.submissions.delete(key);
-    if (this.submissions.size > 10000) this.submissions.delete(this.submissions.keys().next().value!);
-    const recent = (this.submissions.get(clientId) ?? []).filter((submittedAt) => submittedAt > cutoff);
+    for (const [key, times] of this.submissions)
+      if (!times.some((t) => t > cutoff)) this.submissions.delete(key);
+    if (this.submissions.size > 10000)
+      this.submissions.delete(this.submissions.keys().next().value!);
+    const recent = (this.submissions.get(clientId) ?? []).filter(
+      (submittedAt) => submittedAt > cutoff,
+    );
     if (recent.length >= SUBMISSION_LIMIT) {
       this.submissions.set(clientId, recent);
       return false;
@@ -59,12 +66,35 @@ export const submitBrief = createServerFn({ method: "POST" })
       const { submissionId } = z.object({ submissionId: z.string().uuid() }).parse(data);
       const { storeBrief, clientHash } = await import("./mission-store.server");
       const stored = await storeBrief(submissionId, brief, clientHash(getRequest().headers));
-      if (stored === "limited") return { ok: false as const, error: "Please wait a few minutes before sending another brief." };
+      if (stored === "limited")
+        return {
+          ok: false as const,
+          error: "Please wait a few minutes before sending another brief.",
+        };
+      if (stored === "conflict")
+        return {
+          ok: false as const,
+          conflict: true,
+          error:
+            "Your earlier brief was already saved. These edits have not been sent. Review your changes and send again to create an updated brief.",
+        };
       // A durable outbox owns delivery. Request success never depends on email availability.
       return { ok: true as const };
     } catch (error) {
-      if (error instanceof z.ZodError) return { ok: false as const, error: error.issues.map(issue => issue.message).join(" "), fields: error.flatten().fieldErrors };
-      console.error("[mission-brief] Storage failed; no success was returned.", error instanceof Error ? error.name : "UnknownError");
-      return { ok: false as const, error: "Your brief could not be saved. Please try again shortly; your entries are still here." };
+      if (error instanceof z.ZodError)
+        return {
+          ok: false as const,
+          error: error.issues.map((issue) => issue.message).join(" "),
+          fields: error.flatten().fieldErrors,
+        };
+      console.error(
+        "[mission-brief] Storage failed; no success was returned.",
+        error instanceof Error ? error.name : "UnknownError",
+      );
+      return {
+        ok: false as const,
+        error:
+          "Your brief could not be saved. Please try again shortly; your entries are still here.",
+      };
     }
   });

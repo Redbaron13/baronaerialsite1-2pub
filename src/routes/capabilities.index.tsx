@@ -8,7 +8,13 @@ import { services } from "@/data/site";
 
 export const Route = createFileRoute("/capabilities/")({
   component: CapabilitiesPage,
-  head: () => seo({ title: "Capabilities — Baron Aerial Media", description: "Real estate aerials, construction progress, inspections, property damage documentation, roof + solar, mapping, and event coverage.", path: "/capabilities/" }),
+  head: () =>
+    seo({
+      title: "Capabilities — Baron Aerial Media",
+      description:
+        "Real estate aerials, construction progress, inspections, property damage documentation, roof + solar, mapping, and event coverage.",
+      path: "/capabilities/",
+    }),
 });
 
 function CapabilitiesPage() {

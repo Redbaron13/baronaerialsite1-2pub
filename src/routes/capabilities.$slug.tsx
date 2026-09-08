@@ -17,18 +17,31 @@ export const Route = createFileRoute("/capabilities/$slug")({
     if (!service) throw notFound();
     return service;
   },
-  head: ({ loaderData }) => seo({ title: `${loaderData?.name ?? "Capability"} — Baron Aerial Media`, description: loaderData?.summary ?? "", path: `/capabilities/${loaderData?.slug ?? ""}`, image: loaderData?.image, type: "article" }),
+  head: ({ loaderData }) =>
+    seo({
+      title: `${loaderData?.name ?? "Capability"} — Baron Aerial Media`,
+      description: loaderData?.summary ?? "",
+      path: `/capabilities/${loaderData?.slug ?? ""}`,
+      image: loaderData?.image,
+      type: "article",
+    }),
 });
 
 function ServicePage() {
   const service = Route.useLoaderData();
   const others = services.filter((s) => s.slug !== service.slug).slice(0, 3);
-  const related = service.relatedWork ? work.find((w) => w.slug === service.relatedWork) : undefined;
+  const related = service.relatedWork
+    ? work.find((w) => w.slug === service.relatedWork)
+    : undefined;
 
   return (
     <PageShell tone="light">
       <section className="photo-hero relative isolate min-h-[70vh] overflow-hidden">
-        <MediaImage src={service.image} alt={service.summary} className="absolute inset-0 size-full object-cover" />
+        <MediaImage
+          src={service.image}
+          alt={service.summary}
+          className="absolute inset-0 size-full object-cover"
+        />
         <div className="hero-scrim absolute inset-0" />
         <div className="site-container relative grid max-w-2xl gap-4 pb-16 pt-36">
           <p className="eyebrow">{service.eyebrow}</p>
@@ -47,19 +60,32 @@ function ServicePage() {
       <section className="site-container grid gap-10 py-16 md:grid-cols-2 md:py-24">
         <div>
           <p className="eyebrow">Planned around the operating need</p>
-          <h2 className="mt-3 text-[clamp(1.7rem,3vw,2.6rem)]">Useful visual context, with clear boundaries.</h2>
+          <h2 className="mt-3 text-[clamp(1.7rem,3vw,2.6rem)]">
+            Useful visual context, with clear boundaries.
+          </h2>
           <p className="mt-4 text-ink-muted">{service.summary}</p>
           <p className="mt-4 text-ink-muted">
-            Built for {service.forWhom} Every assignment begins with the decision the media needs to support,
-            the site, access, requested timing, and intended output.
+            Built for {service.forWhom} Every assignment begins with the decision the media needs to
+            support, the site, access, requested timing, and intended output.
           </p>
-          <aside className="scope-panel mt-6"><h3>Scope of work</h3><p>Visual documentation supports qualified review. Cause, condition, engineering conclusions, and certified surveys require the appropriate professional and a written scope.</p><p>{disclaimer}</p></aside>
+          <aside className="scope-panel mt-6">
+            <h3>Scope of work</h3>
+            <p>
+              Visual documentation supports qualified review. Cause, condition, engineering
+              conclusions, and certified surveys require the appropriate professional and a written
+              scope.
+            </p>
+            <p>{disclaimer}</p>
+          </aside>
         </div>
         <div className="rounded-xl bg-fg p-8 shadow-[0_0_0_1px_var(--color-paper-line)]">
           <h3 className="text-lg">Typical deliverables</h3>
           <ul className="mt-5 grid gap-3">
             {service.deliverables.map((d) => (
-              <li key={d} className="border-b border-paper-line pb-3 font-display text-ink-text last:border-0">
+              <li
+                key={d}
+                className="border-b border-paper-line pb-3 font-display text-ink-text last:border-0"
+              >
                 {d}
               </li>
             ))}
@@ -75,10 +101,13 @@ function ServicePage() {
           <div className="site-container grid items-center gap-8 md:grid-cols-2">
             <div>
               <p className="eyebrow">Listing Film</p>
-              <h2 className="mt-3 text-[clamp(1.7rem,3vw,2.6rem)] text-fg">Last light over the block.</h2>
+              <h2 className="mt-3 text-[clamp(1.7rem,3vw,2.6rem)] text-fg">
+                Last light over the block.
+              </h2>
               <p className="mt-4 max-w-[54ch] text-fg-soft">
-                Daylight promotional footage of Embark apartments and the new ShopRite at The Crossings. Listing film is a deliverable, not a leftover clip from stills. Ground photography
-                cannot show how a property sits in its block. Altitude can.
+                Daylight promotional footage of Embark apartments and the new ShopRite at The
+                Crossings. Listing film is a deliverable, not a leftover clip from stills. Ground
+                photography cannot show how a property sits in its block. Altitude can.
               </p>
             </div>
             <div className="media-frame overflow-hidden rounded-md">
@@ -97,12 +126,13 @@ function ServicePage() {
           <div className="site-container grid gap-8 md:grid-cols-2">
             <div>
               <p className="eyebrow">Construction Tracking</p>
-              <h2 className="mt-3 text-[clamp(1.7rem,3vw,2.6rem)] text-fg">I-280 overhead. Brick Church below it.</h2>
+              <h2 className="mt-3 text-[clamp(1.7rem,3vw,2.6rem)] text-fg">
+                I-280 overhead. Brick Church below it.
+              </h2>
               <p className="mt-4 max-w-[54ch] text-fg-soft">
                 Repeatable viewpoints of NJDOT’s North Munn Avenue Bridge replacement over I-280,
-                then ground aerial of The Crossings at Brick Church Station — Embark apartments at
-                the train station and the new ShopRite. Process and Deliver are where the comparison
-                set is built. The bridge project runs through spring 2028.
+                alongside daylight aerial context of The Crossings at Brick Church Station. Repeat
+                visits can support comparison sets when capture dates and viewpoints are matched.
               </p>
             </div>
             <div className="grid gap-3">
@@ -115,9 +145,9 @@ function ServicePage() {
               </div>
               <div className="media-frame overflow-hidden rounded-md">
                 <FieldClip
-                  src="/media/jobsite-ground.mp4"
-                  poster="/media/jobsite-ground.webp"
-                  alt="Ground-level film of crew and dump trucks at the North Munn Avenue Bridge over I-280"
+                  src="/media/neighborhood-film.mp4"
+                  poster="/media/neighborhood-film.webp"
+                  alt="Daylight aerial film of The Crossings at Brick Church Station"
                 />
               </div>
             </div>
@@ -133,10 +163,9 @@ function ServicePage() {
               Pattern is a decision — not a style filter.
             </h2>
             <p className="mt-4 max-w-[62ch] text-fg-soft">
-              Switch nadir, crosshatch, oblique, and the path actually flown over Kuzuri Kijiji at
-              19 Freeway Drive East, East Orange, on July 6, 2026. Overlap, GSD, and what the
-              reconstructor can solve all change with the path. The ortho shows the existing 1973
-              townhouses, not the approved redevelopment.
+              Compare illustrative nadir, crosshatch, and orbit patterns over the Kuzuri Kijiji
+              orthomosaic. The animated paths explain capture choices; they are not recorded flight
+              telemetry. The source map shows the site as captured.
             </p>
             <div className="mt-8">
               <SurveyStudio ground="/media/kiji-ortho.webp" />
@@ -144,16 +173,17 @@ function ServicePage() {
             <div className="mt-8 grid items-center gap-8 md:grid-cols-2">
               <MediaImage
                 src="/media/kiji-coverage.webp"
-                alt="Photogrammetry camera stations around a reconstructed 3D building model — numbered capture positions and coverage overlay"
+                alt="Kuzuri Kijiji photogrammetry image coverage visualization"
                 className="media-frame w-full rounded-md bg-ink-2 object-contain"
               />
               <div>
                 <p className="eyebrow">Process, not a pretty JPEG</p>
-                <h3 className="mt-2 text-2xl text-fg">Camera stations around the mesh.</h3>
+                <h3 className="mt-2 text-2xl text-fg">Coverage across the site.</h3>
                 <p className="mt-3 text-fg-soft">
-                  After the flight, software aligns each frame to a 3D model. Capture locations and the colored coverage layer show how imagery covers the site. This is what a mapping deliverable
-                  can include alongside the orthomosaic — so a GC or planner can see how the model was
-                  built, not just the flattened map.
+                  After the flight, overlapping frames are aligned. The source coverage
+                  visualization helps explain how imagery covers the site. This is what a mapping
+                  deliverable can include alongside the orthomosaic — so a GC or planner can see how
+                  the model was built, not just the flattened map.
                 </p>
               </div>
             </div>
@@ -178,7 +208,9 @@ function ServicePage() {
               </p>
               <h3 className="mt-2 text-2xl text-ink-text">{related.title}</h3>
               <p className="mt-3 text-sm text-ink-muted">{related.summary}</p>
-              <span className="mt-5 font-display text-sm font-semibold text-green-deep">Open the case study →</span>
+              <span className="mt-5 font-display text-sm font-semibold text-green-deep">
+                Open the case study →
+              </span>
             </div>
           </Link>
         </section>
@@ -199,7 +231,11 @@ function ServicePage() {
                 params={{ slug: o.slug }}
                 className="group block overflow-hidden rounded-lg bg-fg shadow-[0_0_0_1px_var(--color-paper-line)]"
               >
-                <MediaImage src={o.image} alt="" className="aspect-[16/10] w-full object-cover transition-transform duration-500 group-hover:scale-105" />
+                <MediaImage
+                  src={o.image}
+                  alt=""
+                  className="aspect-[16/10] w-full object-cover transition-transform duration-500 group-hover:scale-105"
+                />
                 <p className="p-4 font-display font-semibold text-ink-text">{o.name}</p>
               </Link>
             </TiltCard>

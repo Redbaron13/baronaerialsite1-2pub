@@ -9,7 +9,13 @@ import { brand, process } from "@/data/site";
 
 export const Route = createFileRoute("/about")({
   component: AboutPage,
-  head: () => seo({ title: "About — Baron Aerial Media", description: "Owner-operated, FAA Part 107 commercial drone work out of Newark, New Jersey. The flight is only one part of the work.", path: "/about" }),
+  head: () =>
+    seo({
+      title: "About — Baron Aerial Media",
+      description:
+        "Owner-operated, FAA Part 107 commercial drone work out of Newark, New Jersey. The flight is only one part of the work.",
+      path: "/about",
+    }),
 });
 
 function AboutPage() {
@@ -28,20 +34,22 @@ function AboutPage() {
             alt="Baron Aerial Media — Altitude Changes Everything"
             className="mb-8 max-w-[16rem]"
           />
-          <h2 className="text-[clamp(1.7rem,3vw,2.6rem)]">Aerial work with a purpose behind every flight.</h2>
+          <h2 className="text-[clamp(1.7rem,3vw,2.6rem)]">
+            Aerial work with a purpose behind every flight.
+          </h2>
           <p className="mt-4 text-ink-muted">
-            Kevin Baron runs {brand.name}, an owner-operated commercial drone practice based in {brand.city}, serving{" "}
-            {brand.serviceArea}. We are {brand.part107} certified. Every project starts with the outcome
-            — a listing that sells, a site that’s documented, an asset that’s inspected without putting
-            a crew on a roof.
+            Kevin Baron runs {brand.name}, an owner-operated commercial drone practice based in{" "}
+            {brand.city}, serving {brand.serviceArea}. We are {brand.part107} certified. Every
+            project starts with the outcome — a listing that sells, a site that’s documented, an
+            asset that’s inspected without putting a crew on a roof.
           </p>
           <p className="mt-4 text-ink-muted">
-            From there we plan the flight, screen airspace (LAANC, Part 107 Waivers, and SGI Waivers when the
-            mission qualifies — including commercial work inside a National Security Event TFR with FAA
-            coordination), capture at high resolution, process into the right deliverable, and hand
-            it off the way you actually work. We document what is visible. We do not certify engineering
-            condition, and a requested date is planning input — not a flight commitment — until airspace,
-            access, and weather clear.
+            From there we plan the flight, screen airspace (LAANC, Part 107 Waivers, and SGI Waivers
+            when the mission qualifies — including commercial work inside a National Security Event
+            TFR with FAA coordination), capture at high resolution, process into the right
+            deliverable, and hand it off the way you actually work. We document what is visible. We
+            do not certify engineering condition, and a requested date is planning input — not a
+            flight commitment — until airspace, access, and weather clear.
           </p>
           <Button asChild className="mt-8">
             <Link to="/contact">Plan a Mission</Link>
@@ -63,21 +71,27 @@ function AboutPage() {
           ["NJ", "North Jersey + NY metro"],
           ["E2E", "Brief → Deliver"],
         ].map(([k, v]) => (
-          <div key={k} className="rounded-lg bg-fg px-5 py-6 shadow-[0_0_0_1px_var(--color-paper-line)]">
+          <div
+            key={k}
+            className="rounded-lg bg-fg px-5 py-6 shadow-[0_0_0_1px_var(--color-paper-line)]"
+          >
             <p className="font-display text-3xl text-ink-text">{k}</p>
-            <p className="mt-1 font-display text-xs tracking-[0.12em] text-green-deep uppercase">{v}</p>
+            <p className="mt-1 font-display text-xs tracking-[0.12em] text-green-deep uppercase">
+              {v}
+            </p>
           </div>
         ))}
       </div>
-
-
 
       <section className="site-container py-16 md:py-24">
         <p className="eyebrow">How we work</p>
         <h2 className="mt-2 mb-10 text-[clamp(1.7rem,3vw,2.6rem)]">Six stages, every mission.</h2>
         <ol className="grid gap-6 md:grid-cols-2">
           {process.map((s) => (
-            <li key={s.n} className="rounded-lg bg-fg p-6 shadow-[0_0_0_1px_var(--color-paper-line)]">
+            <li
+              key={s.n}
+              className="rounded-lg bg-fg p-6 shadow-[0_0_0_1px_var(--color-paper-line)]"
+            >
               <p className="font-display text-sm text-green-deep">{s.n}</p>
               <h3 className="mt-1 text-xl">{s.title}</h3>
               <p className="mt-2 text-ink-muted">{s.body}</p>

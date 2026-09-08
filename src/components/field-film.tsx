@@ -4,25 +4,71 @@ import { Link } from "@tanstack/react-router";
 import { usePrefersReducedMotion } from "@/lib/motion";
 import { Reveal } from "@/components/reveal";
 
-export function FieldClip({ src, poster, alt, className = "aspect-video w-full object-cover" }: { src: string; poster: string; alt: string; className?: string }) {
+export function FieldClip({
+  src,
+  poster,
+  alt,
+  className = "aspect-video w-full object-cover",
+}: {
+  src: string;
+  poster: string;
+  alt: string;
+  className?: string;
+}) {
   const reduced = usePrefersReducedMotion();
   const ref = useRef<HTMLVideoElement>(null);
   const [started, setStarted] = useState(false);
   useEffect(() => {
     const video = ref.current;
     if (!video || !started) return;
-    const observer = new IntersectionObserver(([entry]) => { if (!entry.isIntersecting) video.pause(); }, { threshold: .1 });
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (!entry.isIntersecting) video.pause();
+      },
+      { threshold: 0.1 },
+    );
     observer.observe(video);
     return () => observer.disconnect();
   }, [started]);
-  return <div className="relative">
-    {started ? <video ref={ref} className={className} autoPlay muted loop={!reduced} playsInline controls poster={poster} preload="none" aria-label={alt} src={src} /> :
-      <button type="button" className="group relative block w-full" aria-label={`Play silent clip: ${alt}`} onClick={() => setStarted(true)}>
-        <MediaImage src={poster} alt={alt} className={className} />
-        <span className="absolute inset-0 grid place-items-center bg-ink/10"><span className="grid size-16 place-items-center rounded-full border border-white/60 bg-black/50 text-white backdrop-blur-sm" aria-hidden="true">▶</span></span>
-      </button>}
-    <span className="pointer-events-none absolute right-3 top-3 rounded-sm bg-black/70 px-2 py-1 text-xs text-white">Silent clip</span>
-  </div>;
+  return (
+    <div className="relative">
+      {started ? (
+        <video
+          ref={ref}
+          className={className}
+          autoPlay
+          muted
+          loop={!reduced}
+          playsInline
+          controls
+          poster={poster}
+          preload="none"
+          aria-label={alt}
+          src={src}
+        />
+      ) : (
+        <button
+          type="button"
+          className="group relative block w-full"
+          aria-label={`Play silent clip: ${alt}`}
+          onClick={() => setStarted(true)}
+        >
+          <MediaImage src={poster} alt={alt} className={className} />
+          <span className="absolute inset-0 grid place-items-center bg-ink/10">
+            <span
+              className="grid size-16 place-items-center rounded-full border border-white/60 bg-black/50 text-white backdrop-blur-sm"
+              aria-hidden="true"
+            >
+              ▶
+            </span>
+          </span>
+        </button>
+      )}
+      <span className="pointer-events-none absolute right-3 top-3 rounded-sm bg-black/70 px-2 py-1 text-xs text-white">
+        Silent clip
+      </span>
+    </div>
+  );
 }
 
 export function FieldFilm() {
@@ -51,7 +97,9 @@ export function FieldFilm() {
             />
           </div>
           <div className="mt-4 flex flex-wrap items-end justify-between gap-3">
-            <p className="font-display text-sm text-fg-soft">North Munn Avenue Bridge over I-280 · East Orange · Jun 2026 · 7.5 s nadir hold</p>
+            <p className="font-display text-sm text-fg-soft">
+              North Munn Avenue Bridge over I-280 · East Orange · Jun 2026 · 7.5 s nadir hold
+            </p>
             <Link
               to="/work/$slug"
               params={{ slug: "north-munn-bridge" }}
@@ -71,7 +119,8 @@ export function FieldFilm() {
           </div>
           <div className="mt-4 flex flex-wrap items-end justify-between gap-3">
             <p className="font-display text-sm text-fg-soft">
-              Embark + ShopRite at The Crossings · daylight promotional flyover · BAM-EO-CROSSINGS-202606
+              Embark + ShopRite at The Crossings · daylight promotional flyover ·
+              BAM-EO-CROSSINGS-202606
             </p>
             <Link
               to="/work/$slug"

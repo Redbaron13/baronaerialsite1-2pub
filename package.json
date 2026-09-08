@@ -17,11 +17,13 @@
     "preview:stop": "node scripts/preview.mjs stop",
     "typecheck": "tsc --noEmit",
     "check:auth": "node scripts/check-auth-invariant.mjs",
-    "test": "node --test 'scripts/**/*.test.mjs' && node --experimental-strip-types --test src/lib/app-data/app-data.test.ts src/lib/auth/gate-identity.test.ts src/lib/submit-brief.test.ts",
+    "test": "node --test 'scripts/**/*.test.mjs' && node --experimental-strip-types --test src/lib/app-data/app-data.test.ts src/lib/auth/gate-identity.test.ts src/lib/submit-brief.test.ts src/lib/mission-store.test.ts",
     "lint": "eslint .",
     "format": "prettier --write .",
     "media:build": "node scripts/media/build.mjs",
-    "briefs:deliver": "node scripts/deliver-mission-briefs.mjs"
+    "briefs:deliver": "node scripts/deliver-mission-briefs.mjs",
+    "prebuild": "node scripts/media/verify.mjs",
+    "verify:site": "node scripts/verify-site.mjs"
   },
   "dependencies": {
     "@electric-sql/pglite": "^0.5.4",

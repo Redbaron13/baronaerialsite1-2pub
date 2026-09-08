@@ -11,7 +11,6 @@ import appCss from "../styles.css?url";
 
 const APP_NAME = "Baron Aerial Media";
 
-
 export const Route = createRootRoute({
   head: () => {
     return {
@@ -52,7 +51,9 @@ function NotFound() {
       <section className="site-container grid min-h-[70vh] place-content-center gap-4 py-32 text-center">
         <p className="eyebrow">404</p>
         <h1 className="text-5xl">That page isn’t on the flight plan.</h1>
-        <p className="lead mx-auto">The URL doesn’t match a published page. Head home or open the work gallery.</p>
+        <p className="lead mx-auto">
+          The URL doesn’t match a published page. Head home or open the work gallery.
+        </p>
         <div className="mt-4 flex justify-center gap-3">
           <Button asChild>
             <Link to="/">Home</Link>
@@ -71,7 +72,12 @@ function RootDocument() {
     <html lang="en" className="antialiased" suppressHydrationWarning>
       <head>
         <HeadContent />
-        <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(businessSchema).replace(/</g, "\\u003c") }} />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify(businessSchema).replace(/</g, "\\u003c"),
+          }}
+        />
         <script dangerouslySetInnerHTML={{ __html: themeBootScript }} />
       </head>
       <body>

@@ -1,217 +1,89 @@
-# Deploy Baron Aerial Media
+# Release and operate Baron Aerial Media
 
-This is a **TanStack Start / React** site with WebGL (planned-flight overlay and 3D site model). It is not a WordPress theme, and it should not be forced into one.
+This repository is a TanStack Start / React application with a Node server. Build from source; `.vercel/output` and `.output` are generated release files and are deliberately excluded from Git.
 
-Domain already on Cloudflare: **baronaerial.com**.
+## Review before launch
 
----
+Use the PR preview first. Publishing the branch is not approval to switch the public domain. The current work adds three explanatory Three.js studies, reviewed image assignments, responsive media, and durable mission-brief storage.
 
-## What WordPress can and cannot do
+Required before accepting real inquiries:
 
-Your current WordPress install is PHP templates and plugins. This site is:
+1. Provision a **persistent PostgreSQL database** and store its connection string as `DATABASE_URL` in the server's secret settings. Use a role restricted to this application. The brief table contains personal and project information; do not expose it through an anonymous API.
+2. Set the same `DATABASE_URL` in a trusted administrative shell and run `npm run db:migrate`. Migrations are explicit; preview builds never migrate the production database. Back up an existing database before applying changes. Missing configuration fails visibly.
+3. Run a synthetic inquiry against staging and verify the saved record through authorized database access. The public UI reports success only after the record is saved. A database failure keeps the draft and displays an error.
+4. Configure a verified Resend sender in `MISSION_BRIEF_FROM`, a monitored inbox in `MISSION_BRIEF_TO`, and the server-only `RESEND_API_KEY`. The site itself requires only the database; notifications are delivered separately.
+5. Schedule `npm run briefs:deliver` every minute on a trusted server with those four environment variables. Each run processes up to 25 records. A database lease prevents overlapping workers from taking the same record; failed notifications remain queued with backoff. Monitor nonzero exits and undelivered rows. Notifications contain a reference ID, not the client's location or site notes. Staff need authorized database access to read the brief; an administrative inbox UI is not included.
+6. Confirm the public contact phone/email and retention period with the owner. These values have not been invented. The privacy page describes browser draft storage and database submission storage.
 
-- Client WebGL (survey-path drone, orthomosaic as a 3D packet)
-- File-based React routing
-- A server function for the mission brief
-- Video + stills that should be served from object storage (R2), not from `wp-content/uploads`
+Do not test delivery by sending to real clients. A receipt means “stored,” not “flight booked” or “FAA approved.” Back up the database and define an inquiry-deletion procedure before production use.
 
-A WP theme would throw away the 3D, the routes, and the brief. A full-page iframe of this app inside WordPress looks like the site but hurts SEO, mobile height, and WebGL. Don’t.
+### Rate limiting
 
-**You do not install a WordPress plugin to “run” this site.** You either:
+The database enforces five saved briefs per trusted client within fifteen minutes. Set `MISSION_BRIEF_RATE_SECRET` to a server-only random secret. Set `MISSION_BRIEF_TRUST_PROXY=cloudflare` only when the origin accepts traffic exclusively from Cloudflare and its `CF-Connecting-IP` header is trusted. Set it to `forwarded` only when your ingress **replaces** incoming `X-Forwarded-For` with a verified client address. Do not trust user-supplied forwarding headers or an append-only chain.
 
-1. Host this app on Node (Vercel, Cloudflare, or your own VPS) and keep WordPress as a **blog subdomain**, or
-2. Host this app on your existing server **next to** WordPress as a separate virtual host — that requires **Node.js 22**, not PHP.
+Without a trusted identity, submissions are not placed in a shared anonymous bucket. Configure ingress rate limits and request-size limits for production. Do not enable the proxy setting until the ingress behavior is verified.
 
-Typical shared cPanel WordPress hosting (PHP only) **cannot** run this app. You need a VPS, or a Node host.
+### Outbox operations
 
----
+These read-only queries can be used in an authorized database console:
 
-## Recommended stack (best fit)
+```sql
+SELECT count(*) AS pending, min(created_at) AS oldest_pending
+FROM mission_briefs WHERE delivered_at IS NULL;
 
-| Layer | Service | Why |
-|---|---|---|
-| App | **Vercel** (already wired in `vite.config.ts`) | SSR, Node 22, zero WordPress conflict |
-| DNS / SSL | **Cloudflare** (you already have the zone) | Apex + www |
-| Media | **Cloudflare R2** + custom domain `media.baronaerial.com` | Zero egress, global cache, job-ID filenames |
-| Blog (optional) | WordPress at `blog.baronaerial.com` | Keep WP for posts only |
-
-### Vercel + Cloudflare DNS
-
-1. Push this repo to GitHub.
-2. Vercel → Import the repo. Build: `npm run build`. Node 22.
-3. Cloudflare DNS:
-   - `www` CNAME → `cname.vercel-dns.com`
-   - Apex CNAME / flattened → the Vercel target
-4. Add both hostnames in Vercel → Domains.
-
-Connect the mission brief to email (Resend → `missions@baronaerial.com`) before launch.
-
-### Cloudflare R2 for elected media
-
-The pipeline writes two folders (see `artifacts/media-pipeline/`):
-
-- `r2-upload/{jobId}/` — original-quality duplicates, named with the shared job identifier. **This is what you upload to R2.**
-- `web-optimized/{jobId}/` — sharp WebP / faststart MP4 for the site.
-
-In Cloudflare: R2 → Create bucket `baron-aerial-media` → Settings → Custom Domains → `media.baronaerial.com`. Upload the `r2-upload` tree. Later the site can point `src` at `https://media.baronaerial.com/BAM-EO-CROSSINGS-202606/...`.
-
----
-
-## Alternative: Cloudflare Workers / Pages
-
-Because the zone is already on Cloudflare, Pages or Workers is a clean second choice:
-
-1. Change the Nitro preset in `vite.config.ts` from `"vercel"` to `"cloudflare-pages"` (or the Workers TanStack Start preset).
-2. Cloudflare Dashboard → Workers & Pages → Connect Git.
-3. Attach `baronaerial.com` and `www`. Bind the R2 bucket.
-
-Use this if you want one vendor for DNS + app + media.
-
----
-
-## Self-host on your Hetzner server with Portainer
-
-The repository includes `Dockerfile` and `compose.production.yml` for this
-deployment. The React site runs as a separate `site` container alongside
-WordPress; it is not installed into WordPress or served from `wp-content`.
-
-### 1. Build and deploy the stack
-
-In Portainer, create a **Git Repository** stack from this repository using:
-
-```
-compose.production.yml
+SELECT id, attempts, next_attempt_at, last_error
+FROM mission_briefs WHERE delivered_at IS NULL ORDER BY created_at;
 ```
 
-Use the branch containing this file. Portainer checks out the repository and
-uses the included `Dockerfile` to build the `baronaerial-site:latest` image;
-a standalone Compose upload cannot build this application without a separate
-source checkout or pre-published image.
+The outbox uses a stable provider idempotency key. As with any external mail provider, retries beyond the provider's idempotency-retention window can duplicate a notification; the stored brief remains unique. Never print payloads in infrastructure logs.
 
-Create the following stack environment variables in Portainer. Do not commit
-their values to the repository:
+## Build and verify
 
-| Variable | Value |
-|---|---|
-| `PROXY_NETWORK` | The existing external Docker network used by your reverse proxy |
-| `RESEND_API_KEY` | Resend API key |
-| `MISSION_BRIEF_FROM` | A Resend-verified sender, such as `Baron Aerial Media <missions@baronaerial.com>` |
-| `MISSION_BRIEF_TO` | Inbox that should receive inquiries |
+Use Node 22. Run:
 
-The stack builds a Node 22 image with Nitro's `node-server` preset and exposes
-only internal port `3000`. It has no public host-port mapping.
-
-### 2. Configure Nginx Proxy Manager
-
-Set `PROXY_NETWORK` to the Docker network shared by Nginx Proxy Manager and
-its proxy hosts (commonly `npm_default`, but use the network name shown by
-your existing Nginx Proxy Manager stack). The network must already exist and
-be marked external to this stack.
-
-Before creating either Proxy Host, configure Cloudflare DNS records for
-`baronaerial.com`, `www.baronaerial.com`, and `staging.baronaerial.com` to
-resolve to the server.
-
-In Nginx Proxy Manager, first inspect existing Proxy Hosts for
-`baronaerial.com` and `www.baronaerial.com`. If a WordPress host already owns
-either name, record its domain names, upstream scheme, hostname/IP, port, SSL
-settings, and any custom configuration. Edit or replace the existing apex/www
-host or hosts so exactly one production host owns both names and uses the
-settings below; do not create a duplicate host. If no host owns either name,
-create the production Proxy Host with:
-
-| Field | Value |
-|---|---|
-| Domain Names | `baronaerial.com`, `www.baronaerial.com` |
-| Scheme | `http` |
-| Forward Hostname / IP | `site` |
-| Forward Port | `3000` |
-| Cache Assets | Enabled |
-| Block Common Exploits | Enabled |
-| Websockets Support | Enabled |
-
-On the SSL tab, request or select a Let's Encrypt certificate for both domain
-names, enable **Force SSL**, and accept the Terms of Service. Configure the
-certificate after the DNS records have propagated. Keep
-`blog.baronaerial.com` on its separate WordPress Proxy Host; it must not point
-to this stack. If the existing apex/www host also contains `blog.baronaerial.com`,
-first create or retain a dedicated blog host with the recorded WordPress
-upstream, then remove `blog.baronaerial.com` from the production host.
-
-Create a separate staging Proxy Host with the same upstream settings and
-`staging.baronaerial.com` as its Domain Name. On its SSL tab, request or select
-a Let's Encrypt certificate for `staging.baronaerial.com`, enable **Force SSL**,
-and accept the Terms of Service.
-
-### 3. Network and proxy behavior
-
-Docker resolves the `site` hostname across the shared network. Nginx Proxy
-Manager provides the TLS and forwarded request headers automatically. Do not
-publish port `3000` directly on the Hetzner host.
-
-### 4. Release safely
-
-First create the same proxy route at `staging.baronaerial.com`. Confirm the
-site, WebGL fallbacks, contact delivery, and mobile experience there. After
-approval, point the `baronaerial.com` and `www` Proxy Host to `site`. To roll
-back, edit that same apex/www host and restore the recorded WordPress upstream,
-domain, SSL, and custom settings. The separate `blog.baronaerial.com` WordPress
-host remains unchanged throughout.
-
-## Legacy manual self-hosting notes
-
-If the domain must live on a machine you already pay for:
-
-**You need Node.js 22 + a reverse proxy. WordPress does not replace that.**
-
-1. Install Node 22 (nvm or NodeSource), `pm2`, and nginx.
-2. Clone the repo, `npm ci && npm run build`.
-3. `pm2 start` the Nitro/Node server (production listen on localhost, e.g. 3000).
-4. nginx:
-   - `baronaerial.com` / `www` → proxy_pass to Node
-   - `blog.baronaerial.com` → existing WordPress PHP-FPM
-5. TLS via Cloudflare (orange cloud) or Let’s Encrypt on the box.
-6. Media still belongs in **R2**, not on the VPS disk. Serving 4K DJI originals from the same box as WordPress will choke bandwidth.
-
-Minimal nginx vhost for the app:
-
-```
-server {
-  server_name baronaerial.com www.baronaerial.com;
-  location / {
-    proxy_pass http://127.0.0.1:3000;
-    proxy_http_version 1.1;
-    proxy_set_header Host $host;
-    proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
-    proxy_set_header X-Forwarded-Proto $scheme;
-  }
-}
+```sh
+npm ci
+npm run typecheck
+npm test
+npm run build
 ```
 
-Do not put this site in `/var/www/html` as static files and expect WordPress to serve it.
+The build verifies reviewed service-image tags and regenerates the sitemap from current content. To run browser checks against a locally running production preview:
 
----
+```sh
+npm run preview -- --host 127.0.0.1 --port 8081
+BAM_CHROME_CHANNEL=chrome npm run verify:site
+```
 
-## Why not WordPress as the marketing site
+The browser check uses installed Google Chrome, tests published routes and CSS, three viewport widths, menu keyboard behavior and draft restoration. It does not submit a real inquiry.
 
-WordPress is PHP templates and plugins. This site is React SSR + WebGL + a server function. Keep WordPress if you want a blog; keep this app as the public face of Baron Aerial Media.
+## Hosting
 
----
+The default Nitro preset is Vercel. Import the repository, select Node 22 and `npm run build`, and configure server secrets. Database migration and outbox scheduling are separate operational steps.
 
-## Media identifiers
+For an existing Node host, `npm run build:docker` selects the Node server preset. `Dockerfile` and `compose.production.yml` build a site container on internal port 3000. Set `DATABASE_URL` and `PROXY_NETWORK` in Portainer. An operations image target is included for explicit migrations and scheduled outbox runs; it contains only the required scripts and `pg` dependency.
 
-Files from the same mission share a job ID:
+```sh
+docker build --target operations -t baronaerial-operations .
+# Supply credentials through a server-side env file excluded from Git.
+docker run --rm --env-file /secure/bam-server.env baronaerial-operations node scripts/migrate.mjs
+docker run --rm --env-file /secure/bam-server.env baronaerial-operations node scripts/deliver-mission-briefs.mjs
+```
 
-`BAM-{SITE}-{JOB}-{YYYYMM}_{seq}_{role}`
+If PostgreSQL is on a private Docker network, attach the operations container to that network as well. Keep the public server port behind your reverse proxy. Configure staging first; record the existing domain upstream and TLS settings before any owner-approved domain change. No DNS changes or public deployment are part of this PR.
 
-Example: `BAM-EO-NMUNN280-202606_04_oblique.webp` and `BAM-EO-NMUNN280-202606_01_nadir-hold.mp4` belong together.
+## Media and FAA source updates
 
-Finished video deliverables are copied, not trimmed. Stills with a true original (DJI JPG) are re-exported at 2560px / WebP q88 so they are not mushy.
+`npm run media:build` generates responsive WebP derivatives from the reviewed catalog. Originals are preserved. Asset IDs are content hashes; service assignments must use an asset reviewed for that service. Unverified damage/event proof images are intentionally absent.
 
-Run: `node scripts/media-pipeline.mjs`
+The LAANC study includes a dated FAA UAS Facility Map snapshot for the Newark Liberty area. The source URL, effective date, geographic footprints, and ceilings are recorded in `src/data/laanc-ewr.json`. The vertical scale is exaggerated. A positive ceiling is not permission, and a zero-foot grid is not a permanent blanket flight prohibition. Check the current FAA data, restrictions and authorization before operational use.
 
----
+The photogrammetry study separates real orthomosaic, color elevation and coverage images. It does not interpret RGB colors as calibrated terrain heights. The capture path and exploded aircraft are explanatory illustrations, not recorded telemetry or an aircraft manufacturer's engineering model.
 
-## Local / this preview
+## Deferred audit recommendations
 
-`npm run dev` serves the live preview. `npm run build` is what Vercel/Cloudflare run.
+- Do not publish unverified registration numbers, insurance limits, engineering credentials, or contact details.
+- Do not turn an unmatched collection into a dated before/after progress comparison.
+- Do not label a routine commercial or sporting-event flight as eligible for the FAA emergency SGI process.
+- Do not automatically send client confirmations containing sensitive project details.
+- The local media-pipeline connection must publish only explicitly approved exports; it must not expose the raw local archive or infer publication rights from AI scores.

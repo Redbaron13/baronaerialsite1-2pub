@@ -11,6 +11,14 @@ RUN npm ci
 COPY . .
 RUN npm run build:docker
 
+# Explicit administrative jobs; never run migrations while building previews.
+FROM node:22-alpine AS operations
+WORKDIR /app
+RUN npm init -y && npm install --omit=dev pg@8.16.3
+COPY scripts/migrate.mjs scripts/migration-plan.mjs scripts/deliver-mission-briefs.mjs ./scripts/
+COPY migrations ./migrations
+CMD ["node", "scripts/deliver-mission-briefs.mjs"]
+
 FROM node:22-alpine AS runtime
 
 WORKDIR /app

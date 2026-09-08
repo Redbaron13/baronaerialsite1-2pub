@@ -22,8 +22,17 @@ export function BrandMark({
     <span className="flex items-center">
       <picture>
         <source media="(min-width: 1024px)" srcSet={src} />
-        <img src={mark} alt="Baron Aerial Media" width={192} height={156} decoding="async"
-          className={cn("w-auto", withTagline ? "h-11 lg:h-16" : compact ? "h-10 lg:h-11" : "h-11 lg:h-12")} />
+        <img
+          src={mark}
+          alt="Baron Aerial Media"
+          width={192}
+          height={156}
+          decoding="async"
+          className={cn(
+            "w-auto",
+            withTagline ? "h-11 lg:h-16" : compact ? "h-10 lg:h-11" : "h-11 lg:h-12",
+          )}
+        />
       </picture>
     </span>
   );

@@ -19,27 +19,49 @@ export function SiteHeader() {
     if (!open) return;
     const links = () => Array.from(navRef.current?.querySelectorAll<HTMLElement>("a,button") ?? []);
     links()[0]?.focus();
-    const close = () => { setOpen(false); toggleRef.current?.focus(); };
+    const close = () => {
+      setOpen(false);
+      toggleRef.current?.focus();
+    };
     const keydown = (event: KeyboardEvent) => {
-      if (event.key === "Escape") { event.preventDefault(); close(); }
+      if (event.key === "Escape") {
+        event.preventDefault();
+        close();
+      }
       if (event.key === "Tab") {
         const items = [...links(), toggleRef.current].filter(Boolean) as HTMLElement[];
         const index = items.indexOf(document.activeElement as HTMLElement);
-        event.preventDefault(); items[(index + (event.shiftKey ? -1 : 1) + items.length) % items.length]?.focus();
+        event.preventDefault();
+        items[(index + (event.shiftKey ? -1 : 1) + items.length) % items.length]?.focus();
       }
     };
     const media = window.matchMedia("(min-width: 1024px)");
-    const resize = () => { if (media.matches) setOpen(false); };
-    document.addEventListener("keydown", keydown); media.addEventListener("change", resize);
-    return () => { document.removeEventListener("keydown", keydown); media.removeEventListener("change", resize); };
+    const resize = () => {
+      if (media.matches) setOpen(false);
+    };
+    document.addEventListener("keydown", keydown);
+    media.addEventListener("change", resize);
+    return () => {
+      document.removeEventListener("keydown", keydown);
+      media.removeEventListener("change", resize);
+    };
   }, [open]);
 
   useEffect(() => {
     let frame = 0;
-    const onScroll = () => { if (!frame) frame = requestAnimationFrame(() => { setScrolled(window.scrollY > 12); frame = 0; }); };
+    const onScroll = () => {
+      if (!frame)
+        frame = requestAnimationFrame(() => {
+          setScrolled(window.scrollY > 12);
+          frame = 0;
+        });
+    };
     onScroll();
     window.addEventListener("scroll", onScroll, { passive: true });
-    return () => { window.removeEventListener("scroll", onScroll); cancelAnimationFrame(frame); };
+    return () => {
+      window.removeEventListener("scroll", onScroll);
+      cancelAnimationFrame(frame);
+    };
   }, []);
 
   useEffect(() => {
@@ -98,7 +120,11 @@ export function SiteHeader() {
           )}
           aria-label={light ? "Switch to dark mode" : "Switch to light mode"}
         >
-          {light ? <Moon className="size-4" aria-hidden="true" /> : <Sun className="size-4" aria-hidden="true" />}
+          {light ? (
+            <Moon className="size-4" aria-hidden="true" />
+          ) : (
+            <Sun className="size-4" aria-hidden="true" />
+          )}
         </button>
         <Link
           to="/contact"
@@ -127,7 +153,11 @@ export function SiteHeader() {
           aria-label={open ? "Close menu" : "Open menu"}
           onClick={() => setOpen((v) => !v)}
         >
-          {open ? <X className="size-4" aria-hidden="true" /> : <Menu className="size-4" aria-hidden="true" />}
+          {open ? (
+            <X className="size-4" aria-hidden="true" />
+          ) : (
+            <Menu className="size-4" aria-hidden="true" />
+          )}
         </button>
       </div>
 
