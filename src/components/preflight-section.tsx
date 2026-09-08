@@ -32,13 +32,12 @@ export function PreflightSection({ tone = "dark" }: { tone?: "dark" | "light" })
           <p className={cn("lead mt-4 max-w-[62ch]", light ? "text-ink-muted" : "text-fg-soft")}>
             {brand.tagline} — after the goal, the site, and the window are on the brief, and after
             Airspace Class, LAANC, Part 107 Waivers, SGI Waivers, TFRs, National Security Events, and
-            local permits line up. Open a stage. The 3D chart is a teaching schematic of EWR / TEB,
-            not an operational UAS Facility Map.
+            local permits line up. Open a stage. The 3D study uses a dated FAA UAS Facility Map snapshot around Newark Liberty. Current restrictions and an actual authorization still determine the flight.
           </p>
         </Reveal>
 
         <div className="mt-10 overflow-x-auto">
-          <ol className="flex min-w-[48rem] gap-2" role="tablist" aria-label="Preflight sequence">
+          <ol className="flex min-w-[48rem] gap-2" role="group" aria-label="Preflight sequence">
             {planningSteps.map((step, i) => {
               const on = step.id === activeId;
               return (
@@ -51,8 +50,7 @@ export function PreflightSection({ tone = "dark" }: { tone?: "dark" | "light" })
                   ) : null}
                   <button
                     type="button"
-                    role="tab"
-                    aria-selected={on}
+                    aria-pressed={on}
                     onClick={() => setActiveId(step.id)}
                     className={cn(
                       "timeline-step w-full rounded-md px-3 py-3 text-left transition-all duration-300",

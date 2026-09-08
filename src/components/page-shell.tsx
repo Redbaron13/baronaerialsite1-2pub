@@ -13,8 +13,9 @@ export function PageShell({
   const { theme } = useTheme();
   return (
     <div className={cn("flex min-h-svh flex-col", theme === "light" ? "theme-light" : "bg-ink text-fg-soft")}>
+      <a href="#main-content" className="skip-link">Skip to content</a>
       <SiteHeader />
-      <main className="flex-1">{children}</main>
+      <main id="main-content" tabIndex={-1} className="min-w-0 flex-1">{children}</main>
       <SiteFooter />
     </div>
   );

@@ -1,3 +1,4 @@
+import { MediaImage } from "@/components/media-image";
 import { Link } from "@tanstack/react-router";
 import { ArrowUpRight } from "lucide-react";
 import { cn } from "@/lib/utils";
@@ -23,16 +24,16 @@ export function ImageCard({
       to="/capabilities/$slug"
       params={{ slug }}
       className={cn(
-        "group relative isolate block overflow-hidden rounded-lg bg-ink-2 shadow-[0_0_0_1px_rgba(255,255,255,0.08)]",
+        "photo-hero group relative isolate block overflow-hidden rounded-lg bg-ink-2 shadow-[0_0_0_1px_rgba(255,255,255,0.08)]",
         tall ? "min-h-[28rem]" : "min-h-[20rem]",
       )}
     >
-      <img
+      <MediaImage
         src={image}
         alt={title}
         className="absolute inset-0 size-full object-cover transition-transform duration-[900ms] ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:scale-[1.06]"
       />
-      <div className="absolute inset-0 bg-gradient-to-t from-ink via-ink/50 to-ink/10" />
+      <div className="card-scrim absolute inset-0" />
       <div className="relative flex h-full min-h-[inherit] flex-col justify-end p-6">
         {kicker ? <p className="eyebrow mb-2">{kicker}</p> : null}
         <h3 className="text-xl text-fg">{title}</h3>

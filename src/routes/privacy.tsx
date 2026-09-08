@@ -1,13 +1,11 @@
+import { seo } from "@/lib/seo";
 import { createFileRoute } from "@tanstack/react-router";
 import { PageHero, PageShell } from "@/components/page-shell";
 import { brand } from "@/data/site";
 
 export const Route = createFileRoute("/privacy")({
   component: PrivacyPage,
-  head: () => ({
-    title: "Privacy — Baron Aerial Media",
-    meta: [{ name: "description", content: "How Baron Aerial Media handles inquiry and mission information." }],
-  }),
+  head: () => seo({ title: "Privacy — Baron Aerial Media", description: "How Baron Aerial Media handles inquiry and mission information.", path: "/privacy" }),
 });
 
 function PrivacyPage() {

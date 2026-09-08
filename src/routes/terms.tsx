@@ -1,13 +1,11 @@
+import { seo } from "@/lib/seo";
 import { createFileRoute } from "@tanstack/react-router";
 import { PageHero, PageShell } from "@/components/page-shell";
 import { brand, disclaimer } from "@/data/site";
 
 export const Route = createFileRoute("/terms")({
   component: TermsPage,
-  head: () => ({
-    title: "Terms — Baron Aerial Media",
-    meta: [{ name: "description", content: "Terms for using the Baron Aerial Media website and requesting a mission." }],
-  }),
+  head: () => seo({ title: "Terms — Baron Aerial Media", description: "Terms for using the Baron Aerial Media website and requesting a mission.", path: "/terms" }),
 });
 
 function TermsPage() {

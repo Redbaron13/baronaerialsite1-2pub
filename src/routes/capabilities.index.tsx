@@ -1,3 +1,4 @@
+import { seo } from "@/lib/seo";
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { PageHero, PageShell } from "@/components/page-shell";
 import { CtaBand } from "@/components/cta-band";
@@ -7,16 +8,7 @@ import { services } from "@/data/site";
 
 export const Route = createFileRoute("/capabilities/")({
   component: CapabilitiesPage,
-  head: () => ({
-    title: "Capabilities — Baron Aerial Media",
-    meta: [
-      {
-        name: "description",
-        content:
-          "Real estate aerials, construction progress, inspections, property damage documentation, roof + solar, mapping, and event coverage.",
-      },
-    ],
-  }),
+  head: () => seo({ title: "Capabilities — Baron Aerial Media", description: "Real estate aerials, construction progress, inspections, property damage documentation, roof + solar, mapping, and event coverage.", path: "/capabilities/" }),
 });
 
 function CapabilitiesPage() {

@@ -1,3 +1,4 @@
+import { mediaAsset } from "./media";
 export const brand = {
   name: "Baron Aerial Media",
   short: "Baron Aerial",
@@ -11,7 +12,7 @@ export const brand = {
 export const nav = [
   { to: "/work", label: "Work" },
   { to: "/capabilities", label: "Capabilities" },
-  { to: "/mission-planner", label: "Mission Planner" },
+  { to: "/trust", label: "Airspace + Compliance" },
   { to: "/about", label: "About" },
 ] as const;
 
@@ -39,7 +40,7 @@ export const process = [
   {
     n: "05",
     title: "Process",
-    body: "After the flight: cull, color, align, and reconstruct. Photogrammetry, 3D site models, construction tracking sets, and inspection packets are built here. A map is not a JPEG of a map — it is processed data.",
+    body: "After the flight: cull, color, align, and reconstruct. Photogrammetry, 3D site models, construction tracking sets, and inspection packets are built here. The deliverable is prepared for the client’s review workflow.",
   },
   {
     n: "06",
@@ -70,7 +71,7 @@ export const planningSteps = [
     title: "Authorize",
     kicker: "LAANC, 107, TFR, local",
     panel: "chart",
-    body: "In participating Class B, C, D, and surface E, LAANC is how a Part 107 operator requests altitude through an FAA-approved UAS Service Supplier. The grid is in 50-foot steps. A cell that returns 0 ft is a no — not a low ceiling. We also read TFRs, National Security Event notices and bulletins, and whether coordination is possible. Local authorizations sit on this layer too: NYPD permit for New York City operations, property or GC access, Port Authority property, parks, and venue clearance.",
+    body: "In participating Class B, C, D, and surface E, LAANC is how a Part 107 operator requests altitude through an FAA-approved UAS Service Supplier. The grid is in 50-foot steps. A 0 ft cell requires further FAA review for any positive-altitude operation; the grid itself never grants permission to fly. We also read TFRs, National Security Event notices and bulletins, and whether coordination is possible. Local authorizations sit on this layer too: NYPD permit for New York City operations, property or GC access, Port Authority property, parks, and venue clearance.",
   },
   {
     id: "waivers",
@@ -164,17 +165,17 @@ export const launchScenarios = [
   },
   {
     id: "yankees",
-    label: "Yankees NSSE TFR, no SGI Waivers",
+    label: "Stadium restriction, no applicable approval",
     result: "NO-GO" as const,
     gates: { brief: "GO", authorize: "NO-GO", conditions: "NO-GO" },
-    note: "A National Security Event TFR around a Yankees game closes the air to standard Part 107 commercial work. Without SGI Waivers and FAA coordination, this is a NO-GO — even if LAANC looked clean the day before.",
+    note: "A stadium restriction or event-specific TFR can prohibit flight even where LAANC is available. Check the applicable NOTAM, its exceptions and any required authorization before operating.",
   },
   {
     id: "yankees-sgi",
-    label: "Yankees NSSE TFR + SGI Waivers",
-    result: "GO" as const,
-    gates: { brief: "GO", authorize: "GO", conditions: "GO" },
-    note: "SGI Waivers can permit commercial operations inside that TFR when the FAA SGI desk approves and coordination is in place. The window is still constrained: altitude, location, and timing come from the authorization, not from the original brief.",
+    label: "Event restriction, approval needs review",
+    result: "HOLD" as const,
+    gates: { brief: "GO", authorize: "HOLD", conditions: "HOLD" },
+    note: "An approval must cover the operation, location, altitude and time under the actual restriction. SGI eligibility is mission-specific; a commercial purpose or an approval alone does not establish that current launch conditions are satisfied.",
   },
 ] as const;
 
@@ -182,23 +183,23 @@ export const deliverableOptions = [
   {
     title: "Listing Stills And Film",
     body: "Aerial stills of the house, lot, and block; curb context; and optional listing film. The Hainesport packet is the sample — house, pool, neighborhood from altitude, plus a curb still of the same property.",
-    image: "/media/bancroft-aerial.webp",
+    image: "/media/jobsite.webp",
   },
   {
     title: "Construction Tracking",
     body: "The same viewpoints, visit after visit, so steel, staging, and haul roads are comparable. North Munn Avenue Bridge over I-280 from the air; The Crossings at Brick Church Station — Embark apartments and the new ShopRite — from Freeway Drive at North Munn. Stakeholders can read the site without walking the mud.",
-    image: "/media/overpass.webp",
+    image: "/media/neighborhood-gold.webp",
     film: "/media/overpass.mp4",
     poster: "/media/overpass.webp",
   },
   {
     title: "3D Site Models And Maps",
     body: "Overlapping capture processed into an orthomosaic, DEM, and a 3D site model, with camera stations shown so a client can see how the mesh was built. Visual mapping for geometry and progress — not a certified survey unless the written scope says otherwise.",
-    image: "/media/photogrammetry-cameras.webp",
+    image: "/media/kiji-coverage.webp",
   },
   {
     title: "Inspection Packets",
-    body: "Close-range stills of roofs, siding, chimneys, and envelopes, plus an overview for orientation. Organized for a qualified reviewer on the ground. We document what is visible. We do not stamp condition.",
+    body: "Elevated views of structures, surfaces and surroundings, organized for qualified visual review.",
     image: "/media/work-tower.webp",
   },
 ] as const;
@@ -250,7 +251,7 @@ export const part107Rules = [
 
 export const sgiFacts = {
   qualifies: [
-    "Commercial operations inside a TFR for a National Security Event — a Yankees game is the usual local example — with FAA SGI desk approval and coordination",
+    "Emergency or other eligible public-interest operations accepted by the FAA through its SGI process",
     "Disaster and emergency damage assessment supporting a public agency",
     "Search and rescue or public-safety support when requested through the proper channel",
     "Other public-interest operations the FAA SGI desk accepts",
@@ -296,6 +297,7 @@ export type Service = {
   name: string;
   eyebrow: string;
   summary: string;
+  assetId: string | null;
   image: string;
   deliverables: string[];
   forWhom: string;
@@ -309,10 +311,11 @@ export const services: Service[] = [
     eyebrow: "Listings + marketing",
     summary:
       "Cinematic listing films, twilight stills, and neighborhood context that make scale, access, and setting unmistakable.",
-    image: "/media/neighborhood-gold.webp",
+    assetId: "bam-44415de6569d82d9",
+    image: mediaAsset("bam-44415de6569d82d9").src,
     deliverables: ["Aerial listing stills", "Curb + approach stills", "Neighborhood / access context", "Listing film on request"],
     forWhom: "Brokers, developers, and owners selling or marketing a property.",
-    relatedWork: "twilight-neighborhood",
+    relatedWork: "bancroft-listing",
   },
   {
     slug: "construction",
@@ -320,7 +323,8 @@ export const services: Service[] = [
     eyebrow: "Jobsite documentation",
     summary:
       "Repeatable viewpoints so month-over-month progress, staging, and site context are comparable — not a new angle every visit. The sample packet is NJDOT’s North Munn Avenue Bridge over I-280 and the adjacent Crossings at Brick Church Station.",
-    image: "/media/overpass.webp",
+    assetId: "bam-ba5805d64ac10e40",
+    image: mediaAsset("bam-ba5805d64ac10e40").src,
     deliverables: ["Scheduled progress stills", "Site-wide context", "Shareable stakeholder set", "Optional orthomosaic", "3D site model on request", "Aerial + ground field film"],
     forWhom: "Owners, GCs, lenders, and project managers.",
     relatedWork: "north-munn-bridge",
@@ -330,19 +334,21 @@ export const services: Service[] = [
     name: "Aerial Inspections",
     eyebrow: "Hard-to-reach assets",
     summary:
-      "Close-range visual documentation of roofs, facades, chimneys, and envelopes — organized for qualified review teams on the ground. The sample stills on this site are a residential roof and siding, not a tower.",
-    image: "/media/work-tower.webp",
+      "Close-range visual documentation of roofs, facades, chimneys, and envelopes — organized for qualified review teams on the ground.",
+    assetId: "bam-b5be954c2e493676",
+    image: mediaAsset("bam-b5be954c2e493676").src,
     deliverables: ["Close-range stills of roofs, siding, and envelopes", "Overview + detail set", "Annotated frames on request"],
     forWhom: "Facility managers, inspectors, and asset owners.",
-    relatedWork: "envelope-close",
+    relatedWork: "water-tower",
   },
   {
     slug: "damage",
     name: "Property Damage Documentation",
     eyebrow: "Claims + visible condition",
     summary:
-      "Time-stamped stills of roofs, siding, lots, and structures for owners, adjusters, and qualified professionals. Baron Aerial Media documents what is visible — we do not certify cause or condition. The sample still is a residential envelope, not a storm scene.",
-    image: "/media/work-residential.webp",
+      "Time-stamped stills of roofs, siding, lots, and structures for owners, adjusters, and qualified professionals. Organized overview and detail sets help reviewers locate visible conditions.",
+    assetId: null,
+    image: "",
     deliverables: ["Time-stamped aerials", "Envelope and site-wide context", "Detail frames of visible conditions"],
     forWhom: "Owners, public adjusters, and restoration teams.",
   },
@@ -351,8 +357,9 @@ export const services: Service[] = [
     name: "Roof + Solar Visual Documentation",
     eyebrow: "Arrays + envelope",
     summary:
-      "Overview and detail imagery of roofs and solar arrays, organized for qualified client teams. The commercial still on this page is a warehouse roof and lot — array-specific stills are scoped per site. Not an engineering report and not a condition certification.",
-    image: "/media/warehouse-lot.webp",
+      "Overview and detail imagery of roofs and solar arrays, organized for qualified client teams. Capture is scoped to the roof, array, access, and the decisions your team needs to make.",
+    assetId: "bam-0779bcea72080181",
+    image: mediaAsset("bam-0779bcea72080181").src,
     deliverables: ["Array / roof overview", "Panel-level stills", "Context of access and surroundings"],
     forWhom: "Solar installers, roofers, and property teams.",
   },
@@ -362,7 +369,8 @@ export const services: Service[] = [
     eyebrow: "Scoped photogrammetry",
     summary:
       "Planned overlapping capture for orthomosaics, photogrammetry, and 3D site models when the decision needs measured context — not just a pretty frame. The sample is Kuzuri Kijiji, East Orange: the 1973 townhouse complex at 19 Freeway Drive East, mapped July 6, 2026.",
-    image: "/media/kiji-ortho.webp",
+    assetId: "bam-47a220b9e5be79ac",
+    image: mediaAsset("bam-47a220b9e5be79ac").src,
     deliverables: ["Orthomosaic", "DEM / elevation context", "3D site model", "Camera-station / coverage report", "Source frames"],
     forWhom: "Survey-adjacent teams, GCs, and planners who need site geometry.",
     relatedWork: "kuzuri-kijiji",
@@ -372,8 +380,9 @@ export const services: Service[] = [
     name: "Event Aerial Media",
     eyebrow: "Venues + gatherings",
     summary:
-      "Aerial coverage planned around the venue, people, timing, boundaries, and the final media need — flown only with organizer and airspace clearance. The sample still is a recreation field and running track at twilight, not a concert.",
-    image: "/media/park-twilight.webp",
+      "Aerial coverage planned around the venue, people, timing, boundaries, and the final media need — flown only with organizer and airspace clearance.",
+    assetId: null,
+    image: "",
     deliverables: ["Venue-scale stills", "Short aerial film", "Site context"],
     forWhom: "Organizers, venues, and civic teams.",
   },
@@ -389,6 +398,7 @@ export type WorkItem = {
   slug: string;
   title: string;
   category: Exclude<WorkCategory, "All">;
+  assetId: string | null;
   image: string;
   summary: string;
   mission: string;
@@ -404,381 +414,273 @@ export type WorkItem = {
 
 export const work: WorkItem[] = [
   {
-    slug: "bancroft-listing",
-    title: "Hainesport Residential Listing",
-    category: "Residential",
-    image: "/media/bancroft-aerial.webp",
-    summary:
-      "A suburban listing from altitude — house, lot, pool, and the neighborhood in one still — with a curb photograph from the same packet.",
-    mission: "Residential listing media",
-    outputs: "Aerial still + curb still",
-    galleryFit: "cover",
-    gallery: [
-      { src: "/media/bancroft-aerial.webp", caption: "Aerial listing still — lot, pool, neighborhood" },
-      { src: "/media/bancroft-curb.webp", caption: "Street-level curb photograph of the same listing, with the Baron Aerial Media mark" },
-    ],
-    stats: [
-      { label: "Location", value: "Hainesport, NJ" },
-      { label: "Packet", value: "Listing stills, 2023" },
-      { label: "Views", value: "Aerial + curb" },
-    ],
-    notes:
-      "The address is on the aerial because that is how the listing still was delivered. Ground photography is from the same property packet. An interior 360 from the assignment was held back: an unrectified panorama with staging clutter, not a finished interior still. Duplicate street-level frames were not published.",
-  },
-  {
-    slug: "north-munn-bridge",
-    title: "North Munn Avenue Bridge Over I-280",
-    category: "Construction",
-    image: "/media/overpass.webp",
-    film: "/media/overpass.mp4",
-    films: [
+    "slug": "bancroft-listing",
+    "title": "Hainesport Residential Listing",
+    "category": "Residential",
+    assetId: "bam-5a22d066e92cd5be",
+    image: mediaAsset("bam-5a22d066e92cd5be").src,
+    "summary": "Aerial views of the house, pool, lot and neighborhood, paired with a street-level photograph of the property.",
+    "mission": "Residential listing documentation",
+    "outputs": "Selected stills",
+    "gallery": [
       {
-        src: "/media/overpass.mp4",
-        poster: "/media/overpass.webp",
-        caption:
-          "Nadir hold over the North Munn Avenue Bridge over I-280 — steel in the span, orange barrier, live interstate traffic below",
+        "src": "/media/jobsite.webp",
+        "caption": "Hainesport house, swimming pool, lawn and neighboring properties from above"
       },
       {
-        src: "/media/jobsite-ground.mp4",
-        poster: "/media/jobsite-ground.webp",
-        caption:
-          "Ground film: crew in a high-vis vest and dump trucks on the North Munn Avenue / I-280 jobsite, Embark apartments behind them",
-      },
-    ],
-    summary:
-      "NJDOT’s $20.3 million, federally funded replacement of the North Munn Avenue Bridge decks and superstructure over Interstate 280 in East Orange. Steel in the span, orange barrier, dump trucks on the deck, live traffic in the lanes below. The Freeway Drive work zone meets North Munn Avenue — the same dirt the hyperlapse was shot from. Construction is scheduled through spring 2028.",
-    mission: "Infrastructure progress — North Munn Avenue Bridge over I-280, East Orange",
-    outputs: "Aerial film + ground film + stills",
-    galleryFit: "cover",
-    gallery: [
-      {
-        src: "/media/overpass-oblique.webp",
-        caption:
-          "Dump trucks on the steel deck of the North Munn Avenue Bridge reconstruction over I-280, orange barrier, highway lanes below",
+        "src": "/media/bancroft-curb.webp",
+        "caption": "Front of a two-story Hainesport house with driveway, lawn and bare trees"
       },
       {
-        src: "/media/overpass-approach.webp",
-        caption:
-          "Looking along the North Munn Avenue Bridge reconstruction — dump trucks, staging, and I-280 traffic on the same span",
+        "src": "/media/work-residential.webp",
+        "caption": "Oblique view of a two-story house, shingle roof, lawn and surrounding trees"
+      }
+    ],
+    "galleryFit": "cover"
+  },
+  {
+    "slug": "north-munn-bridge",
+    "title": "North Munn Avenue Bridge Over I-280",
+    "category": "Construction",
+    assetId: "bam-c86a54d78ac7542d",
+    image: mediaAsset("bam-c86a54d78ac7542d").src,
+    "summary": "Bridge-deck works, traffic below, and surrounding access routes recorded from above for construction review.",
+    "mission": "Infrastructure progress documentation",
+    "outputs": "Aerial film + selected stills",
+    "gallery": [
+      {
+        "src": "/media/neighborhood-gold.webp",
+        "caption": "Oblique view of a bridge with construction barriers above a highway"
       },
       {
-        src: "/media/overpass-ground.webp",
-        caption:
-          "Dump truck filling the frame on the Munn Avenue / I-280 reconstruction jobsite — orange barrier and construction fencing",
+        "src": "/media/night-street.webp",
+        "caption": "Bridge deck and exposed structure above a highway in daylight"
       },
       {
-        src: "/media/south-munn-staging.webp",
-        caption:
-          "Haul road and dump trucks in the dirt at Freeway Drive / North Munn Avenue, the approach to the I-280 bridge reconstruction",
-      },
-    ],
-    stats: [
-      { label: "Project", value: "North Munn Ave Bridge over I-280" },
-      { label: "Owner", value: "NJDOT · federally funded" },
-      { label: "Value", value: "$20.3 million" },
-      { label: "Scope", value: "Deck, superstructure, bearings, steel, sidewalk, shoulders" },
-      { label: "Schedule", value: "Through spring 2028" },
-      { label: "Captured", value: "Jun 24–28, 2026" },
-      { label: "Sensor", value: "DJI FC3411" },
-    ],
-    notes:
-      "NJDOT’s named project is the North Munn Avenue Bridge over I-280: demolish and reconstruct concrete decks, repair substructure and structural steel, replace bearings, rebuild the sidewalk, and add shoulders in both directions. Freeway Drive lane work at the North Munn Avenue intersection is part of the same jobsite. North Munn Avenue has been closed and detoured during steel work. Aerial nadir film is a 7.5 s hold from Jun 25. Ground film of crew and dump trucks is from the same jobsite. Promotional media for Embark and ShopRite at The Crossings is a separate packet.",
-  },
-  {
-    slug: "brick-church-village",
-    title: "Embark + ShopRite At The Crossings",
-    category: "Promotional",
-    image: "/media/neighborhood-film.webp",
-    film: "/media/neighborhood-film.mp4",
-    films: [
-      {
-        src: "/media/neighborhood-film.mp4",
-        poster: "/media/neighborhood-film.webp",
-        caption:
-          "Promotional aerial flyover of Embark apartments, the parking deck, and the new ShopRite at Brick Church Station — twilight, East Orange",
-      },
-    ],
-    summary:
-      "Promotional media for Embark apartments and the new ShopRite at The Crossings at Brick Church Station: an aerial twilight flyover of the buildings and parking, plus a ground hyperlapse shot from the dirt at North Munn Avenue, looking at the same redevelopment.",
-    mission: "Promotional media — Embark and ShopRite at The Crossings, Brick Church Station, East Orange",
-    outputs: "Promotional aerial film + ground hyperlapse stills",
-    galleryFit: "cover",
-    gallery: [
-      {
-        src: "/media/brick-church-village.webp",
-        caption:
-          "Hyperlapse frame from the dirt at North Munn Avenue: Embark apartment buildings, parking, dump trucks, and the ShopRite building at The Crossings",
+        "src": "/media/night-lot.webp",
+        "caption": "Bridge over a multilane highway, work vehicles and tree canopy in daylight"
       },
       {
-        src: "/media/brick-church-apartments.webp",
-        caption:
-          "Hyperlapse frame: Embark apartments, a dump truck on the dirt, and the North Munn Avenue Bridge structure overhead",
-      },
-    ],
-    stats: [
-      { label: "Project", value: "The Crossings at Brick Church Station" },
-      { label: "Clients / site", value: "Embark apartments · new ShopRite" },
-      { label: "Developers", value: "Triangle Equities · Incline Capital" },
-      { label: "Transit", value: "Brick Church NJ Transit · ~25 min to Midtown" },
-      { label: "Aerial film", value: "Twilight promotional flyover" },
-      { label: "Ground", value: "Hyperlapse stills from North Munn dirt" },
-      { label: "Adjacent", value: "North Munn Ave Bridge over I-280" },
-    ],
-    notes:
-      "This packet is promotional media for Embark and ShopRite at The Crossings — not a generic neighborhood flyover. The aerial film is a twilight pass over the apartments, parking, and grocery. The stills are frames from a ground hyperlapse: the camera moves through the jobsite over time; those frames are then sequenced so the passage compresses. The North Munn Avenue Bridge over I-280 sits in the same geography and is a separate construction packet.",
-  },
-  {
-    slug: "jobsite-cut",
-    title: "House Under Construction",
-    category: "Construction",
-    image: "/media/jobsite.webp",
-    summary:
-      "A suburban lot in framing — lumber stacked on the lot, an open foundation, an excavator, and neighboring houses in one still. Progress a builder or owner can read without walking the mud.",
-    mission: "Residential construction still",
-    outputs: "Stills",
-    galleryFit: "cover",
-    gallery: [{ src: "/media/jobsite.webp", caption: "House under construction — excavator, stacked lumber, open foundation, neighboring lots from altitude" }],
-  },
-  {
-    slug: "envelope-close",
-    title: "Roof And Siding Close-Up",
-    category: "Inspection",
-    image: "/media/work-tower.webp",
-    summary:
-      "Close-range stills of a residential roof, chimney, shingles, and siding. The kind of envelope packet a roofer or inspector actually uses — not a neighborhood listing aerial.",
-    mission: "Envelope inspection stills",
-    outputs: "Close-range stills",
-    galleryFit: "cover",
-    gallery: [
-      { src: "/media/work-tower.webp", caption: "Close-range still of a residential roof, chimney, and siding" },
-      { src: "/media/work-residential.webp", caption: "Close-range still of shingles, windows, and siding on the same house" },
-    ],
-  },
-  {
-    slug: "rail-station",
-    title: "Highway Ramps And Parking Lot",
-    category: "Civic",
-    image: "/media/rail-station.webp",
-    film: "/media/highway-ramps.mp4",
-    films: [
-      {
-        src: "/media/highway-ramps.mp4",
-        poster: "/media/rail-station.webp",
-        caption:
-          "Aerial clip of highway ramps, a large parking lot, and tree canopy from directly above — July 9, 2026. Under a second; published as film, not frozen as a still.",
-      },
-    ],
-    summary:
-      "Aerial clip of highway ramps, a large parking lot, and tree canopy in one frame. Captured July 9, 2026. A second still shows a wider cloverleaf with suburban lots. Site identity is not labeled on the frame, so it is not named here.",
-    mission: "Civic / infrastructure context",
-    outputs: "Aerial clip + stills",
-    galleryFit: "cover",
-    gallery: [
-      { src: "/media/work-interchange.webp", caption: "Wider cloverleaf — highway ramps, parking lots, and suburban lots from altitude" },
-    ],
-    stats: [
-      { label: "Captured", value: "Jul 9, 2026" },
-      { label: "Sensor", value: "DJI 3840×2160" },
-      { label: "Clip", value: "0.67 s aerial, looped as film" },
-    ],
-    notes:
-      "The source clip is under a second. It plays as video. The site is not labeled on the frame — it is not identified as a named interchange on this page.",
-  },
-  {
-    slug: "twilight-neighborhood",
-    title: "Suburban Block At Last Light",
-    category: "Residential",
-    image: "/media/neighborhood-oblique.webp",
-    summary:
-      "Oblique still of a suburban block at last light — roofs, streets, parked cars, and tree canopy. The site is not labeled on the frame.",
-    mission: "Residential / neighborhood context",
-    outputs: "Last-light still",
-    galleryFit: "cover",
-    gallery: [
-      {
-        src: "/media/neighborhood-oblique.webp",
-        caption:
-          "Oblique at last light — suburban roofs, streets, parked cars, and tree canopy. Site not labeled on the frame.",
-      },
-    ],
-    stats: [
-      { label: "Light", value: "Last light" },
-      { label: "Sensor", value: "DJI FC3411" },
-    ],
-    notes:
-      "This still is a suburban block at last light. It is not the Embark / ShopRite promotional flyover — that film is in the Embark + ShopRite packet.",
-  },
-  {
-    slug: "warehouse-sunset",
-    title: "Warehouse At Last Light",
-    category: "Commercial",
-    image: "/media/warehouse-sunset.webp",
-    summary:
-      "A large commercial building, parking, and access at sunset — site-wide context a lease, listing, or facilities packet can actually use.",
-    mission: "Commercial site documentation",
-    outputs: "Oblique stills",
-    galleryFit: "cover",
-    gallery: [
-      { src: "/media/warehouse-sunset.webp", caption: "Oblique at sunset — large commercial building, parking lot, and access drive" },
-      { src: "/media/warehouse-lot.webp", caption: "Second oblique of the same warehouse — lot, dock side, last light" },
-    ],
-    stats: [
-      { label: "Captured", value: "Jul 9, 2026" },
-      { label: "Sensor", value: "DJI FC3411" },
-      { label: "Views", value: "Two obliques" },
-    ],
-  },
-  {
-    slug: "night-lots",
-    title: "After-Dark Lots And Streets",
-    category: "Night",
-    image: "/media/night-lot.webp",
-    summary:
-      "Illuminated parking and neighborhood streets after dark — night operations stills, not a daytime plate with the lights pushed.",
-    mission: "Night site context",
-    outputs: "Night stills",
-    galleryFit: "cover",
-    gallery: [
-      { src: "/media/night-lot.webp", caption: "Lit parking lot, cars in stalls, and streetlights after dark" },
-      { src: "/media/night-street.webp", caption: "Neighborhood streets and a second lot after dark — July 9 night sortie" },
-      { src: "/media/dusk-lot.webp", caption: "Parking lot at last light, before full night — cars, lamps, and the surrounding block" },
-    ],
-    stats: [
-      { label: "Captured", value: "Jul 9, 2026" },
-      { label: "Sensor", value: "DJI FC3411" },
-      { label: "Window", value: "Night" },
-    ],
-  },
-  {
-    slug: "city-dusk",
-    title: "City Fabric At Dusk",
-    category: "Civic",
-    image: "/media/city-dusk.webp",
-    summary:
-      "Dense urban fabric, roads, and canopy at dusk — civic scale in one planned still.",
-    mission: "Civic / area context",
-    outputs: "Overview stills",
-    galleryFit: "cover",
-    gallery: [
-      { src: "/media/city-dusk.webp", caption: "Dense city blocks, roads, and tree canopy at dusk — July 8" },
-    ],
-    stats: [
-      { label: "Captured", value: "Jul 8, 2026" },
-      { label: "Sensor", value: "DJI FC3411" },
-    ],
-  },
-  {
-    slug: "recreation-field",
-    title: "Recreation Field At Twilight",
-    category: "Civic",
-    image: "/media/park-twilight.webp",
-    summary:
-      "Aerial stills of recreation fields at twilight — a running track oval with a green infield, and a soccer pitch surrounded by trees, parking, and houses. The facility is not named on the frame.",
-    mission: "Civic / recreation context",
-    outputs: "Twilight stills",
-    galleryFit: "cover",
-    gallery: [
-      {
-        src: "/media/park-twilight.webp",
-        caption:
-          "Recreation field with a running track, green infield, surrounding trees and houses at twilight",
+        "src": "/media/dusk-lot.webp",
+        "caption": "Traffic passing under a bridge under construction in daylight"
       },
       {
-        src: "/media/neighborhood-gold.webp",
-        caption:
-          "Soccer pitch and parking at golden hour, tree canopy and suburban lots around the field. Not a roof-and-street neighborhood still.",
-      },
+        "src": "/media/park-twilight.webp",
+        "caption": "Daylight top-down view of road lanes, railway tracks and a work zone"
+      }
     ],
-    stats: [
-      { label: "Light", value: "Twilight / golden hour" },
-      { label: "Sensor", value: "DJI FC3411" },
-    ],
-    notes:
-      "These frames show sports fields, not a residential listing and not Embark. The facility is not labeled on the frame, so it is not named here.",
+    "galleryFit": "cover",
+    "film": "/media/overpass.mp4"
   },
   {
-    slug: "kuzuri-kijiji",
-    title: "Kuzuri Kijiji, East Orange",
-    category: "Mapping",
-    image: "/media/kiji-ortho.webp",
-    summary:
-      "Kuzuri Kijiji — Swahili for Beautiful Village — at 19 Freeway Drive East in East Orange, mapped as a single orthomosaic. Townhouses, parking, access, and the lots around I-280 and the Garden State Parkway in one measured view. Visual mapping of the existing complex, not a certified survey and not a rendering of the redevelopment.",
-    mission: "Photogrammetry / site map — Kuzuri Kijiji, East Orange",
-    outputs: "Orthomosaic + DEM + coverage report",
-    featured: true,
-    galleryFit: "contain",
-    gallery: [
+    "slug": "brick-church-village",
+    "title": "The Crossings at Brick Church Station",
+    "category": "Promotional",
+    assetId: "bam-7caf94ab6a612004",
+    image: mediaAsset("bam-7caf94ab6a612004").src,
+    "summary": "Apartment buildings, courtyards, parking and access streets presented together in daylight aerial stills and film.",
+    "mission": "Mixed-use property media",
+    "outputs": "Daylight aerial film + stills",
+    "gallery": [
       {
-        src: "/media/kiji-ortho.webp",
-        caption:
-          "Orthomosaic of Kuzuri Kijiji, East Orange — roofs, lots, and parking of the 1973 townhouse complex and the surrounding block, 1.24 in/px GSD",
+        "src": "/media/neighborhood-film.webp",
+        "caption": "The Crossings apartment roofs, courtyard and parking under daylight"
       },
-      { src: "/media/kiji-dem.webp", caption: "Digital elevation model of Kuzuri Kijiji from the same mesh" },
-      { src: "/media/kiji-coverage.webp", caption: "Coverage and camera stations for the July 6, 2026 Kuzuri Kijiji capture" },
+      {
+        "src": "/media/brick-church-village.webp",
+        "caption": "Apartment buildings, parking garage and access streets at The Crossings"
+      },
+      {
+        "src": "/media/brick-church-apartments.webp",
+        "caption": "Aerial view of The Crossings with apartment blocks and parking deck"
+      },
+      {
+        "src": "/media/overpass-oblique.webp",
+        "caption": "Apartment rooftops and two landscaped courtyards viewed straight down"
+      }
     ],
-    stats: [
-      { label: "Site", value: "Kuzuri Kijiji · 19 Freeway Dr E, East Orange" },
-      { label: "Opened", value: "1973 · 247 townhouse units on 8.2 acres" },
-      { label: "Captured", value: "Jul 6, 2026" },
-      { label: "Frames aligned", value: "123 / 123 (100%)" },
-      { label: "Coverage", value: "99.7% of AOI" },
-      { label: "Mapped area", value: "491,250 ft² (~11.3 acres, complex + surroundings)" },
-      { label: "Ortho GSD", value: "1.24 in/px" },
-      { label: "DEM GSD", value: "4.98 in/px" },
-      { label: "Point cloud", value: "5.1 million pts · 10.5 pts/ft²" },
-      { label: "Sensor", value: "DJI FC3411" },
+    "galleryFit": "cover",
+    "film": "/media/neighborhood-film.mp4"
+  },
+  {
+    "slug": "water-tower",
+    "title": "Milltown Water Tower",
+    "category": "Inspection",
+    assetId: "bam-b5be954c2e493676",
+    image: mediaAsset("bam-b5be954c2e493676").src,
+    "summary": "Elevated views of a municipal water tower document the exterior and its surroundings for visual review.",
+    "mission": "Water-tower exterior documentation",
+    "outputs": "Selected stills",
+    "gallery": [
+      {
+        "src": "/media/work-tower.webp",
+        "caption": "Green Borough of Milltown water tower above a tree canopy"
+      }
     ],
-    notes:
-      "Kuzuri Kijiji opened in 1973 as a cooperative townhouse community designed by East Orange architect Edward Bowser. The name is Swahili for Beautiful Village. The original 8.2-acre, 247-unit complex sits near the I-280 / Garden State Parkway interchange. The complex has been vacant and fenced for about a decade. This July 6, 2026 dataset maps the existing buildings and the surrounding block (~11.3 acres in the AOI) — it is not a drawing of the approved redevelopment (662 apartments, 1,000+ parking spaces, ~30,000 sf commercial, PILOT adopted December 2025). Processed in DroneDeploy, standard mode, 100% oblique, camera GPS RMSE about 11 ft. Visual and relative-elevation context — not RTK survey control, and not a sealed plat.",
+    "galleryFit": "cover"
   },
   {
-    slug: "night-plaza",
-    title: "Night Parking Lot",
-    category: "Night",
-    image: "/media/featured-night.webp",
-    summary:
-      "After-dark aerial of a lit parking lot — cars in stalls, streetlights, and the surrounding neighborhood streets. Flown as a night operations still.",
-    mission: "Night site context",
-    outputs: "Stills",
-    galleryFit: "cover",
-    gallery: [{ src: "/media/featured-night.webp", caption: "Lit parking lot, cars, and neighborhood streets after dark" }],
+    "slug": "solar-rooftop",
+    "title": "Commercial Solar Rooftop",
+    "category": "Commercial",
+    assetId: "bam-0779bcea72080181",
+    image: mediaAsset("bam-0779bcea72080181").src,
+    "summary": "Panel layout, rooftop equipment and access clearances visible together in an aerial overview.",
+    "mission": "Solar-roof visual documentation",
+    "outputs": "Selected stills",
+    "gallery": [
+      {
+        "src": "/media/svc-solar.webp",
+        "caption": "Solar panels and rooftop equipment on a white commercial roof"
+      }
+    ],
+    "galleryFit": "cover"
   },
   {
-    slug: "east-orange-cityscape",
-    title: "Waterfront, Pier, And Marina",
-    category: "Civic",
-    image: "/media/hero-city.webp",
-    summary:
-      "Coastal aerial: a long pier, marina slips, high-rises, and open water. Scale and approach in one still — not an inland city block.",
-    mission: "Civic / waterfront context",
-    outputs: "Panorama stills",
-    galleryFit: "cover",
-    gallery: [{ src: "/media/hero-city.webp", caption: "Pier, marina, high-rises, and open water from altitude" }],
+    "slug": "kuzuri-kijiji",
+    "title": "Kuzuri Kijiji, East Orange",
+    "category": "Mapping",
+    assetId: "bam-47a220b9e5be79ac",
+    image: mediaAsset("bam-47a220b9e5be79ac").src,
+    "summary": "Townhouses, parking and access roads recorded as an orthomosaic, with separate elevation and coverage visualizations.",
+    "mission": "Photogrammetry / site map — Kuzuri Kijiji, East Orange",
+    "outputs": "Orthomosaic + DEM + coverage report",
+    "featured": true,
+    "galleryFit": "contain",
+    "gallery": [
+      {
+        "src": "/media/kiji-ortho.webp",
+        "caption": "Orthomosaic of Kuzuri Kijiji showing townhouses, parking and access roads"
+      },
+      {
+        "src": "/media/kiji-dem.webp",
+        "caption": "Color-coded elevation visualization of the Kuzuri Kijiji site"
+      },
+      {
+        "src": "/media/kiji-coverage.webp",
+        "caption": "Kuzuri Kijiji coverage visualization with capture locations overlaid"
+      }
+    ],
+    "stats": [
+      {
+        "label": "Site",
+        "value": "Kuzuri Kijiji · 19 Freeway Dr E, East Orange"
+      },
+      {
+        "label": "Opened",
+        "value": "1973 · 247 townhouse units on 8.2 acres"
+      },
+      {
+        "label": "Captured",
+        "value": "Jul 6, 2026"
+      },
+      {
+        "label": "Frames aligned",
+        "value": "123 / 123 (100%)"
+      },
+      {
+        "label": "Coverage",
+        "value": "99.7% of AOI"
+      },
+      {
+        "label": "Mapped area",
+        "value": "491,250 ft² (~11.3 acres, complex + surroundings)"
+      },
+      {
+        "label": "Ortho GSD",
+        "value": "1.24 in/px"
+      },
+      {
+        "label": "DEM GSD",
+        "value": "4.98 in/px"
+      },
+      {
+        "label": "Point cloud",
+        "value": "5.1 million pts · 10.5 pts/ft²"
+      },
+      {
+        "label": "Sensor",
+        "value": "DJI FC3411"
+      }
+    ],
+    "notes": "The existing site was processed in DroneDeploy. The displayed color DEM is a visualization, not a calibrated height raster. Visual mapping and relative context do not replace a certified survey."
   },
   {
-    slug: "commercial-plaza",
-    title: "Parking Lot And Mural Wall",
-    category: "Commercial",
-    image: "/media/work-commercial.webp",
-    summary:
-      "A commercial parking lot from altitude — stalls, trees, and a building with a painted mural. Site-wide context a lease or listing packet can use.",
-    mission: "Commercial site documentation",
-    outputs: "Stills",
-    galleryFit: "cover",
-    gallery: [{ src: "/media/work-commercial.webp", caption: "Parking stalls, trees, and a mural-painted commercial building" }],
+    "slug": "city-context",
+    "title": "City and Infrastructure Context",
+    "category": "Civic",
+    assetId: "bam-aee408d852a637e8",
+    image: mediaAsset("bam-aee408d852a637e8").src,
+    "summary": "City blocks, road networks and surrounding development provide the wider context for a property or infrastructure decision.",
+    "mission": "Area and access documentation",
+    "outputs": "Selected stills",
+    "gallery": [
+      {
+        "src": "/media/city-dusk.webp",
+        "caption": "City blocks, trees and buildings under a blue daytime sky"
+      },
+      {
+        "src": "/media/hero-city.webp",
+        "caption": "Wide city panorama with highway ramps under a blue evening sky"
+      },
+      {
+        "src": "/media/work-interchange.webp",
+        "caption": "Large highway interchange, curved ramps, road traffic and surrounding development"
+      }
+    ],
+    "galleryFit": "cover"
   },
   {
-    slug: "civic-campus",
-    title: "Civic Campus Context",
-    category: "Civic",
-    image: "/media/work-civic.jpg",
-    summary:
-      "Tree-lined grounds, walking paths, and a central building — orientation for a campus or park, not a street grid.",
-    mission: "Campus / civic context",
-    outputs: "Overview stills",
-    galleryFit: "cover",
-    gallery: [{ src: "/media/work-civic.jpg", caption: "Tree canopy, paths, and a central building from altitude" }],
+    "slug": "night-highway",
+    "title": "Highway Light Trails",
+    "category": "Night",
+    assetId: "bam-73b6b497b6513bb2",
+    image: mediaAsset("bam-73b6b497b6513bb2").src,
+    "summary": "Vehicle light trails and illuminated roads describe the city after dark.",
+    "mission": "After-dark aerial media",
+    "outputs": "Selected stills",
+    "gallery": [
+      {
+        "src": "/media/featured-night.webp",
+        "caption": "Nighttime highway with vehicle light trails, buildings and illuminated roads"
+      }
+    ],
+    "galleryFit": "cover"
   },
+  {
+    "slug": "commercial-plaza",
+    "title": "Office and Parking Context",
+    "category": "Commercial",
+    assetId: "bam-f8002b3625ac1715",
+    image: mediaAsset("bam-f8002b3625ac1715").src,
+    "summary": "Office towers and structured parking presented together in an elevated view.",
+    "mission": "Commercial property documentation",
+    "outputs": "Selected stills",
+    "gallery": [
+      {
+        "src": "/media/work-commercial.webp",
+        "caption": "Office towers above a multilevel parking structure"
+      }
+    ],
+    "galleryFit": "cover"
+  },
+  {
+    "slug": "civic-campus",
+    "title": "Church and Grounds",
+    "category": "Civic",
+    assetId: "bam-9bccbee92ae23118",
+    image: mediaAsset("bam-9bccbee92ae23118").src,
+    "summary": "A church, its grounds, paths and neighboring buildings in a single aerial view.",
+    "mission": "Institutional property documentation",
+    "outputs": "Selected stills",
+    "gallery": [
+      {
+        "src": "/media/work-civic.jpg",
+        "caption": "Church, tower, lawn, paths and nearby buildings from above"
+      }
+    ],
+    "galleryFit": "cover"
+  }
 ];
 
 export const workFilters: WorkCategory[] = [
@@ -806,7 +708,7 @@ export type FieldJob = {
   jobId: string;
   title: string;
   kicker: string;
-  date: string;
+  date?: string;
   slug: string;
   blurb: string;
   items: FieldMedia[];
@@ -814,283 +716,181 @@ export type FieldJob = {
 
 export const fieldJobs: FieldJob[] = [
   {
-    id: "crossings",
-    jobId: "BAM-EO-CROSSINGS-202606",
-    title: "Embark + ShopRite at The Crossings",
-    kicker: "Promotional media",
-    date: "Jun–Jul 2026",
-    slug: "brick-church-village",
-    blurb:
-      "Promotional aerial film of Embark apartments and the new ShopRite, plus frames from a ground hyperlapse shot from the dirt at North Munn Avenue. Same project, two kinds of motion.",
-    items: [
+    "id": "bancroft-listing",
+    "jobId": "BAM-BANCROFT-LISTING",
+    "kicker": "Residential",
+    "title": "Hainesport Residential Listing",
+    "slug": "bancroft-listing",
+    "blurb": "Aerial views of the house, pool, lot and neighborhood, paired with a street-level photograph of the property.",
+    "items": [
       {
-        kind: "video",
-        src: "/media/neighborhood-film.mp4",
-        poster: "/media/neighborhood-film.webp",
-        role: "promo-aerial",
-        caption:
-          "Promotional aerial flyover of Embark apartments, the parking deck, and the new ShopRite at Brick Church Station — twilight",
+        "kind": "still",
+        "src": "/media/jobsite.webp",
+        "caption": "Hainesport house, swimming pool, lawn and neighboring properties from above",
+        "role": "Selected still"
       },
       {
-        kind: "still",
-        src: "/media/brick-church-village.webp",
-        role: "hyperlapse-01",
-        caption:
-          "Hyperlapse frame from North Munn dirt: Embark, parking, dump trucks, and the ShopRite building",
+        "kind": "still",
+        "src": "/media/bancroft-curb.webp",
+        "caption": "Front of a two-story Hainesport house with driveway, lawn and bare trees",
+        "role": "Selected still"
       },
       {
-        kind: "still",
-        src: "/media/brick-church-apartments.webp",
-        role: "hyperlapse-02",
-        caption:
-          "Hyperlapse frame: Embark apartments, dump truck, North Munn Avenue Bridge overhead",
-      },
-    ],
+        "kind": "still",
+        "src": "/media/work-residential.webp",
+        "caption": "Oblique view of a two-story house, shingle roof, lawn and surrounding trees",
+        "role": "Selected still"
+      }
+    ]
   },
   {
-    id: "north-munn",
-    jobId: "BAM-EO-NMUNN280-202606",
-    title: "North Munn Avenue Bridge Over I-280",
-    kicker: "Construction",
-    date: "Jun 24–28, 2026",
-    slug: "north-munn-bridge",
-    blurb:
-      "NJDOT deck and superstructure replacement over I-280. Aerial nadir film, ground film of crew and dump trucks, and stills of the steel span. Adjacent Embark / ShopRite media is a separate job.",
-    items: [
+    "id": "north-munn-bridge",
+    "jobId": "BAM-NORTH-MUNN-BRIDGE",
+    "kicker": "Construction",
+    "title": "North Munn Avenue Bridge Over I-280",
+    "slug": "north-munn-bridge",
+    "blurb": "Bridge-deck works, traffic below, and surrounding access routes recorded from above for construction review.",
+    "items": [
       {
-        kind: "video",
-        src: "/media/overpass.mp4",
-        poster: "/media/overpass.webp",
-        role: "nadir-hold",
-        caption: "Nadir hold over the North Munn Avenue Bridge over I-280 — steel, orange barrier, live lanes",
+        "kind": "still",
+        "src": "/media/neighborhood-gold.webp",
+        "caption": "Oblique view of a bridge with construction barriers above a highway",
+        "role": "Selected still"
       },
       {
-        kind: "video",
-        src: "/media/jobsite-ground.mp4",
-        poster: "/media/jobsite-ground.webp",
-        role: "ground-film",
-        caption: "Ground film: crew and dump trucks on the I-280 jobsite, Embark behind them",
+        "kind": "still",
+        "src": "/media/night-street.webp",
+        "caption": "Bridge deck and exposed structure above a highway in daylight",
+        "role": "Selected still"
       },
       {
-        kind: "still",
-        src: "/media/overpass-oblique.webp",
-        role: "oblique",
-        caption: "Dump trucks on the steel deck of the North Munn Avenue Bridge over I-280",
+        "kind": "still",
+        "src": "/media/night-lot.webp",
+        "caption": "Bridge over a multilane highway, work vehicles and tree canopy in daylight",
+        "role": "Selected still"
       },
       {
-        kind: "still",
-        src: "/media/overpass-approach.webp",
-        role: "approach",
-        caption: "Looking along the North Munn Avenue Bridge reconstruction — dump trucks and I-280 traffic",
+        "kind": "still",
+        "src": "/media/dusk-lot.webp",
+        "caption": "Traffic passing under a bridge under construction in daylight",
+        "role": "Selected still"
       },
       {
-        kind: "still",
-        src: "/media/overpass-ground.webp",
-        role: "deck-truck",
-        caption: "Dump truck filling the frame on the Munn Avenue / I-280 jobsite",
+        "kind": "still",
+        "src": "/media/park-twilight.webp",
+        "caption": "Daylight top-down view of road lanes, railway tracks and a work zone",
+        "role": "Selected still"
       },
       {
-        kind: "still",
-        src: "/media/south-munn-staging.webp",
-        role: "staging",
-        caption: "Haul road and dump trucks in the dirt at Freeway Drive / North Munn Avenue",
-      },
-    ],
+        "kind": "video",
+        "src": "/media/overpass.mp4",
+        "poster": "/media/neighborhood-gold.webp",
+        "caption": "Aerial film of bridge works over I-280",
+        "role": "Field film"
+      }
+    ]
   },
   {
-    id: "kuzuri",
-    jobId: "BAM-EO-KUZURI-202607",
-    title: "Kuzuri Kijiji, East Orange",
-    kicker: "Mapping",
-    date: "Jul 6, 2026",
-    slug: "kuzuri-kijiji",
-    blurb:
-      "Orthomosaic, DEM, and camera-station coverage of the 1973 townhouse complex at 19 Freeway Drive East. Visual mapping of what stands now.",
-    items: [
+    "id": "brick-church-village",
+    "jobId": "BAM-BRICK-CHURCH-VILLAGE",
+    "kicker": "Promotional",
+    "title": "The Crossings at Brick Church Station",
+    "slug": "brick-church-village",
+    "blurb": "Apartment buildings, courtyards, parking and access streets presented together in daylight aerial stills and film.",
+    "items": [
       {
-        kind: "still",
-        src: "/media/kiji-ortho.webp",
-        role: "ortho",
-        caption: "Orthomosaic of Kuzuri Kijiji — 1973 townhouses, lots, parking",
+        "kind": "still",
+        "src": "/media/neighborhood-film.webp",
+        "caption": "The Crossings apartment roofs, courtyard and parking under daylight",
+        "role": "Selected still"
       },
       {
-        kind: "still",
-        src: "/media/kiji-dem.webp",
-        role: "dem",
-        caption: "Digital elevation model of Kuzuri Kijiji from the same mesh",
+        "kind": "still",
+        "src": "/media/brick-church-village.webp",
+        "caption": "Apartment buildings, parking garage and access streets at The Crossings",
+        "role": "Selected still"
       },
       {
-        kind: "still",
-        src: "/media/kiji-coverage.webp",
-        role: "coverage",
-        caption: "Coverage and camera stations for the Kuzuri Kijiji capture",
+        "kind": "still",
+        "src": "/media/brick-church-apartments.webp",
+        "caption": "Aerial view of The Crossings with apartment blocks and parking deck",
+        "role": "Selected still"
       },
-    ],
+      {
+        "kind": "still",
+        "src": "/media/overpass-oblique.webp",
+        "caption": "Apartment rooftops and two landscaped courtyards viewed straight down",
+        "role": "Selected still"
+      },
+      {
+        "kind": "video",
+        "src": "/media/neighborhood-film.mp4",
+        "poster": "/media/neighborhood-film.webp",
+        "caption": "Daylight aerial film of The Crossings",
+        "role": "Field film"
+      }
+    ]
   },
   {
-    id: "hainesport",
-    jobId: "BAM-HAIN-BANCROFT-2023",
-    title: "Hainesport Residential Listing",
-    kicker: "Residential",
-    date: "2023",
-    slug: "bancroft-listing",
-    blurb: "Listing stills of one property — house, lot, pool, neighborhood from altitude, plus a curb still of the same house.",
-    items: [
+    "id": "water-tower",
+    "jobId": "BAM-WATER-TOWER",
+    "kicker": "Inspection",
+    "title": "Milltown Water Tower",
+    "slug": "water-tower",
+    "blurb": "Elevated views of a municipal water tower document the exterior and its surroundings for visual review.",
+    "items": [
       {
-        kind: "still",
-        src: "/media/bancroft-aerial.webp",
-        role: "aerial",
-        caption: "Hainesport listing from altitude — house, lot, pool, and neighborhood",
-      },
-      {
-        kind: "still",
-        src: "/media/bancroft-curb.webp",
-        role: "curb",
-        caption: "Street-level curb photograph of the same Hainesport listing",
-      },
-    ],
+        "kind": "still",
+        "src": "/media/work-tower.webp",
+        "caption": "Green Borough of Milltown water tower above a tree canopy",
+        "role": "Selected still"
+      }
+    ]
   },
   {
-    id: "house-cut",
-    jobId: "BAM-NJ-HOUSECUT",
-    title: "House Under Construction",
-    kicker: "Construction",
-    date: "Field still",
-    slug: "jobsite-cut",
-    blurb: "A suburban lot in framing — excavator, stacked lumber, open foundation, neighboring houses.",
-    items: [
+    "id": "solar-rooftop",
+    "jobId": "BAM-SOLAR-ROOFTOP",
+    "kicker": "Commercial",
+    "title": "Commercial Solar Rooftop",
+    "slug": "solar-rooftop",
+    "blurb": "Panel layout, rooftop equipment and access clearances visible together in an aerial overview.",
+    "items": [
       {
-        kind: "still",
-        src: "/media/jobsite.webp",
-        role: "overview",
-        caption: "House under construction — excavator, stacked lumber, open foundation, neighboring lots",
-      },
-    ],
+        "kind": "still",
+        "src": "/media/svc-solar.webp",
+        "caption": "Solar panels and rooftop equipment on a white commercial roof",
+        "role": "Selected still"
+      }
+    ]
   },
   {
-    id: "envelope",
-    jobId: "BAM-NJ-ENVELOPE",
-    title: "Roof And Siding Close-Up",
-    kicker: "Inspection",
-    date: "Field still",
-    slug: "envelope-close",
-    blurb: "Close-range stills of a residential roof, chimney, shingles, and siding.",
-    items: [
+    "id": "kuzuri-kijiji",
+    "jobId": "BAM-KUZURI-KIJIJI",
+    "kicker": "Mapping",
+    "title": "Kuzuri Kijiji, East Orange",
+    "slug": "kuzuri-kijiji",
+    "blurb": "Townhouses, parking and access roads recorded as an orthomosaic, with separate elevation and coverage visualizations.",
+    "items": [
       {
-        kind: "still",
-        src: "/media/work-tower.webp",
-        role: "roof",
-        caption: "Close-range still of a residential roof, chimney, and siding",
+        "kind": "still",
+        "src": "/media/kiji-ortho.webp",
+        "caption": "Orthomosaic of Kuzuri Kijiji showing townhouses, parking and access roads",
+        "role": "Selected still"
       },
       {
-        kind: "still",
-        src: "/media/work-residential.webp",
-        role: "siding",
-        caption: "Close-range still of shingles, windows, and siding on the same house",
-      },
-    ],
-  },
-  {
-    id: "ramps",
-    jobId: "BAM-NJ-RAMPS-202607",
-    title: "Highway Ramps And Parking Lot",
-    kicker: "Civic",
-    date: "Jul 9, 2026",
-    slug: "rail-station",
-    blurb:
-      "Aerial clip of highway ramps and a large parking lot. Site is not labeled on the frame. A still of a wider cloverleaf from the same kind of capture sits with it.",
-    items: [
-      {
-        kind: "video",
-        src: "/media/highway-ramps.mp4",
-        poster: "/media/rail-station.webp",
-        role: "nadir-clip",
-        caption: "Aerial clip: highway ramps, a large parking lot, and tree canopy from directly above",
+        "kind": "still",
+        "src": "/media/kiji-dem.webp",
+        "caption": "Color-coded elevation visualization of the Kuzuri Kijiji site",
+        "role": "Selected still"
       },
       {
-        kind: "still",
-        src: "/media/work-interchange.webp",
-        role: "cloverleaf",
-        caption: "Wider cloverleaf — highway ramps, parking lots, and suburban lots from altitude",
-      },
-    ],
-  },
-  {
-    id: "fields",
-    jobId: "BAM-NJ-FIELDS",
-    title: "Recreation Field At Twilight",
-    kicker: "Civic",
-    date: "Twilight",
-    slug: "recreation-field",
-    blurb:
-      "Sports fields at last light — a running track and a soccer pitch. Not a neighborhood listing, not Embark.",
-    items: [
-      {
-        kind: "still",
-        src: "/media/park-twilight.webp",
-        role: "track",
-        caption: "Recreation field with a running track, green infield, trees and houses at twilight",
-      },
-      {
-        kind: "still",
-        src: "/media/neighborhood-gold.webp",
-        role: "pitch",
-        caption: "Soccer pitch and parking at golden hour, tree canopy around the field",
-      },
-    ],
-  },
-  {
-    id: "warehouse",
-    jobId: "BAM-NJ-WAREHOUSE-202607",
-    title: "Warehouse At Last Light",
-    kicker: "Commercial",
-    date: "Jul 9, 2026",
-    slug: "warehouse-sunset",
-    blurb: "A large commercial building, parking, and access at sunset. Two obliques of the same site.",
-    items: [
-      {
-        kind: "still",
-        src: "/media/warehouse-sunset.webp",
-        role: "oblique-01",
-        caption: "Large commercial building and parking lot at sunset",
-      },
-      {
-        kind: "still",
-        src: "/media/warehouse-lot.webp",
-        role: "oblique-02",
-        caption: "Second oblique of the same warehouse — lot, dock side, last light",
-      },
-    ],
-  },
-  {
-    id: "night",
-    jobId: "BAM-NJ-NIGHT-202607",
-    title: "After-Dark Lots And Streets",
-    kicker: "Night",
-    date: "Jul 9, 2026",
-    slug: "night-lots",
-    blurb: "Illuminated parking and neighborhood streets after dark.",
-    items: [
-      {
-        kind: "still",
-        src: "/media/night-lot.webp",
-        role: "lot",
-        caption: "Lit parking lot, cars in stalls, and streetlights after dark",
-      },
-      {
-        kind: "still",
-        src: "/media/night-street.webp",
-        role: "street",
-        caption: "Neighborhood streets and a second lot after dark",
-      },
-      {
-        kind: "still",
-        src: "/media/dusk-lot.webp",
-        role: "dusk",
-        caption: "Parking lot at last light, before full night — cars, lamps, surrounding block",
-      },
-    ],
-  },
+        "kind": "still",
+        "src": "/media/kiji-coverage.webp",
+        "caption": "Kuzuri Kijiji coverage visualization with capture locations overlaid",
+        "role": "Selected still"
+      }
+    ]
+  }
 ];
 
 export const surveyPatterns = [
@@ -1117,7 +917,7 @@ export const surveyPatterns = [
   },
   {
     id: "flown",
-    name: "Kuzuri Kijiji — 100% oblique",
+    name: "Oblique capture study",
     overlap: "123 frames aligned · Jul 6, 2026",
     produces: "1.24 in/px ortho · 4.98 in/px DEM · 5.1M pts",
     why: "Kuzuri Kijiji — 19 Freeway Drive East, East Orange, near I-280 and the Garden State Parkway — was flown entirely oblique. Coverage of the AOI was 99.7%. Camera GPS RMSE is about 11 ft. This maps the existing 1973 townhouse complex and surroundings, not the approved 662-unit redevelopment. Useful visual and relative-elevation context. Not RTK survey control, and not a sealed plat.",
@@ -1137,12 +937,13 @@ export const plannerOptions: {
   { key: "damage", title: "Document damage", hint: "Claim context, visible condition" },
   { key: "roof-solar", title: "Capture a roof or array", hint: "Solar, roofing, maintenance" },
   { key: "mapping", title: "Map a site", hint: "Orthomosaic, 3D, geometry" },
+  { key: "events", title: "Document a venue or event", hint: "Organizer clearance, venue context" },
 ];
 
 export const trustChecks = [
   "Airspace class, LAANC grid, and USS authorization",
   "Part 107 Waivers when the rule set does not cover the operation",
-  "SGI Waivers only when the mission qualifies — including commercial work inside a National Security Event TFR with FAA coordination",
+  "SGI Waivers only when the mission qualifies — subject to mission eligibility and the applicable restriction",
   "Local authorizations: NYPD permit for New York City, property/GC access, venues",
   "NOTAMs, TFRs, National Security Events, and airport surfaces",
   "Site access, people on the ground, and privacy",

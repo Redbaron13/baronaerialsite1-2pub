@@ -1,5 +1,5 @@
 import { Link, useRouterState } from "@tanstack/react-router";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Menu, Moon, Sun, X } from "lucide-react";
 import { BrandMark } from "@/components/brand-mark";
 import { Button } from "@/components/ui/button";
@@ -13,12 +13,33 @@ export function SiteHeader() {
   const [scrolled, setScrolled] = useState(false);
   const { theme, toggle } = useTheme();
   const light = theme === "light";
+  const toggleRef = useRef<HTMLButtonElement>(null);
+  const navRef = useRef<HTMLElement>(null);
+  useEffect(() => {
+    if (!open) return;
+    const links = () => Array.from(navRef.current?.querySelectorAll<HTMLElement>("a,button") ?? []);
+    links()[0]?.focus();
+    const close = () => { setOpen(false); toggleRef.current?.focus(); };
+    const keydown = (event: KeyboardEvent) => {
+      if (event.key === "Escape") { event.preventDefault(); close(); }
+      if (event.key === "Tab") {
+        const items = [...links(), toggleRef.current].filter(Boolean) as HTMLElement[];
+        const index = items.indexOf(document.activeElement as HTMLElement);
+        event.preventDefault(); items[(index + (event.shiftKey ? -1 : 1) + items.length) % items.length]?.focus();
+      }
+    };
+    const media = window.matchMedia("(min-width: 1024px)");
+    const resize = () => { if (media.matches) setOpen(false); };
+    document.addEventListener("keydown", keydown); media.addEventListener("change", resize);
+    return () => { document.removeEventListener("keydown", keydown); media.removeEventListener("change", resize); };
+  }, [open]);
 
   useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 12);
+    let frame = 0;
+    const onScroll = () => { if (!frame) frame = requestAnimationFrame(() => { setScrolled(window.scrollY > 12); frame = 0; }); };
     onScroll();
     window.addEventListener("scroll", onScroll, { passive: true });
-    return () => window.removeEventListener("scroll", onScroll);
+    return () => { window.removeEventListener("scroll", onScroll); cancelAnimationFrame(frame); };
   }, []);
 
   useEffect(() => {
@@ -28,7 +49,7 @@ export function SiteHeader() {
   return (
     <header
       className={cn(
-        "fixed inset-x-0 top-0 z-50 flex items-center justify-between gap-6 border-b px-[clamp(1.25rem,5vw,4rem)] transition-[background-color,backdrop-filter,padding,border-color] duration-300",
+        "fixed inset-x-0 top-0 z-50 flex items-center justify-between gap-2 border-b px-[clamp(1.25rem,5vw,4rem)] transition-[background-color,backdrop-filter,padding,border-color] duration-300",
         light
           ? scrolled || open
             ? "border-paper-line bg-paper/90 py-2.5 backdrop-blur-md"
@@ -67,7 +88,7 @@ export function SiteHeader() {
         })}
       </nav>
 
-      <div className="flex items-center gap-3">
+      <div className="flex shrink-0 items-center gap-2">
         <button
           type="button"
           onClick={toggle}
@@ -88,8 +109,8 @@ export function SiteHeader() {
         >
           Contact
         </Link>
-        <Button asChild size="sm" className="hidden sm:inline-flex">
-          <Link to="/mission-planner">
+        <Button asChild size="sm" className="inline-flex px-3 text-xs">
+          <Link to="/contact">
             Plan a Mission
             <span aria-hidden="true">→</span>
           </Link>
@@ -100,6 +121,7 @@ export function SiteHeader() {
             "inline-flex min-h-11 min-w-11 items-center justify-center rounded-pill border px-3 font-display text-xs font-semibold lg:hidden",
             light ? "border-paper-line text-ink-text" : "border-line text-fg",
           )}
+          ref={toggleRef}
           aria-expanded={open}
           aria-controls="mobile-nav"
           aria-label={open ? "Close menu" : "Open menu"}
@@ -111,6 +133,7 @@ export function SiteHeader() {
 
       {open ? (
         <nav
+          ref={navRef}
           id="mobile-nav"
           className={cn(
             "absolute inset-x-0 top-full flex flex-col border-b px-[clamp(1.25rem,5vw,4rem)] py-2 backdrop-blur-md lg:hidden",

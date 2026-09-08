@@ -1,12 +1,10 @@
+import { seo } from "@/lib/seo";
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { PageHero, PageShell } from "@/components/page-shell";
 
 export const Route = createFileRoute("/accessibility")({
   component: A11yPage,
-  head: () => ({
-    title: "Accessibility — Baron Aerial Media",
-    meta: [{ name: "description", content: "Accessibility commitment for the Baron Aerial Media website." }],
-  }),
+  head: () => seo({ title: "Accessibility — Baron Aerial Media", description: "Accessibility commitment for the Baron Aerial Media website.", path: "/accessibility" }),
 });
 
 function A11yPage() {

@@ -25,7 +25,9 @@ export function SceneCanvas({
   const hydrated = useHydrated();
   const reduced = usePrefersReducedMotion();
   const wrap = useRef<HTMLDivElement>(null);
-  const [visible, setVisible] = useState(true);
+  const [visible, setVisible] = useState(false);
+  const [documentVisible, setDocumentVisible] = useState(true);
+  useEffect(() => { const update = () => setDocumentVisible(!document.hidden); document.addEventListener("visibilitychange", update); return () => document.removeEventListener("visibilitychange", update); }, []);
 
   useEffect(() => {
     const el = wrap.current;
@@ -46,8 +48,9 @@ export function SceneCanvas({
       style={interactive ? { touchAction: "none" } : undefined}
     >
       <Canvas
-        frameloop={visible ? "always" : "never"}
-        dpr={[1, 1.75]}
+        frameloop={visible && documentVisible ? "always" : "never"}
+        shadows
+        dpr={[1, 1.5]}
         camera={camera}
         gl={{ alpha: true, antialias: true, powerPreference: "high-performance" }}
         style={{

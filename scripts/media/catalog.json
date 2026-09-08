@@ -1,0 +1,282 @@
+{
+  "/media/jobsite.webp": {
+    "alt": "Hainesport house, swimming pool, lawn and neighboring properties from above",
+    "serviceTags": [
+      "real-estate"
+    ],
+    "reviewedAt": "2026-09-07",
+    "reviewMethod": "Visual review of repository asset"
+  },
+  "/media/bancroft-curb.webp": {
+    "alt": "Front of a two-story Hainesport house with driveway, lawn and bare trees",
+    "serviceTags": [
+      "real-estate"
+    ],
+    "reviewedAt": "2026-09-07",
+    "reviewMethod": "Visual review of repository asset"
+  },
+  "/media/bancroft-aerial.webp": {
+    "alt": "Unrectified interior panorama of a house with staircase and kitchen",
+    "serviceTags": [],
+    "reviewedAt": "2026-09-07",
+    "reviewMethod": "Visual review of repository asset"
+  },
+  "/media/work-residential.webp": {
+    "alt": "Oblique view of a two-story house, shingle roof, lawn and surrounding trees",
+    "serviceTags": [
+      "real-estate",
+      "inspections"
+    ],
+    "reviewedAt": "2026-09-07",
+    "reviewMethod": "Visual review of repository asset"
+  },
+  "/media/work-tower.webp": {
+    "alt": "Green Borough of Milltown water tower above a tree canopy",
+    "serviceTags": [
+      "inspections"
+    ],
+    "reviewedAt": "2026-09-07",
+    "reviewMethod": "Visual review of repository asset"
+  },
+  "/media/svc-solar.webp": {
+    "alt": "Solar panels and rooftop equipment on a white commercial roof",
+    "serviceTags": [
+      "roof-solar",
+      "inspections"
+    ],
+    "reviewedAt": "2026-09-07",
+    "reviewMethod": "Visual review of repository asset"
+  },
+  "/media/svc-events.webp": {
+    "alt": "Outdoor concrete amphitheater steps, paths and a person beside equipment",
+    "serviceTags": [],
+    "reviewedAt": "2026-09-07",
+    "reviewMethod": "Visual review of repository asset"
+  },
+  "/media/overpass.webp": {
+    "alt": "Top-down view of apartment courtyards, rooftops, parking and streets",
+    "serviceTags": [
+      "real-estate"
+    ],
+    "reviewedAt": "2026-09-07",
+    "reviewMethod": "Visual review of repository asset"
+  },
+  "/media/overpass-oblique.webp": {
+    "alt": "Apartment rooftops and two landscaped courtyards viewed straight down",
+    "serviceTags": [
+      "real-estate"
+    ],
+    "reviewedAt": "2026-09-07",
+    "reviewMethod": "Visual review of repository asset"
+  },
+  "/media/overpass-approach.webp": {
+    "alt": "Apartment courtyards, white rooftop and marked parking bays from above",
+    "serviceTags": [
+      "real-estate"
+    ],
+    "reviewedAt": "2026-09-07",
+    "reviewMethod": "Visual review of repository asset"
+  },
+  "/media/overpass-ground.webp": {
+    "alt": "Oblique aerial of a mixed-use apartment complex with white roofs and parking",
+    "serviceTags": [
+      "real-estate"
+    ],
+    "reviewedAt": "2026-09-07",
+    "reviewMethod": "Visual review of repository asset"
+  },
+  "/media/south-munn-staging.webp": {
+    "alt": "Oblique view along apartment rooftops, a street and parked vehicles",
+    "serviceTags": [
+      "real-estate"
+    ],
+    "reviewedAt": "2026-09-07",
+    "reviewMethod": "Visual review of repository asset"
+  },
+  "/media/brick-church-village.webp": {
+    "alt": "Apartment buildings, parking garage and access streets at The Crossings",
+    "serviceTags": [
+      "real-estate"
+    ],
+    "reviewedAt": "2026-09-07",
+    "reviewMethod": "Visual review of repository asset"
+  },
+  "/media/brick-church-apartments.webp": {
+    "alt": "Aerial view of The Crossings with apartment blocks and parking deck",
+    "serviceTags": [
+      "real-estate"
+    ],
+    "reviewedAt": "2026-09-07",
+    "reviewMethod": "Visual review of repository asset"
+  },
+  "/media/neighborhood-film.webp": {
+    "alt": "The Crossings apartment roofs, courtyard and parking under daylight",
+    "serviceTags": [
+      "real-estate"
+    ],
+    "reviewedAt": "2026-09-07",
+    "reviewMethod": "Visual review of repository asset"
+  },
+  "/media/jobsite-ground.webp": {
+    "alt": "Daylight aerial view of apartment buildings and parking",
+    "serviceTags": [],
+    "reviewedAt": "2026-09-07",
+    "reviewMethod": "Visual review of repository asset"
+  },
+  "/media/work-interchange.webp": {
+    "alt": "Large highway interchange, curved ramps, road traffic and surrounding development",
+    "serviceTags": [
+      "construction"
+    ],
+    "reviewedAt": "2026-09-07",
+    "reviewMethod": "Visual review of repository asset"
+  },
+  "/media/neighborhood-oblique.webp": {
+    "alt": "Straight-down view of an intersection beside a bridge construction zone",
+    "serviceTags": [
+      "construction"
+    ],
+    "reviewedAt": "2026-09-07",
+    "reviewMethod": "Visual review of repository asset"
+  },
+  "/media/warehouse-sunset.webp": {
+    "alt": "Road intersection, railway platforms and bridge works viewed from above",
+    "serviceTags": [
+      "construction"
+    ],
+    "reviewedAt": "2026-09-07",
+    "reviewMethod": "Visual review of repository asset"
+  },
+  "/media/warehouse-lot.webp": {
+    "alt": "Top-down intersection with turning vehicles and adjacent work zone",
+    "serviceTags": [
+      "construction"
+    ],
+    "reviewedAt": "2026-09-07",
+    "reviewMethod": "Visual review of repository asset"
+  },
+  "/media/night-lot.webp": {
+    "alt": "Bridge over a multilane highway, work vehicles and tree canopy in daylight",
+    "serviceTags": [
+      "construction"
+    ],
+    "reviewedAt": "2026-09-07",
+    "reviewMethod": "Visual review of repository asset"
+  },
+  "/media/night-street.webp": {
+    "alt": "Bridge deck and exposed structure above a highway in daylight",
+    "serviceTags": [
+      "construction"
+    ],
+    "reviewedAt": "2026-09-07",
+    "reviewMethod": "Visual review of repository asset"
+  },
+  "/media/dusk-lot.webp": {
+    "alt": "Traffic passing under a bridge under construction in daylight",
+    "serviceTags": [
+      "construction"
+    ],
+    "reviewedAt": "2026-09-07",
+    "reviewMethod": "Visual review of repository asset"
+  },
+  "/media/park-twilight.webp": {
+    "alt": "Daylight top-down view of road lanes, railway tracks and a work zone",
+    "serviceTags": [
+      "construction"
+    ],
+    "reviewedAt": "2026-09-07",
+    "reviewMethod": "Visual review of repository asset"
+  },
+  "/media/neighborhood-gold.webp": {
+    "alt": "Oblique view of a bridge with construction barriers above a highway",
+    "serviceTags": [
+      "construction"
+    ],
+    "reviewedAt": "2026-09-07",
+    "reviewMethod": "Visual review of repository asset"
+  },
+  "/media/rail-station.webp": {
+    "alt": "Road junction alongside railway platforms and tracks",
+    "serviceTags": [
+      "construction"
+    ],
+    "reviewedAt": "2026-09-07",
+    "reviewMethod": "Visual review of repository asset"
+  },
+  "/media/city-dusk.webp": {
+    "alt": "City blocks, trees and buildings under a blue daytime sky",
+    "serviceTags": [
+      "real-estate"
+    ],
+    "reviewedAt": "2026-09-07",
+    "reviewMethod": "Visual review of repository asset"
+  },
+  "/media/hero-city.webp": {
+    "alt": "Wide city panorama with highway ramps under a blue evening sky",
+    "serviceTags": [],
+    "reviewedAt": "2026-09-07",
+    "reviewMethod": "Visual review of repository asset"
+  },
+  "/media/about-panorama.webp": {
+    "alt": "Wide city panorama with highway ramps under a blue evening sky",
+    "serviceTags": [],
+    "reviewedAt": "2026-09-07",
+    "reviewMethod": "Visual review of repository asset"
+  },
+  "/media/featured-night.webp": {
+    "alt": "Nighttime highway with vehicle light trails, buildings and illuminated roads",
+    "serviceTags": [],
+    "reviewedAt": "2026-09-07",
+    "reviewMethod": "Visual review of repository asset"
+  },
+  "/media/work-night.webp": {
+    "alt": "Nighttime highway with vehicle light trails, buildings and illuminated roads",
+    "serviceTags": [],
+    "reviewedAt": "2026-09-07",
+    "reviewMethod": "Visual review of repository asset"
+  },
+  "/media/work-commercial.webp": {
+    "alt": "Office towers above a multilevel parking structure",
+    "serviceTags": [
+      "real-estate"
+    ],
+    "reviewedAt": "2026-09-07",
+    "reviewMethod": "Visual review of repository asset"
+  },
+  "/media/work-civic.jpg": {
+    "alt": "Church, tower, lawn, paths and nearby buildings from above",
+    "serviceTags": [],
+    "reviewedAt": "2026-09-07",
+    "reviewMethod": "Visual review of repository asset"
+  },
+  "/media/kiji-ortho.webp": {
+    "alt": "Orthomosaic of Kuzuri Kijiji showing townhouses, parking and access roads",
+    "serviceTags": [
+      "mapping"
+    ],
+    "reviewedAt": "2026-09-07",
+    "reviewMethod": "Visual review of repository asset"
+  },
+  "/media/kiji-dem.webp": {
+    "alt": "Color-coded elevation visualization of the Kuzuri Kijiji site",
+    "serviceTags": [
+      "mapping"
+    ],
+    "reviewedAt": "2026-09-07",
+    "reviewMethod": "Visual review of repository asset"
+  },
+  "/media/kiji-coverage.webp": {
+    "alt": "Kuzuri Kijiji coverage visualization with capture locations overlaid",
+    "serviceTags": [
+      "mapping"
+    ],
+    "reviewedAt": "2026-09-07",
+    "reviewMethod": "Visual review of repository asset"
+  },
+  "/media/photogrammetry-cameras.webp": {
+    "alt": "Illustrated drone workflow with glowing stations leading to a solar-roof model",
+    "serviceTags": [],
+    "reviewedAt": "2026-09-07",
+    "reviewMethod": "Visual review of repository asset"
+  }
+}

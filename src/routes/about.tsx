@@ -1,24 +1,15 @@
+import { MediaImage } from "@/components/media-image";
+import { seo } from "@/lib/seo";
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { Button } from "@/components/ui/button";
 import { CtaBand } from "@/components/cta-band";
 import { PageHero, PageShell } from "@/components/page-shell";
-import { PreflightSection } from "@/components/preflight-section";
-import { ProcessStrip } from "@/components/process-strip";
 import { TiltCard } from "@/components/tilt-card";
 import { brand, process } from "@/data/site";
 
 export const Route = createFileRoute("/about")({
   component: AboutPage,
-  head: () => ({
-    title: "About — Baron Aerial Media",
-    meta: [
-      {
-        name: "description",
-        content:
-          "Owner-operated, FAA Part 107 commercial drone work out of Newark, New Jersey. The flight is only one part of the work.",
-      },
-    ],
-  }),
+  head: () => seo({ title: "About — Baron Aerial Media", description: "Owner-operated, FAA Part 107 commercial drone work out of Newark, New Jersey. The flight is only one part of the work.", path: "/about" }),
 });
 
 function AboutPage() {
@@ -32,14 +23,14 @@ function AboutPage() {
 
       <section className="site-container grid items-start gap-10 pb-16 md:grid-cols-2">
         <div>
-          <img
-            src="/brand/logo-lockup.png"
+          <MediaImage
+            src="/brand/logo-lockup.webp"
             alt="Baron Aerial Media — Altitude Changes Everything"
             className="mb-8 max-w-[16rem]"
           />
           <h2 className="text-[clamp(1.7rem,3vw,2.6rem)]">Aerial work with a purpose behind every flight.</h2>
           <p className="mt-4 text-ink-muted">
-            {brand.name} is an owner-operated commercial drone practice based in {brand.city}, serving{" "}
+            Kevin Baron runs {brand.name}, an owner-operated commercial drone practice based in {brand.city}, serving{" "}
             {brand.serviceArea}. We are {brand.part107} certified. Every project starts with the outcome
             — a listing that sells, a site that’s documented, an asset that’s inspected without putting
             a crew on a roof.
@@ -57,7 +48,7 @@ function AboutPage() {
           </Button>
         </div>
         <TiltCard max={5}>
-          <img
+          <MediaImage
             src="/media/about-panorama.webp"
             alt="Coastal aerial with marina slips, a pier, and high-rises"
             className="media-frame min-h-[22rem] w-full rounded-lg object-cover md:min-h-[32rem]"
@@ -79,8 +70,7 @@ function AboutPage() {
         ))}
       </div>
 
-      <ProcessStrip tone="light" />
-      <PreflightSection tone="light" />
+
 
       <section className="site-container py-16 md:py-24">
         <p className="eyebrow">How we work</p>

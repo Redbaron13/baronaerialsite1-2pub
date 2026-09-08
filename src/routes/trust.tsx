@@ -1,3 +1,5 @@
+import { MediaImage } from "@/components/media-image";
+import { seo } from "@/lib/seo";
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { Button } from "@/components/ui/button";
 import { CtaBand } from "@/components/cta-band";
@@ -9,16 +11,7 @@ import { brand, disclaimer, trustChecks } from "@/data/site";
 
 export const Route = createFileRoute("/trust")({
   component: TrustPage,
-  head: () => ({
-    title: "Trust + Safety — Baron Aerial Media",
-    meta: [
-      {
-        name: "description",
-        content:
-          "Preflight planning at Baron Aerial Media: LAANC authorization around EWR, Part 107 Waivers, SGI Waivers for qualifying operations including National Security Event TFRs, and site/weather screening.",
-      },
-    ],
-  }),
+  head: () => seo({ title: "Trust + Safety — Baron Aerial Media", description: "Preflight planning at Baron Aerial Media: LAANC authorization around EWR, Part 107 Waivers, SGI Waivers for qualifying operations including National Security Event TFRs, and site/weather screening.", path: "/trust" }),
 });
 
 function TrustPage() {
@@ -36,7 +29,7 @@ function TrustPage() {
       <section className="site-container grid items-start gap-10 py-16 md:grid-cols-2 md:py-24">
         <Reveal>
           <div className="media-frame min-h-[22rem] overflow-hidden rounded-lg md:min-h-[28rem]">
-            <img
+            <MediaImage
               src="/media/featured-night.webp"
               alt="Lit parking lot, cars, and neighborhood streets after dark"
               className="ken-burns"

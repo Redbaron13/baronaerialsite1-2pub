@@ -1,3 +1,5 @@
+import { MediaImage } from "@/components/media-image";
+import { seo } from "@/lib/seo";
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { useMemo, useState } from "react";
 import { PageHero, PageShell } from "@/components/page-shell";
@@ -9,15 +11,7 @@ import { cn } from "@/lib/utils";
 
 export const Route = createFileRoute("/work/")({
   component: WorkPage,
-  head: () => ({
-    title: "Work — Baron Aerial Media",
-    meta: [
-      {
-        name: "description",
-        content: "Selected Baron Aerial Media work: residential listings, mapping, commercial, civic, and night operations stills.",
-      },
-    ],
-  }),
+  head: () => seo({ title: "Work — Baron Aerial Media", description: "Selected Baron Aerial Media work: residential listings, mapping, commercial, civic, and night operations stills.", path: "/work/" }),
 });
 
 function WorkPage() {
@@ -63,7 +57,7 @@ function WorkPage() {
               params={{ slug: item.slug }}
               className="group block overflow-hidden rounded-lg bg-fg shadow-[0_0_0_1px_var(--color-paper-line)]"
             >
-              <img
+              <MediaImage
                 src={item.image}
                 alt={item.title}
                 className="aspect-[16/10] w-full object-cover transition-transform duration-[900ms] ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:scale-[1.05]"

@@ -1,3 +1,4 @@
+import { MediaImage } from "@/components/media-image";
 import { Link } from "@tanstack/react-router";
 import { ArrowUpRight } from "lucide-react";
 import { Reveal } from "@/components/reveal";
@@ -25,24 +26,21 @@ export function DeliverablesSection({ tone = "dark" }: { tone?: "dark" | "light"
 
         <div className="mt-12 grid items-center gap-10 md:grid-cols-2 md:gap-14">
           <Reveal>
-            <div className="relative aspect-[4/3] min-h-[18rem] overflow-hidden rounded-lg bg-ink media-frame">
+            <div className="relative min-w-0">
               <OrthoStageLazy
                 colorMap="/media/kiji-ortho.webp"
                 elevMap="/media/kiji-dem.webp"
-                className="absolute inset-0 size-full min-h-[18rem]"
+                className="w-full"
               />
             </div>
           </Reveal>
           <Reveal delay={80}>
             <p className="eyebrow">3D Site Models</p>
             <h3 className={cn("mt-2 text-[clamp(1.6rem,3vw,2.4rem)]", light ? "text-ink-text" : "text-fg")}>
-              Kuzuri Kijiji as a model you can orbit.
+              Kuzuri Kijiji, layer by layer.
             </h3>
             <p className={cn("mt-4 text-sm leading-relaxed md:text-base", light ? "text-ink-muted" : "text-fg-soft")}>
-              Drag the capture to turn it. Scroll or pinch to zoom. The color is the July 6, 2026
-              orthomosaic of Kuzuri Kijiji (19 Freeway Drive East, East Orange). The relief is the DEM
-              from the same 123-frame mesh — rooftops stand up, parking sits low. Visual mapping of
-              what stands now, not a sealed plat.
+              Separate the orthomosaic, elevation visualization and capture coverage. Each answers a different question about the same site. Explore the layers in three dimensions, or isolate an output to examine the source image.
             </p>
             <Link
               to="/work/$slug"
@@ -59,17 +57,17 @@ export function DeliverablesSection({ tone = "dark" }: { tone?: "dark" | "light"
           <Reveal className="md:order-2">
             <FieldClip
               src="/media/overpass.mp4"
-              poster="/media/overpass.webp"
+              poster="/media/bridge-film-poster.webp"
               alt="Nadir hold over the North Munn Avenue Bridge over I-280"
             />
             <div className="mt-3 grid grid-cols-3 gap-2">
               {[
                 ["/media/overpass-oblique.webp", "Dump trucks on the North Munn Avenue Bridge deck over I-280"],
                 ["/media/brick-church-village.webp", "The Crossings at Brick Church Station from the I-280 dirt"],
-                ["/media/brick-church-apartments.webp", "Embark apartments, dump truck, Munn Avenue bridge overhead"],
+                ["/media/brick-church-apartments.webp", "Apartment blocks and parking at The Crossings"],
               ].map(([src, cap]) => (
                 <figure key={src} className="overflow-hidden rounded-md">
-                  <img src={src} alt={cap} className="aspect-[4/3] w-full object-cover" />
+                  <MediaImage src={src} alt={cap} className="aspect-[4/3] w-full object-cover" />
                 </figure>
               ))}
             </div>
@@ -81,8 +79,8 @@ export function DeliverablesSection({ tone = "dark" }: { tone?: "dark" | "light"
             </h3>
             <p className={cn("mt-4 text-sm leading-relaxed md:text-base", light ? "text-ink-muted" : "text-fg-soft")}>
               A 7.5-second nadir hold over NJDOT’s $20.3 million North Munn Avenue Bridge replacement
-              over I-280 — steel, orange barrier, live interstate lanes — then ground hyperlapse stills
-              from Freeway Drive at North Munn Avenue looking at The Crossings: Embark apartments at
+              over I-280 — steel, orange barrier, live interstate lanes — alongside daylight aerial stills
+              of The Crossings: Embark apartments at
               Brick Church station and the new ShopRite. Same geography, two deliverables: the
               reconstruction, and the redevelopment it sits in. Scheduled through spring 2028.
             </p>
@@ -106,7 +104,7 @@ export function DeliverablesSection({ tone = "dark" }: { tone?: "dark" | "light"
                     light ? "bg-fg shadow-[0_0_0_1px_var(--color-paper-line)]" : "bg-ink-2 shadow-[0_0_0_1px_rgba(255,255,255,0.08)]",
                   )}
                 >
-                  <img src={d.image} alt="" className="aspect-[16/10] w-full object-cover" />
+                  <MediaImage src={d.image} alt="" className="aspect-[16/10] w-full object-cover" />
                   <div className="p-5">
                     <h3 className={cn("font-display text-base font-semibold", light ? "text-ink-text" : "text-fg")}>
                       {d.title}

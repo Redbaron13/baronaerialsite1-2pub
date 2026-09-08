@@ -1,5 +1,6 @@
+import { seo } from "@/lib/seo";
 import { createFileRoute } from "@tanstack/react-router";
-import { useRef, useState, type FormEvent, type ReactNode } from "react";
+import { useEffect, useRef, useState, type FormEvent, type ReactNode } from "react";
 import { Button } from "@/components/ui/button";
 import { PageHero, PageShell } from "@/components/page-shell";
 import { disclaimer, services } from "@/data/site";
@@ -8,15 +9,7 @@ import { cn } from "@/lib/utils";
 
 export const Route = createFileRoute("/contact")({
   component: ContactPage,
-  head: () => ({
-    title: "Plan a Drone Mission — Baron Aerial Media",
-    meta: [
-      {
-        name: "description",
-        content: "A short mission-discovery brief: objective, site, airspace, and deliverables.",
-      },
-    ],
-  }),
+  head: () => seo({ title: "Plan a Drone Mission — Baron Aerial Media", description: "A short mission-discovery brief: objective, site, airspace, and deliverables.", path: "/contact" }),
 });
 
 const STEPS = ["Objective", "Site + Timing", "Outputs", "Contact"] as const;
@@ -28,6 +21,35 @@ function ContactPage() {
   const [note, setNote] = useState("");
   const [dels, setDels] = useState<string[]>([]);
   const formRef = useRef<HTMLFormElement>(null);
+  const submissionId = useRef("");
+  const loaded = useRef(false);
+  useEffect(() => {
+    submissionId.current = crypto.randomUUID();
+    try {
+      const saved = sessionStorage.getItem("bam-mission-draft-v1");
+      if (saved) {
+        const draft = JSON.parse(saved);
+        for (const [name, value] of Object.entries(draft.fields ?? {})) {
+          const field = formRef.current?.elements.namedItem(name);
+          if (field instanceof HTMLInputElement || field instanceof HTMLTextAreaElement || field instanceof HTMLSelectElement) field.value = String(value);
+        }
+        setStep(Math.min(3, Math.max(0, Number(draft.step) || 0)));
+        setDels(Array.isArray(draft.deliverables) ? draft.deliverables.filter((d: string) => DELIVERABLES.includes(d as typeof DELIVERABLES[number])) : []);
+        if (typeof draft.submissionId === "string") submissionId.current = draft.submissionId;
+      }
+    } catch { /* Storage may be disabled; the form still works. */ }
+    loaded.current = true;
+  }, []);
+  function saveDraft() {
+    if (!loaded.current || !formRef.current) return;
+    try {
+      const fields = Object.fromEntries(new FormData(formRef.current).entries());
+      delete fields._gotcha;
+      sessionStorage.setItem("bam-mission-draft-v1", JSON.stringify({ fields, step, deliverables: dels, submissionId: submissionId.current }));
+    } catch { /* Private browsing and full storage must not interrupt a brief. */ }
+  }
+  useEffect(() => { saveDraft(); }, [step, dels]);
+
 
   function validateStep(currentStep: number): boolean {
     const form = formRef.current;
@@ -59,6 +81,7 @@ function ContactPage() {
     try {
       const res = await submitBrief({
         data: {
+          submissionId: submissionId.current,
           gotcha: String(fd.get("_gotcha") || ""),
           missionType: String(fd.get("mission_type") || ""),
           location: String(fd.get("location") || ""),
@@ -76,6 +99,7 @@ function ContactPage() {
         },
       });
       if (res.ok) {
+        try { sessionStorage.removeItem("bam-mission-draft-v1"); } catch { /* optional storage */ }
         setStatus("ok");
         setNote("Brief received. We’ll review objective, site, airspace, and outputs, then follow up.");
       } else {
@@ -99,7 +123,7 @@ function ContactPage() {
 
       <section className="site-container grid items-start gap-8 pb-20 lg:grid-cols-[1.3fr_0.9fr]">
         {status === "ok" ? (
-          <div className="rounded-xl bg-fg p-8 shadow-[0_0_0_1px_var(--color-paper-line)]">
+          <div role="status" aria-live="polite" className="rounded-xl bg-fg p-8 shadow-[0_0_0_1px_var(--color-paper-line)]">
             <p className="eyebrow">Brief sent</p>
             <h2 className="mt-2 text-3xl">We’ll review the mission.</h2>
             <p className="mt-3 text-ink-muted">{note}</p>
@@ -108,6 +132,7 @@ function ContactPage() {
           <form
             ref={formRef}
             onSubmit={onSubmit}
+            onChange={saveDraft}
             className="rounded-xl bg-fg p-6 shadow-[0_0_0_1px_var(--color-paper-line)] md:p-8"
           >
             <input
@@ -118,6 +143,8 @@ function ContactPage() {
               aria-hidden="true"
               className="absolute -left-[9999px] h-0 w-0 opacity-0"
             />
+            <p className="mb-4 text-xs text-ink-muted">Draft saved in this browser tab until submission. Close the tab to discard it.</p>
+            <p className="sr-only" role="status" aria-live="polite">Step {step + 1} of 4: {STEPS[step]}</p>
             <nav className="mb-6 flex flex-wrap gap-2" aria-label="Mission brief steps">
               {STEPS.map((label, i) => (
                 <button
@@ -233,16 +260,16 @@ function ContactPage() {
 
             <div className={cn("grid gap-5", step !== 3 && "hidden")}>
                 <Field label="Your name" htmlFor="name">
-                  <input id="name" name="name" required className="field-input" placeholder="First and last" />
+                  <input id="name" name="name" autoComplete="name" required className="field-input" placeholder="First and last" />
                 </Field>
                 <Field label="Email" htmlFor="email">
-                  <input id="email" name="email" type="email" required className="field-input" placeholder="you@company.com" />
+                  <input id="email" name="email" autoComplete="email" type="email" required className="field-input" placeholder="you@company.com" />
                 </Field>
                 <Field label="Phone (optional)" htmlFor="phone">
-                  <input id="phone" name="phone" className="field-input" placeholder="(   )   -    " />
+                  <input id="phone" name="phone" autoComplete="tel" type="tel" className="field-input" placeholder="(   )   -    " />
                 </Field>
                 <Field label="Company (optional)" htmlFor="company">
-                  <input id="company" name="company" className="field-input" placeholder="Company or brokerage" />
+                  <input id="company" name="company" autoComplete="organization" className="field-input" placeholder="Company or brokerage" />
                 </Field>
                 <p className="text-sm text-paper-muted">{disclaimer}</p>
               </div>
@@ -266,7 +293,7 @@ function ContactPage() {
                 </Button>
               )}
             </div>
-            {status === "err" ? <p className="mt-4 text-sm text-red-700">{note}</p> : null}
+            {status === "err" ? <p role="alert" className="mt-4 text-sm text-red-700">{note}</p> : null}
           </form>
         )}
 

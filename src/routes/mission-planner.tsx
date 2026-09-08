@@ -1,3 +1,5 @@
+import { MediaImage } from "@/components/media-image";
+import { seo } from "@/lib/seo";
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
@@ -7,15 +9,7 @@ import { cn } from "@/lib/utils";
 
 export const Route = createFileRoute("/mission-planner")({
   component: PlannerPage,
-  head: () => ({
-    title: "Mission Planner — Baron Aerial Media",
-    meta: [
-      {
-        name: "description",
-        content: "Not sure what you need? Pick the closest goal and we’ll point you to the right workflow.",
-      },
-    ],
-  }),
+  head: () => seo({ title: "Mission Planner — Baron Aerial Media", description: "Not sure what you need? Pick the closest goal and we’ll point you to the right workflow.", path: "/mission-planner" }),
 });
 
 function PlannerPage() {
@@ -54,13 +48,13 @@ function PlannerPage() {
           <p className="mt-3 max-w-[56ch]">{service.summary}</p>
           <p className="mt-4 text-sm text-muted">Typical deliverables: {service.deliverables.join(" · ")}</p>
           {key === "mapping" ? (
-            <img
+            <MediaImage
               src="/media/photogrammetry-cameras.webp"
               alt="Photogrammetry camera stations around a reconstructed 3D building model"
               className="mt-6 w-full rounded-md object-contain"
             />
           ) : (
-            <img src={service.image} alt={service.name} className="mt-6 aspect-[16/9] w-full rounded-md object-cover" />
+            <MediaImage src={service.image} alt={service.name} className="mt-6 aspect-[16/9] w-full rounded-md object-cover" />
           )}
           <div className="mt-6 flex flex-wrap gap-3">
             <Button asChild>

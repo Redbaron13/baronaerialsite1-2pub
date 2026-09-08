@@ -1,3 +1,5 @@
+import { MediaImage } from "@/components/media-image";
+import { seo } from "@/lib/seo";
 import { createFileRoute, Link, notFound } from "@tanstack/react-router";
 import { PageShell } from "@/components/page-shell";
 import { CtaBand } from "@/components/cta-band";
@@ -15,10 +17,7 @@ export const Route = createFileRoute("/capabilities/$slug")({
     if (!service) throw notFound();
     return service;
   },
-  head: ({ loaderData }) => ({
-    title: `${loaderData?.name ?? "Capability"} — Baron Aerial Media`,
-    meta: [{ name: "description", content: loaderData?.summary ?? "" }],
-  }),
+  head: ({ loaderData }) => seo({ title: `${loaderData?.name ?? "Capability"} — Baron Aerial Media`, description: loaderData?.summary ?? "", path: `/capabilities/${loaderData?.slug ?? ""}`, image: loaderData?.image, type: "article" }),
 });
 
 function ServicePage() {
@@ -28,9 +27,9 @@ function ServicePage() {
 
   return (
     <PageShell tone="light">
-      <section className="relative min-h-[70vh] overflow-hidden">
-        <img src={service.image} alt={service.summary} className="absolute inset-0 size-full object-cover" />
-        <div className="absolute inset-0 bg-gradient-to-r from-ink via-ink/65 to-ink/20" />
+      <section className="photo-hero relative isolate min-h-[70vh] overflow-hidden">
+        <MediaImage src={service.image} alt={service.summary} className="absolute inset-0 size-full object-cover" />
+        <div className="hero-scrim absolute inset-0" />
         <div className="site-container relative grid max-w-2xl gap-4 pb-16 pt-36">
           <p className="eyebrow">{service.eyebrow}</p>
           <h1 className="text-[clamp(2.4rem,6vw,4.4rem)] text-fg">{service.name}</h1>
@@ -54,7 +53,7 @@ function ServicePage() {
             Built for {service.forWhom} Every assignment begins with the decision the media needs to support,
             the site, access, requested timing, and intended output.
           </p>
-          <p className="mt-4 text-sm text-paper-muted">{disclaimer}</p>
+          <aside className="scope-panel mt-6"><h3>Scope of work</h3><p>Visual documentation supports qualified review. Cause, condition, engineering conclusions, and certified surveys require the appropriate professional and a written scope.</p><p>{disclaimer}</p></aside>
         </div>
         <div className="rounded-xl bg-fg p-8 shadow-[0_0_0_1px_var(--color-paper-line)]">
           <h3 className="text-lg">Typical deliverables</h3>
@@ -78,8 +77,7 @@ function ServicePage() {
               <p className="eyebrow">Listing Film</p>
               <h2 className="mt-3 text-[clamp(1.7rem,3vw,2.6rem)] text-fg">Last light over the block.</h2>
               <p className="mt-4 max-w-[54ch] text-fg-soft">
-                An eight-second twilight flyover of a North Jersey neighborhood — roofs, streets, parked
-                cars. Listing film is a deliverable, not a leftover clip from stills. Ground photography
+                Daylight promotional footage of Embark apartments and the new ShopRite at The Crossings. Listing film is a deliverable, not a leftover clip from stills. Ground photography
                 cannot show how a property sits in its block. Altitude can.
               </p>
             </div>
@@ -87,7 +85,7 @@ function ServicePage() {
               <FieldClip
                 src="/media/neighborhood-film.mp4"
                 poster="/media/neighborhood-film.webp"
-                alt="Twilight aerial flyover of a North Jersey neighborhood — roofs, streets, parked cars"
+                alt="Daylight promotional flyover of Embark apartments and ShopRite at The Crossings"
               />
             </div>
           </div>
@@ -102,7 +100,7 @@ function ServicePage() {
               <h2 className="mt-3 text-[clamp(1.7rem,3vw,2.6rem)] text-fg">I-280 overhead. Brick Church below it.</h2>
               <p className="mt-4 max-w-[54ch] text-fg-soft">
                 Repeatable viewpoints of NJDOT’s North Munn Avenue Bridge replacement over I-280,
-                then ground hyperlapse of The Crossings at Brick Church Station — Embark apartments at
+                then ground aerial of The Crossings at Brick Church Station — Embark apartments at
                 the train station and the new ShopRite. Process and Deliver are where the comparison
                 set is built. The bridge project runs through spring 2028.
               </p>
@@ -111,7 +109,7 @@ function ServicePage() {
               <div className="media-frame overflow-hidden rounded-md">
                 <FieldClip
                   src="/media/overpass.mp4"
-                  poster="/media/overpass.webp"
+                  poster="/media/bridge-film-poster.webp"
                   alt="Nadir hold over the North Munn Avenue Bridge over I-280"
                 />
               </div>
@@ -144,8 +142,8 @@ function ServicePage() {
               <SurveyStudio ground="/media/kiji-ortho.webp" />
             </div>
             <div className="mt-8 grid items-center gap-8 md:grid-cols-2">
-              <img
-                src="/media/photogrammetry-cameras.webp"
+              <MediaImage
+                src="/media/kiji-coverage.webp"
                 alt="Photogrammetry camera stations around a reconstructed 3D building model — numbered capture positions and coverage overlay"
                 className="media-frame w-full rounded-md bg-ink-2 object-contain"
               />
@@ -153,8 +151,7 @@ function ServicePage() {
                 <p className="eyebrow">Process, not a pretty JPEG</p>
                 <h3 className="mt-2 text-2xl text-fg">Camera stations around the mesh.</h3>
                 <p className="mt-3 text-fg-soft">
-                  After the flight, software aligns each frame to a 3D model. Numbered spheres are
-                  camera stations. The colored overlay is coverage. This is what a mapping deliverable
+                  After the flight, software aligns each frame to a 3D model. Capture locations and the colored coverage layer show how imagery covers the site. This is what a mapping deliverable
                   can include alongside the orthomosaic — so a GC or planner can see how the model was
                   built, not just the flattened map.
                 </p>
@@ -174,7 +171,7 @@ function ServicePage() {
             params={{ slug: related.slug }}
             className="mt-8 grid overflow-hidden rounded-lg bg-fg shadow-[0_0_0_1px_var(--color-paper-line)] md:grid-cols-2"
           >
-            <img src={related.image} alt="" className="aspect-[16/10] w-full object-cover" />
+            <MediaImage src={related.image} alt="" className="aspect-[16/10] w-full object-cover" />
             <div className="flex flex-col justify-center p-7">
               <p className="font-display text-xs font-semibold tracking-[0.12em] text-green-deep uppercase">
                 {related.category}
@@ -202,7 +199,7 @@ function ServicePage() {
                 params={{ slug: o.slug }}
                 className="group block overflow-hidden rounded-lg bg-fg shadow-[0_0_0_1px_var(--color-paper-line)]"
               >
-                <img src={o.image} alt="" className="aspect-[16/10] w-full object-cover transition-transform duration-500 group-hover:scale-105" />
+                <MediaImage src={o.image} alt="" className="aspect-[16/10] w-full object-cover transition-transform duration-500 group-hover:scale-105" />
                 <p className="p-4 font-display font-semibold text-ink-text">{o.name}</p>
               </Link>
             </TiltCard>
