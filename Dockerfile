@@ -6,7 +6,7 @@ ARG VITE_AUTH_ENABLED=false
 ENV VITE_AUTH_ENABLED=$VITE_AUTH_ENABLED
 
 COPY package.json package-lock.json ./
-RUN npm ci
+RUN npm ci --legacy-peer-deps || npm install --legacy-peer-deps
 
 COPY . .
 RUN npm run build:docker
