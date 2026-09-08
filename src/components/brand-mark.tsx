@@ -11,28 +11,29 @@ export function BrandMark({
 }) {
   const src = withTagline
     ? onDark
-      ? "/brand/logo-horizontal-on-dark.png"
-      : "/brand/logo-horizontal.png"
+      ? "/brand/logo-horizontal-on-dark.webp"
+      : "/brand/logo-horizontal.webp"
     : onDark
-      ? "/brand/logo-nav-on-dark.png"
-      : "/brand/logo-nav.png";
-  const mark = onDark ? "/brand/logo-mark-on-dark.png" : "/brand/logo-mark.png";
+      ? "/brand/logo-nav-on-dark.webp"
+      : "/brand/logo-nav.webp";
+  const mark = onDark ? "/brand/logo-mark-on-dark.webp" : "/brand/logo-mark.webp";
 
   return (
     <span className="flex items-center">
-      <img
-        src={mark}
-        alt=""
-        className={cn("w-auto shrink-0 lg:hidden", compact ? "h-10" : "h-11")}
-      />
-      <img
-        src={src}
-        alt="Baron Aerial Media"
-        className={cn(
-          "hidden w-auto lg:block",
-          withTagline ? "h-16" : compact ? "h-11" : "h-12",
-        )}
-      />
+      <picture>
+        <source media="(min-width: 1024px)" srcSet={src} />
+        <img
+          src={mark}
+          alt="Baron Aerial Media"
+          width={192}
+          height={156}
+          decoding="async"
+          className={cn(
+            "w-auto",
+            withTagline ? "h-11 lg:h-16" : compact ? "h-10 lg:h-11" : "h-11 lg:h-12",
+          )}
+        />
+      </picture>
     </span>
   );
 }

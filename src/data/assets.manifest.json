@@ -1,0 +1,1259 @@
+{
+  "version": 1,
+  "assets": {
+    "bam-5a22d066e92cd5be": {
+      "alt": "Hainesport house, swimming pool, lawn and neighboring properties from above",
+      "serviceTags": [
+        "real-estate"
+      ],
+      "reviewedAt": "2026-09-07",
+      "reviewMethod": "Visual review of repository asset",
+      "id": "bam-5a22d066e92cd5be",
+      "src": "/media/jobsite.webp",
+      "sha256": "5a22d066e92cd5be67a4fd26757df34796c7cf7b9a21b42736da9d8af331f8c7",
+      "width": 1800,
+      "height": 1257,
+      "variants": [
+        {
+          "src": "/media/responsive/bam-5a22d066e92cd5be-400.webp",
+          "width": 400,
+          "height": 279,
+          "bytes": 18674
+        },
+        {
+          "src": "/media/responsive/bam-5a22d066e92cd5be-800.webp",
+          "width": 800,
+          "height": 559,
+          "bytes": 43304
+        },
+        {
+          "src": "/media/responsive/bam-5a22d066e92cd5be-1200.webp",
+          "width": 1200,
+          "height": 838,
+          "bytes": 70182
+        },
+        {
+          "src": "/media/responsive/bam-5a22d066e92cd5be-1800.webp",
+          "width": 1800,
+          "height": 1257,
+          "bytes": 104660
+        }
+      ]
+    },
+    "bam-175de012cb710326": {
+      "alt": "Front of a two-story Hainesport house with driveway, lawn and bare trees",
+      "serviceTags": [
+        "real-estate"
+      ],
+      "reviewedAt": "2026-09-07",
+      "reviewMethod": "Visual review of repository asset",
+      "id": "bam-175de012cb710326",
+      "src": "/media/bancroft-curb.webp",
+      "sha256": "175de012cb71032693b7223eaaa934a183abaa2f13023cb2eec2e65d20e9da68",
+      "width": 1600,
+      "height": 918,
+      "variants": [
+        {
+          "src": "/media/responsive/bam-175de012cb710326-400.webp",
+          "width": 400,
+          "height": 230,
+          "bytes": 29674
+        },
+        {
+          "src": "/media/responsive/bam-175de012cb710326-800.webp",
+          "width": 800,
+          "height": 459,
+          "bytes": 120554
+        },
+        {
+          "src": "/media/responsive/bam-175de012cb710326-1200.webp",
+          "width": 1200,
+          "height": 688,
+          "bytes": 229966
+        }
+      ]
+    },
+    "bam-44415de6569d82d9": {
+      "alt": "Unrectified interior panorama of a house with staircase and kitchen",
+      "serviceTags": [],
+      "reviewedAt": "2026-09-07",
+      "reviewMethod": "Visual review of repository asset",
+      "id": "bam-44415de6569d82d9",
+      "src": "/media/bancroft-aerial.webp",
+      "sha256": "44415de6569d82d9abbc292b72d37c98ffc332676ab04d26c0b89d1cba8fcc17",
+      "width": 2560,
+      "height": 1280,
+      "variants": [
+        {
+          "src": "/media/responsive/bam-44415de6569d82d9-400.webp",
+          "width": 400,
+          "height": 200,
+          "bytes": 9534
+        },
+        {
+          "src": "/media/responsive/bam-44415de6569d82d9-800.webp",
+          "width": 800,
+          "height": 400,
+          "bytes": 26556
+        },
+        {
+          "src": "/media/responsive/bam-44415de6569d82d9-1200.webp",
+          "width": 1200,
+          "height": 600,
+          "bytes": 48974
+        },
+        {
+          "src": "/media/responsive/bam-44415de6569d82d9-1800.webp",
+          "width": 1800,
+          "height": 900,
+          "bytes": 85986
+        }
+      ]
+    },
+    "bam-a2ebc099d9de9f4f": {
+      "alt": "Oblique view of a two-story house, shingle roof, lawn and surrounding trees",
+      "serviceTags": [
+        "real-estate",
+        "inspections"
+      ],
+      "reviewedAt": "2026-09-07",
+      "reviewMethod": "Visual review of repository asset",
+      "id": "bam-a2ebc099d9de9f4f",
+      "src": "/media/work-residential.webp",
+      "sha256": "a2ebc099d9de9f4fbc8298471a08b5b527221431468d6edd520b8e13a7ffe0e5",
+      "width": 1600,
+      "height": 900,
+      "variants": [
+        {
+          "src": "/media/responsive/bam-a2ebc099d9de9f4f-400.webp",
+          "width": 400,
+          "height": 225,
+          "bytes": 24082
+        },
+        {
+          "src": "/media/responsive/bam-a2ebc099d9de9f4f-800.webp",
+          "width": 800,
+          "height": 450,
+          "bytes": 92296
+        },
+        {
+          "src": "/media/responsive/bam-a2ebc099d9de9f4f-1200.webp",
+          "width": 1200,
+          "height": 675,
+          "bytes": 162044
+        }
+      ]
+    },
+    "bam-b5be954c2e493676": {
+      "alt": "Green Borough of Milltown water tower above a tree canopy",
+      "serviceTags": [
+        "inspections"
+      ],
+      "reviewedAt": "2026-09-07",
+      "reviewMethod": "Visual review of repository asset",
+      "id": "bam-b5be954c2e493676",
+      "src": "/media/work-tower.webp",
+      "sha256": "b5be954c2e49367621045cfc5841b2193375d57e81b5876b506582eb063897bb",
+      "width": 1600,
+      "height": 900,
+      "variants": [
+        {
+          "src": "/media/responsive/bam-b5be954c2e493676-400.webp",
+          "width": 400,
+          "height": 225,
+          "bytes": 21590
+        },
+        {
+          "src": "/media/responsive/bam-b5be954c2e493676-800.webp",
+          "width": 800,
+          "height": 450,
+          "bytes": 79190
+        },
+        {
+          "src": "/media/responsive/bam-b5be954c2e493676-1200.webp",
+          "width": 1200,
+          "height": 675,
+          "bytes": 143146
+        }
+      ]
+    },
+    "bam-0779bcea72080181": {
+      "alt": "Solar panels and rooftop equipment on a white commercial roof",
+      "serviceTags": [
+        "roof-solar",
+        "inspections"
+      ],
+      "reviewedAt": "2026-09-07",
+      "reviewMethod": "Visual review of repository asset",
+      "id": "bam-0779bcea72080181",
+      "src": "/media/svc-solar.webp",
+      "sha256": "0779bcea72080181ca553d90156a38ebb1b874f34e6eca162e24be96f12095ed",
+      "width": 1600,
+      "height": 900,
+      "variants": [
+        {
+          "src": "/media/responsive/bam-0779bcea72080181-400.webp",
+          "width": 400,
+          "height": 225,
+          "bytes": 16092
+        },
+        {
+          "src": "/media/responsive/bam-0779bcea72080181-800.webp",
+          "width": 800,
+          "height": 450,
+          "bytes": 48770
+        },
+        {
+          "src": "/media/responsive/bam-0779bcea72080181-1200.webp",
+          "width": 1200,
+          "height": 675,
+          "bytes": 79316
+        }
+      ]
+    },
+    "bam-c7db0e7f6df65eae": {
+      "alt": "Outdoor concrete amphitheater steps, paths and a person beside equipment",
+      "serviceTags": [],
+      "reviewedAt": "2026-09-07",
+      "reviewMethod": "Visual review of repository asset",
+      "id": "bam-c7db0e7f6df65eae",
+      "src": "/media/svc-events.webp",
+      "sha256": "c7db0e7f6df65eae0ebfc893f1488f241791486f96cac1c5a11df59f32bf83e8",
+      "width": 1600,
+      "height": 900,
+      "variants": [
+        {
+          "src": "/media/responsive/bam-c7db0e7f6df65eae-400.webp",
+          "width": 400,
+          "height": 225,
+          "bytes": 21012
+        },
+        {
+          "src": "/media/responsive/bam-c7db0e7f6df65eae-800.webp",
+          "width": 800,
+          "height": 450,
+          "bytes": 82694
+        },
+        {
+          "src": "/media/responsive/bam-c7db0e7f6df65eae-1200.webp",
+          "width": 1200,
+          "height": 675,
+          "bytes": 154680
+        }
+      ]
+    },
+    "bam-ba5805d64ac10e40": {
+      "alt": "Top-down view of apartment courtyards, rooftops, parking and streets",
+      "serviceTags": [
+        "real-estate"
+      ],
+      "reviewedAt": "2026-09-07",
+      "reviewMethod": "Visual review of repository asset",
+      "id": "bam-ba5805d64ac10e40",
+      "src": "/media/overpass.webp",
+      "sha256": "ba5805d64ac10e409ee36c049ba3627466c8d687ff54e7cdb54fa23bda58e89b",
+      "width": 2560,
+      "height": 1440,
+      "variants": [
+        {
+          "src": "/media/responsive/bam-ba5805d64ac10e40-400.webp",
+          "width": 400,
+          "height": 225,
+          "bytes": 17438
+        },
+        {
+          "src": "/media/responsive/bam-ba5805d64ac10e40-800.webp",
+          "width": 800,
+          "height": 450,
+          "bytes": 48534
+        },
+        {
+          "src": "/media/responsive/bam-ba5805d64ac10e40-1200.webp",
+          "width": 1200,
+          "height": 675,
+          "bytes": 87954
+        },
+        {
+          "src": "/media/responsive/bam-ba5805d64ac10e40-1800.webp",
+          "width": 1800,
+          "height": 1012,
+          "bytes": 149992
+        }
+      ]
+    },
+    "bam-4d3b5949e9f21a64": {
+      "alt": "Apartment rooftops and two landscaped courtyards viewed straight down",
+      "serviceTags": [
+        "real-estate"
+      ],
+      "reviewedAt": "2026-09-07",
+      "reviewMethod": "Visual review of repository asset",
+      "id": "bam-4d3b5949e9f21a64",
+      "src": "/media/overpass-oblique.webp",
+      "sha256": "4d3b5949e9f21a64cd7aac7edfe06ba9a237f3c67c33d8438ee1a327a060a38c",
+      "width": 2560,
+      "height": 1440,
+      "variants": [
+        {
+          "src": "/media/responsive/bam-4d3b5949e9f21a64-400.webp",
+          "width": 400,
+          "height": 225,
+          "bytes": 17348
+        },
+        {
+          "src": "/media/responsive/bam-4d3b5949e9f21a64-800.webp",
+          "width": 800,
+          "height": 450,
+          "bytes": 48526
+        },
+        {
+          "src": "/media/responsive/bam-4d3b5949e9f21a64-1200.webp",
+          "width": 1200,
+          "height": 675,
+          "bytes": 87236
+        },
+        {
+          "src": "/media/responsive/bam-4d3b5949e9f21a64-1800.webp",
+          "width": 1800,
+          "height": 1012,
+          "bytes": 149888
+        }
+      ]
+    },
+    "bam-a11b0e950431fd1e": {
+      "alt": "Apartment courtyards, white rooftop and marked parking bays from above",
+      "serviceTags": [
+        "real-estate"
+      ],
+      "reviewedAt": "2026-09-07",
+      "reviewMethod": "Visual review of repository asset",
+      "id": "bam-a11b0e950431fd1e",
+      "src": "/media/overpass-approach.webp",
+      "sha256": "a11b0e950431fd1e5d8e28c6783fc3503a9c4d4ede3e3acfc43630842c9f9a71",
+      "width": 2560,
+      "height": 1440,
+      "variants": [
+        {
+          "src": "/media/responsive/bam-a11b0e950431fd1e-400.webp",
+          "width": 400,
+          "height": 225,
+          "bytes": 16588
+        },
+        {
+          "src": "/media/responsive/bam-a11b0e950431fd1e-800.webp",
+          "width": 800,
+          "height": 450,
+          "bytes": 46454
+        },
+        {
+          "src": "/media/responsive/bam-a11b0e950431fd1e-1200.webp",
+          "width": 1200,
+          "height": 675,
+          "bytes": 81550
+        },
+        {
+          "src": "/media/responsive/bam-a11b0e950431fd1e-1800.webp",
+          "width": 1800,
+          "height": 1012,
+          "bytes": 138152
+        }
+      ]
+    },
+    "bam-1a7de0a3f0bd762a": {
+      "alt": "Oblique aerial of a mixed-use apartment complex with white roofs and parking",
+      "serviceTags": [
+        "real-estate"
+      ],
+      "reviewedAt": "2026-09-07",
+      "reviewMethod": "Visual review of repository asset",
+      "id": "bam-1a7de0a3f0bd762a",
+      "src": "/media/overpass-ground.webp",
+      "sha256": "1a7de0a3f0bd762aecbac7477c5767a20a38b7296be211085af4e3e43e855b06",
+      "width": 1800,
+      "height": 1350,
+      "variants": [
+        {
+          "src": "/media/responsive/bam-1a7de0a3f0bd762a-400.webp",
+          "width": 400,
+          "height": 300,
+          "bytes": 29130
+        },
+        {
+          "src": "/media/responsive/bam-1a7de0a3f0bd762a-800.webp",
+          "width": 800,
+          "height": 600,
+          "bytes": 88416
+        },
+        {
+          "src": "/media/responsive/bam-1a7de0a3f0bd762a-1200.webp",
+          "width": 1200,
+          "height": 900,
+          "bytes": 164458
+        },
+        {
+          "src": "/media/responsive/bam-1a7de0a3f0bd762a-1800.webp",
+          "width": 1800,
+          "height": 1350,
+          "bytes": 294960
+        }
+      ]
+    },
+    "bam-2b3e352dc3d036bc": {
+      "alt": "Oblique view along apartment rooftops, a street and parked vehicles",
+      "serviceTags": [
+        "real-estate"
+      ],
+      "reviewedAt": "2026-09-07",
+      "reviewMethod": "Visual review of repository asset",
+      "id": "bam-2b3e352dc3d036bc",
+      "src": "/media/south-munn-staging.webp",
+      "sha256": "2b3e352dc3d036bc7e416f2b047a486c830d329b7f9acb0a59171320103dc341",
+      "width": 1600,
+      "height": 1200,
+      "variants": [
+        {
+          "src": "/media/responsive/bam-2b3e352dc3d036bc-400.webp",
+          "width": 400,
+          "height": 300,
+          "bytes": 32682
+        },
+        {
+          "src": "/media/responsive/bam-2b3e352dc3d036bc-800.webp",
+          "width": 800,
+          "height": 600,
+          "bytes": 104556
+        },
+        {
+          "src": "/media/responsive/bam-2b3e352dc3d036bc-1200.webp",
+          "width": 1200,
+          "height": 900,
+          "bytes": 174286
+        }
+      ]
+    },
+    "bam-7be44d036f4dd35d": {
+      "alt": "Apartment buildings, parking garage and access streets at The Crossings",
+      "serviceTags": [
+        "real-estate"
+      ],
+      "reviewedAt": "2026-09-07",
+      "reviewMethod": "Visual review of repository asset",
+      "id": "bam-7be44d036f4dd35d",
+      "src": "/media/brick-church-village.webp",
+      "sha256": "7be44d036f4dd35d3ff1d80f07df71d2779bebcb69d256d5fce4875de8a72180",
+      "width": 1600,
+      "height": 1200,
+      "variants": [
+        {
+          "src": "/media/responsive/bam-7be44d036f4dd35d-400.webp",
+          "width": 400,
+          "height": 300,
+          "bytes": 32024
+        },
+        {
+          "src": "/media/responsive/bam-7be44d036f4dd35d-800.webp",
+          "width": 800,
+          "height": 600,
+          "bytes": 101844
+        },
+        {
+          "src": "/media/responsive/bam-7be44d036f4dd35d-1200.webp",
+          "width": 1200,
+          "height": 900,
+          "bytes": 166598
+        }
+      ]
+    },
+    "bam-875abe10f9e84037": {
+      "alt": "Aerial view of The Crossings with apartment blocks and parking deck",
+      "serviceTags": [
+        "real-estate"
+      ],
+      "reviewedAt": "2026-09-07",
+      "reviewMethod": "Visual review of repository asset",
+      "id": "bam-875abe10f9e84037",
+      "src": "/media/brick-church-apartments.webp",
+      "sha256": "875abe10f9e84037dc29c5287d13405bfdac67961f9e55386dba01641454810a",
+      "width": 1600,
+      "height": 1200,
+      "variants": [
+        {
+          "src": "/media/responsive/bam-875abe10f9e84037-400.webp",
+          "width": 400,
+          "height": 300,
+          "bytes": 30650
+        },
+        {
+          "src": "/media/responsive/bam-875abe10f9e84037-800.webp",
+          "width": 800,
+          "height": 600,
+          "bytes": 97864
+        },
+        {
+          "src": "/media/responsive/bam-875abe10f9e84037-1200.webp",
+          "width": 1200,
+          "height": 900,
+          "bytes": 162324
+        }
+      ]
+    },
+    "bam-7caf94ab6a612004": {
+      "alt": "The Crossings apartment roofs, courtyard and parking under daylight",
+      "serviceTags": [
+        "real-estate"
+      ],
+      "reviewedAt": "2026-09-07",
+      "reviewMethod": "Visual review of repository asset",
+      "id": "bam-7caf94ab6a612004",
+      "src": "/media/neighborhood-film.webp",
+      "sha256": "7caf94ab6a61200472dca0c12b5853796c8bda0638a9ccb38ec8f2e7a628284c",
+      "width": 1600,
+      "height": 900,
+      "variants": [
+        {
+          "src": "/media/responsive/bam-7caf94ab6a612004-400.webp",
+          "width": 400,
+          "height": 225,
+          "bytes": 24728
+        },
+        {
+          "src": "/media/responsive/bam-7caf94ab6a612004-800.webp",
+          "width": 800,
+          "height": 450,
+          "bytes": 74792
+        },
+        {
+          "src": "/media/responsive/bam-7caf94ab6a612004-1200.webp",
+          "width": 1200,
+          "height": 675,
+          "bytes": 121878
+        }
+      ]
+    },
+    "bam-0e3b4cfc7a38e789": {
+      "alt": "Daylight aerial view of apartment buildings and parking",
+      "serviceTags": [],
+      "reviewedAt": "2026-09-07",
+      "reviewMethod": "Visual review of repository asset",
+      "id": "bam-0e3b4cfc7a38e789",
+      "src": "/media/jobsite-ground.webp",
+      "sha256": "0e3b4cfc7a38e789d82871514926f64800ff44aa8978c6bb74d8d08dc72392dd",
+      "width": 1333,
+      "height": 1000,
+      "variants": [
+        {
+          "src": "/media/responsive/bam-0e3b4cfc7a38e789-400.webp",
+          "width": 400,
+          "height": 300,
+          "bytes": 28690
+        },
+        {
+          "src": "/media/responsive/bam-0e3b4cfc7a38e789-800.webp",
+          "width": 800,
+          "height": 600,
+          "bytes": 83652
+        },
+        {
+          "src": "/media/responsive/bam-0e3b4cfc7a38e789-1200.webp",
+          "width": 1200,
+          "height": 900,
+          "bytes": 139888
+        }
+      ]
+    },
+    "bam-ed93738ff174f252": {
+      "alt": "Large highway interchange, curved ramps, road traffic and surrounding development",
+      "serviceTags": [
+        "construction"
+      ],
+      "reviewedAt": "2026-09-07",
+      "reviewMethod": "Visual review of repository asset",
+      "id": "bam-ed93738ff174f252",
+      "src": "/media/work-interchange.webp",
+      "sha256": "ed93738ff174f252f64f5894a824f894d7639157c13d734e8ad846b84dc90836",
+      "width": 1600,
+      "height": 900,
+      "variants": [
+        {
+          "src": "/media/responsive/bam-ed93738ff174f252-400.webp",
+          "width": 400,
+          "height": 225,
+          "bytes": 27048
+        },
+        {
+          "src": "/media/responsive/bam-ed93738ff174f252-800.webp",
+          "width": 800,
+          "height": 450,
+          "bytes": 86940
+        },
+        {
+          "src": "/media/responsive/bam-ed93738ff174f252-1200.webp",
+          "width": 1200,
+          "height": 675,
+          "bytes": 146588
+        }
+      ]
+    },
+    "bam-7583bcafd279e00b": {
+      "alt": "Straight-down view of an intersection beside a bridge construction zone",
+      "serviceTags": [
+        "construction"
+      ],
+      "reviewedAt": "2026-09-07",
+      "reviewMethod": "Visual review of repository asset",
+      "id": "bam-7583bcafd279e00b",
+      "src": "/media/neighborhood-oblique.webp",
+      "sha256": "7583bcafd279e00bd9d56816bb1b5c91eb7040ee33570530ae290971d925e2fa",
+      "width": 1600,
+      "height": 900,
+      "variants": [
+        {
+          "src": "/media/responsive/bam-7583bcafd279e00b-400.webp",
+          "width": 400,
+          "height": 225,
+          "bytes": 22552
+        },
+        {
+          "src": "/media/responsive/bam-7583bcafd279e00b-800.webp",
+          "width": 800,
+          "height": 450,
+          "bytes": 66520
+        },
+        {
+          "src": "/media/responsive/bam-7583bcafd279e00b-1200.webp",
+          "width": 1200,
+          "height": 675,
+          "bytes": 106762
+        }
+      ]
+    },
+    "bam-79d5423a2d699300": {
+      "alt": "Road intersection, railway platforms and bridge works viewed from above",
+      "serviceTags": [
+        "construction"
+      ],
+      "reviewedAt": "2026-09-07",
+      "reviewMethod": "Visual review of repository asset",
+      "id": "bam-79d5423a2d699300",
+      "src": "/media/warehouse-sunset.webp",
+      "sha256": "79d5423a2d699300a4bacceee4aff1503179abae68a4757c28d91ba2d3abbf83",
+      "width": 1800,
+      "height": 1012,
+      "variants": [
+        {
+          "src": "/media/responsive/bam-79d5423a2d699300-400.webp",
+          "width": 400,
+          "height": 225,
+          "bytes": 25726
+        },
+        {
+          "src": "/media/responsive/bam-79d5423a2d699300-800.webp",
+          "width": 800,
+          "height": 450,
+          "bytes": 78302
+        },
+        {
+          "src": "/media/responsive/bam-79d5423a2d699300-1200.webp",
+          "width": 1200,
+          "height": 675,
+          "bytes": 143412
+        },
+        {
+          "src": "/media/responsive/bam-79d5423a2d699300-1800.webp",
+          "width": 1800,
+          "height": 1012,
+          "bytes": 255366
+        }
+      ]
+    },
+    "bam-d35bcf89ffa1ff3c": {
+      "alt": "Top-down intersection with turning vehicles and adjacent work zone",
+      "serviceTags": [
+        "construction"
+      ],
+      "reviewedAt": "2026-09-07",
+      "reviewMethod": "Visual review of repository asset",
+      "id": "bam-d35bcf89ffa1ff3c",
+      "src": "/media/warehouse-lot.webp",
+      "sha256": "d35bcf89ffa1ff3c1b6dbc19602ff414ebff201a912e8519851c8feb3224ba1b",
+      "width": 1800,
+      "height": 1012,
+      "variants": [
+        {
+          "src": "/media/responsive/bam-d35bcf89ffa1ff3c-400.webp",
+          "width": 400,
+          "height": 225,
+          "bytes": 21526
+        },
+        {
+          "src": "/media/responsive/bam-d35bcf89ffa1ff3c-800.webp",
+          "width": 800,
+          "height": 450,
+          "bytes": 62490
+        },
+        {
+          "src": "/media/responsive/bam-d35bcf89ffa1ff3c-1200.webp",
+          "width": 1200,
+          "height": 675,
+          "bytes": 111720
+        },
+        {
+          "src": "/media/responsive/bam-d35bcf89ffa1ff3c-1800.webp",
+          "width": 1800,
+          "height": 1012,
+          "bytes": 185286
+        }
+      ]
+    },
+    "bam-69cc11f3e5a8e2ce": {
+      "alt": "Bridge over a multilane highway, work vehicles and tree canopy in daylight",
+      "serviceTags": [
+        "construction"
+      ],
+      "reviewedAt": "2026-09-07",
+      "reviewMethod": "Visual review of repository asset",
+      "id": "bam-69cc11f3e5a8e2ce",
+      "src": "/media/night-lot.webp",
+      "sha256": "69cc11f3e5a8e2ce4008caa84f68b1580bbdbff9f2676ebbc07ac99bede9c80b",
+      "width": 1800,
+      "height": 1200,
+      "variants": [
+        {
+          "src": "/media/responsive/bam-69cc11f3e5a8e2ce-400.webp",
+          "width": 400,
+          "height": 267,
+          "bytes": 23918
+        },
+        {
+          "src": "/media/responsive/bam-69cc11f3e5a8e2ce-800.webp",
+          "width": 800,
+          "height": 533,
+          "bytes": 63366
+        },
+        {
+          "src": "/media/responsive/bam-69cc11f3e5a8e2ce-1200.webp",
+          "width": 1200,
+          "height": 800,
+          "bytes": 103828
+        },
+        {
+          "src": "/media/responsive/bam-69cc11f3e5a8e2ce-1800.webp",
+          "width": 1800,
+          "height": 1200,
+          "bytes": 163530
+        }
+      ]
+    },
+    "bam-c2ccd32a5cad43a7": {
+      "alt": "Bridge deck and exposed structure above a highway in daylight",
+      "serviceTags": [
+        "construction"
+      ],
+      "reviewedAt": "2026-09-07",
+      "reviewMethod": "Visual review of repository asset",
+      "id": "bam-c2ccd32a5cad43a7",
+      "src": "/media/night-street.webp",
+      "sha256": "c2ccd32a5cad43a7dfcf03711deef32b195dcb1479a1be28f41c63906a344c01",
+      "width": 1800,
+      "height": 1200,
+      "variants": [
+        {
+          "src": "/media/responsive/bam-c2ccd32a5cad43a7-400.webp",
+          "width": 400,
+          "height": 267,
+          "bytes": 18582
+        },
+        {
+          "src": "/media/responsive/bam-c2ccd32a5cad43a7-800.webp",
+          "width": 800,
+          "height": 533,
+          "bytes": 55046
+        },
+        {
+          "src": "/media/responsive/bam-c2ccd32a5cad43a7-1200.webp",
+          "width": 1200,
+          "height": 800,
+          "bytes": 93114
+        },
+        {
+          "src": "/media/responsive/bam-c2ccd32a5cad43a7-1800.webp",
+          "width": 1800,
+          "height": 1200,
+          "bytes": 153690
+        }
+      ]
+    },
+    "bam-47dfad12ade473dc": {
+      "alt": "Traffic passing under a bridge under construction in daylight",
+      "serviceTags": [
+        "construction"
+      ],
+      "reviewedAt": "2026-09-07",
+      "reviewMethod": "Visual review of repository asset",
+      "id": "bam-47dfad12ade473dc",
+      "src": "/media/dusk-lot.webp",
+      "sha256": "47dfad12ade473dc00a2622f9bd439ebcbe8f7c183f617d170a6de832e4ea4d6",
+      "width": 1600,
+      "height": 900,
+      "variants": [
+        {
+          "src": "/media/responsive/bam-47dfad12ade473dc-400.webp",
+          "width": 400,
+          "height": 225,
+          "bytes": 16086
+        },
+        {
+          "src": "/media/responsive/bam-47dfad12ade473dc-800.webp",
+          "width": 800,
+          "height": 450,
+          "bytes": 48980
+        },
+        {
+          "src": "/media/responsive/bam-47dfad12ade473dc-1200.webp",
+          "width": 1200,
+          "height": 675,
+          "bytes": 74574
+        }
+      ]
+    },
+    "bam-b17df932b010a35e": {
+      "alt": "Daylight top-down view of road lanes, railway tracks and a work zone",
+      "serviceTags": [
+        "construction"
+      ],
+      "reviewedAt": "2026-09-07",
+      "reviewMethod": "Visual review of repository asset",
+      "id": "bam-b17df932b010a35e",
+      "src": "/media/park-twilight.webp",
+      "sha256": "b17df932b010a35e73da7e8fd10d4338c1acf05f3efe9cde14faa5ecbd696062",
+      "width": 1800,
+      "height": 1200,
+      "variants": [
+        {
+          "src": "/media/responsive/bam-b17df932b010a35e-400.webp",
+          "width": 400,
+          "height": 267,
+          "bytes": 22414
+        },
+        {
+          "src": "/media/responsive/bam-b17df932b010a35e-800.webp",
+          "width": 800,
+          "height": 533,
+          "bytes": 59298
+        },
+        {
+          "src": "/media/responsive/bam-b17df932b010a35e-1200.webp",
+          "width": 1200,
+          "height": 800,
+          "bytes": 100892
+        },
+        {
+          "src": "/media/responsive/bam-b17df932b010a35e-1800.webp",
+          "width": 1800,
+          "height": 1200,
+          "bytes": 158102
+        }
+      ]
+    },
+    "bam-c86a54d78ac7542d": {
+      "alt": "Oblique view of a bridge with construction barriers above a highway",
+      "serviceTags": [
+        "construction"
+      ],
+      "reviewedAt": "2026-09-07",
+      "reviewMethod": "Visual review of repository asset",
+      "id": "bam-c86a54d78ac7542d",
+      "src": "/media/neighborhood-gold.webp",
+      "sha256": "c86a54d78ac7542d0ce8873f4285710ae68f8250460e7308553385197cf143cd",
+      "width": 1800,
+      "height": 1200,
+      "variants": [
+        {
+          "src": "/media/responsive/bam-c86a54d78ac7542d-400.webp",
+          "width": 400,
+          "height": 267,
+          "bytes": 28976
+        },
+        {
+          "src": "/media/responsive/bam-c86a54d78ac7542d-800.webp",
+          "width": 800,
+          "height": 533,
+          "bytes": 84468
+        },
+        {
+          "src": "/media/responsive/bam-c86a54d78ac7542d-1200.webp",
+          "width": 1200,
+          "height": 800,
+          "bytes": 147362
+        },
+        {
+          "src": "/media/responsive/bam-c86a54d78ac7542d-1800.webp",
+          "width": 1800,
+          "height": 1200,
+          "bytes": 244938
+        }
+      ]
+    },
+    "bam-c93a2af04708bd05": {
+      "alt": "Road junction alongside railway platforms and tracks",
+      "serviceTags": [
+        "construction"
+      ],
+      "reviewedAt": "2026-09-07",
+      "reviewMethod": "Visual review of repository asset",
+      "id": "bam-c93a2af04708bd05",
+      "src": "/media/rail-station.webp",
+      "sha256": "c93a2af04708bd056b05a092fdafd5c39e0248aec1f93a1e86ac94db275c5922",
+      "width": 1800,
+      "height": 1012,
+      "variants": [
+        {
+          "src": "/media/responsive/bam-c93a2af04708bd05-400.webp",
+          "width": 400,
+          "height": 225,
+          "bytes": 14842
+        },
+        {
+          "src": "/media/responsive/bam-c93a2af04708bd05-800.webp",
+          "width": 800,
+          "height": 450,
+          "bytes": 39364
+        },
+        {
+          "src": "/media/responsive/bam-c93a2af04708bd05-1200.webp",
+          "width": 1200,
+          "height": 675,
+          "bytes": 68078
+        },
+        {
+          "src": "/media/responsive/bam-c93a2af04708bd05-1800.webp",
+          "width": 1800,
+          "height": 1012,
+          "bytes": 103118
+        }
+      ]
+    },
+    "bam-aee408d852a637e8": {
+      "alt": "City blocks, trees and buildings under a blue daytime sky",
+      "serviceTags": [
+        "real-estate"
+      ],
+      "reviewedAt": "2026-09-07",
+      "reviewMethod": "Visual review of repository asset",
+      "id": "bam-aee408d852a637e8",
+      "src": "/media/city-dusk.webp",
+      "sha256": "aee408d852a637e8fcc0bf3d7490c6ae30a885c7de60583fb50f82cceb481696",
+      "width": 1800,
+      "height": 1200,
+      "variants": [
+        {
+          "src": "/media/responsive/bam-aee408d852a637e8-400.webp",
+          "width": 400,
+          "height": 267,
+          "bytes": 26484
+        },
+        {
+          "src": "/media/responsive/bam-aee408d852a637e8-800.webp",
+          "width": 800,
+          "height": 533,
+          "bytes": 76830
+        },
+        {
+          "src": "/media/responsive/bam-aee408d852a637e8-1200.webp",
+          "width": 1200,
+          "height": 800,
+          "bytes": 137962
+        },
+        {
+          "src": "/media/responsive/bam-aee408d852a637e8-1800.webp",
+          "width": 1800,
+          "height": 1200,
+          "bytes": 237650
+        }
+      ]
+    },
+    "bam-2cbc480eea57e194": {
+      "alt": "Wide city panorama with highway ramps under a blue evening sky",
+      "serviceTags": [],
+      "reviewedAt": "2026-09-07",
+      "reviewMethod": "Visual review of repository asset",
+      "id": "bam-2cbc480eea57e194",
+      "src": "/media/hero-city.webp",
+      "sha256": "2cbc480eea57e194433759ae2bfb09ea0eca8e21633512e3eefb65d3963eae52",
+      "width": 1920,
+      "height": 1080,
+      "variants": [
+        {
+          "src": "/media/responsive/bam-2cbc480eea57e194-400.webp",
+          "width": 400,
+          "height": 225,
+          "bytes": 13938
+        },
+        {
+          "src": "/media/responsive/bam-2cbc480eea57e194-800.webp",
+          "width": 800,
+          "height": 450,
+          "bytes": 48228
+        },
+        {
+          "src": "/media/responsive/bam-2cbc480eea57e194-1200.webp",
+          "width": 1200,
+          "height": 675,
+          "bytes": 95056
+        },
+        {
+          "src": "/media/responsive/bam-2cbc480eea57e194-1800.webp",
+          "width": 1800,
+          "height": 1012,
+          "bytes": 164722
+        }
+      ]
+    },
+    "bam-73b6b497b6513bb2": {
+      "alt": "Nighttime highway with vehicle light trails, buildings and illuminated roads",
+      "serviceTags": [],
+      "reviewedAt": "2026-09-07",
+      "reviewMethod": "Visual review of repository asset",
+      "id": "bam-73b6b497b6513bb2",
+      "src": "/media/featured-night.webp",
+      "sha256": "73b6b497b6513bb2bee92f11162fa248417ee08d048a3206de449faf0ab8f3cc",
+      "width": 1600,
+      "height": 900,
+      "variants": [
+        {
+          "src": "/media/responsive/bam-73b6b497b6513bb2-400.webp",
+          "width": 400,
+          "height": 225,
+          "bytes": 27042
+        },
+        {
+          "src": "/media/responsive/bam-73b6b497b6513bb2-800.webp",
+          "width": 800,
+          "height": 450,
+          "bytes": 80622
+        },
+        {
+          "src": "/media/responsive/bam-73b6b497b6513bb2-1200.webp",
+          "width": 1200,
+          "height": 675,
+          "bytes": 129262
+        }
+      ]
+    },
+    "bam-f8002b3625ac1715": {
+      "alt": "Office towers above a multilevel parking structure",
+      "serviceTags": [
+        "real-estate"
+      ],
+      "reviewedAt": "2026-09-07",
+      "reviewMethod": "Visual review of repository asset",
+      "id": "bam-f8002b3625ac1715",
+      "src": "/media/work-commercial.webp",
+      "sha256": "f8002b3625ac1715f37029bbc2611005b64b7fd3e6e1b1e0b74b6a26035bc47c",
+      "width": 1600,
+      "height": 900,
+      "variants": [
+        {
+          "src": "/media/responsive/bam-f8002b3625ac1715-400.webp",
+          "width": 400,
+          "height": 225,
+          "bytes": 12796
+        },
+        {
+          "src": "/media/responsive/bam-f8002b3625ac1715-800.webp",
+          "width": 800,
+          "height": 450,
+          "bytes": 36572
+        },
+        {
+          "src": "/media/responsive/bam-f8002b3625ac1715-1200.webp",
+          "width": 1200,
+          "height": 675,
+          "bytes": 51662
+        }
+      ]
+    },
+    "bam-9bccbee92ae23118": {
+      "alt": "Church, tower, lawn, paths and nearby buildings from above",
+      "serviceTags": [],
+      "reviewedAt": "2026-09-07",
+      "reviewMethod": "Visual review of repository asset",
+      "id": "bam-9bccbee92ae23118",
+      "src": "/media/work-civic.jpg",
+      "sha256": "9bccbee92ae231181ae55a821fb04561fa6994baa3c2065a729e8acf1d9e8737",
+      "width": 1504,
+      "height": 756,
+      "variants": [
+        {
+          "src": "/media/responsive/bam-9bccbee92ae23118-400.webp",
+          "width": 400,
+          "height": 201,
+          "bytes": 23260
+        },
+        {
+          "src": "/media/responsive/bam-9bccbee92ae23118-800.webp",
+          "width": 800,
+          "height": 402,
+          "bytes": 80704
+        },
+        {
+          "src": "/media/responsive/bam-9bccbee92ae23118-1200.webp",
+          "width": 1200,
+          "height": 603,
+          "bytes": 158798
+        }
+      ]
+    },
+    "bam-47a220b9e5be79ac": {
+      "alt": "Orthomosaic of Kuzuri Kijiji showing townhouses, parking and access roads",
+      "serviceTags": [
+        "mapping"
+      ],
+      "reviewedAt": "2026-09-07",
+      "reviewMethod": "Visual review of repository asset",
+      "id": "bam-47a220b9e5be79ac",
+      "src": "/media/kiji-ortho.webp",
+      "sha256": "47a220b9e5be79ac4d72c07615e2c56800735dfc64729ad1b3c1f99abc50cb08",
+      "width": 1086,
+      "height": 1304,
+      "variants": [
+        {
+          "src": "/media/responsive/bam-47a220b9e5be79ac-400.webp",
+          "width": 400,
+          "height": 480,
+          "bytes": 24580
+        },
+        {
+          "src": "/media/responsive/bam-47a220b9e5be79ac-800.webp",
+          "width": 800,
+          "height": 961,
+          "bytes": 64542
+        }
+      ]
+    },
+    "bam-516c3d44e56abfbf": {
+      "alt": "Color-coded elevation visualization of the Kuzuri Kijiji site",
+      "serviceTags": [
+        "mapping"
+      ],
+      "reviewedAt": "2026-09-07",
+      "reviewMethod": "Visual review of repository asset",
+      "id": "bam-516c3d44e56abfbf",
+      "src": "/media/kiji-dem.webp",
+      "sha256": "516c3d44e56abfbff127899ec936a70742e9e15932cf378788ec2a3a6d2b25b5",
+      "width": 1022,
+      "height": 1325,
+      "variants": [
+        {
+          "src": "/media/responsive/bam-516c3d44e56abfbf-400.webp",
+          "width": 400,
+          "height": 519,
+          "bytes": 29954
+        },
+        {
+          "src": "/media/responsive/bam-516c3d44e56abfbf-800.webp",
+          "width": 800,
+          "height": 1037,
+          "bytes": 64808
+        }
+      ]
+    },
+    "bam-d9eea7e3777e02f2": {
+      "alt": "Kuzuri Kijiji coverage visualization with capture locations overlaid",
+      "serviceTags": [
+        "mapping"
+      ],
+      "reviewedAt": "2026-09-07",
+      "reviewMethod": "Visual review of repository asset",
+      "id": "bam-d9eea7e3777e02f2",
+      "src": "/media/kiji-coverage.webp",
+      "sha256": "d9eea7e3777e02f220171675e01dab11cc7dd147900c75be881f56660e45a27d",
+      "width": 1115,
+      "height": 1351,
+      "variants": [
+        {
+          "src": "/media/responsive/bam-d9eea7e3777e02f2-400.webp",
+          "width": 400,
+          "height": 485,
+          "bytes": 21632
+        },
+        {
+          "src": "/media/responsive/bam-d9eea7e3777e02f2-800.webp",
+          "width": 800,
+          "height": 969,
+          "bytes": 50372
+        }
+      ]
+    },
+    "bam-8d0b8ae101117176": {
+      "alt": "Illustrated drone workflow with glowing stations leading to a solar-roof model",
+      "serviceTags": [],
+      "reviewedAt": "2026-09-07",
+      "reviewMethod": "Visual review of repository asset",
+      "id": "bam-8d0b8ae101117176",
+      "src": "/media/photogrammetry-cameras.webp",
+      "sha256": "8d0b8ae10111717691cdfdb86b50c4a2e18e05dd5de9cde5753f1b7dbef74f96",
+      "width": 1672,
+      "height": 941,
+      "variants": [
+        {
+          "src": "/media/responsive/bam-8d0b8ae101117176-400.webp",
+          "width": 400,
+          "height": 225,
+          "bytes": 6394
+        },
+        {
+          "src": "/media/responsive/bam-8d0b8ae101117176-800.webp",
+          "width": 800,
+          "height": 450,
+          "bytes": 22102
+        },
+        {
+          "src": "/media/responsive/bam-8d0b8ae101117176-1200.webp",
+          "width": 1200,
+          "height": 675,
+          "bytes": 42986
+        }
+      ]
+    }
+  },
+  "paths": {
+    "/media/jobsite.webp": "bam-5a22d066e92cd5be",
+    "/media/bancroft-curb.webp": "bam-175de012cb710326",
+    "/media/bancroft-aerial.webp": "bam-44415de6569d82d9",
+    "/media/work-residential.webp": "bam-a2ebc099d9de9f4f",
+    "/media/work-tower.webp": "bam-b5be954c2e493676",
+    "/media/svc-solar.webp": "bam-0779bcea72080181",
+    "/media/svc-events.webp": "bam-c7db0e7f6df65eae",
+    "/media/overpass.webp": "bam-ba5805d64ac10e40",
+    "/media/overpass-oblique.webp": "bam-4d3b5949e9f21a64",
+    "/media/overpass-approach.webp": "bam-a11b0e950431fd1e",
+    "/media/overpass-ground.webp": "bam-1a7de0a3f0bd762a",
+    "/media/south-munn-staging.webp": "bam-2b3e352dc3d036bc",
+    "/media/brick-church-village.webp": "bam-7be44d036f4dd35d",
+    "/media/brick-church-apartments.webp": "bam-875abe10f9e84037",
+    "/media/neighborhood-film.webp": "bam-7caf94ab6a612004",
+    "/media/jobsite-ground.webp": "bam-0e3b4cfc7a38e789",
+    "/media/work-interchange.webp": "bam-ed93738ff174f252",
+    "/media/neighborhood-oblique.webp": "bam-7583bcafd279e00b",
+    "/media/warehouse-sunset.webp": "bam-79d5423a2d699300",
+    "/media/warehouse-lot.webp": "bam-d35bcf89ffa1ff3c",
+    "/media/night-lot.webp": "bam-69cc11f3e5a8e2ce",
+    "/media/night-street.webp": "bam-c2ccd32a5cad43a7",
+    "/media/dusk-lot.webp": "bam-47dfad12ade473dc",
+    "/media/park-twilight.webp": "bam-b17df932b010a35e",
+    "/media/neighborhood-gold.webp": "bam-c86a54d78ac7542d",
+    "/media/rail-station.webp": "bam-c93a2af04708bd05",
+    "/media/city-dusk.webp": "bam-aee408d852a637e8",
+    "/media/hero-city.webp": "bam-2cbc480eea57e194",
+    "/media/about-panorama.webp": "bam-2cbc480eea57e194",
+    "/media/featured-night.webp": "bam-73b6b497b6513bb2",
+    "/media/work-night.webp": "bam-73b6b497b6513bb2",
+    "/media/work-commercial.webp": "bam-f8002b3625ac1715",
+    "/media/work-civic.jpg": "bam-9bccbee92ae23118",
+    "/media/kiji-ortho.webp": "bam-47a220b9e5be79ac",
+    "/media/kiji-dem.webp": "bam-516c3d44e56abfbf",
+    "/media/kiji-coverage.webp": "bam-d9eea7e3777e02f2",
+    "/media/photogrammetry-cameras.webp": "bam-8d0b8ae101117176"
+  }
+}

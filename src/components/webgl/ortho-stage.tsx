@@ -1,137 +1,194 @@
-import { Suspense, useMemo, useState } from "react";
-import { OrbitControls, useTexture } from "@react-three/drei";
-import {
-  CanvasTexture,
-  ClampToEdgeWrapping,
-  LinearFilter,
-  LinearSRGBColorSpace,
-  SRGBColorSpace,
-  type Texture,
-} from "three";
-import { SceneCanvas } from "@/components/webgl/scene-canvas";
-
-const ORTHO_ASPECT = 1086 / 1304;
-const PLANE_DEPTH = 2.35;
-const PLANE_WIDTH = PLANE_DEPTH * ORTHO_ASPECT;
-
-function heatmapToHeight(source: Texture): Texture {
-  try {
-    const img = source.image as CanvasImageSource & { width?: number; height?: number };
-    if (typeof document === "undefined" || !img) return source;
-    const w = Number(img.width) || 512;
-    const h = Number(img.height) || 512;
-    const canvas = document.createElement("canvas");
-    canvas.width = w;
-    canvas.height = h;
-    const ctx = canvas.getContext("2d");
-    if (!ctx) return source;
-    ctx.drawImage(img, 0, 0, w, h);
-    const data = ctx.getImageData(0, 0, w, h);
-    const px = data.data;
-    for (let i = 0; i < px.length; i += 4) {
-      const r = px[i] ?? 0;
-      const g = px[i + 1] ?? 0;
-      const b = px[i + 2] ?? 0;
-      const height = Math.max(0, Math.min(255, r * 0.72 + g * 0.22 - b * 0.18 + 32));
-      px[i] = height;
-      px[i + 1] = height;
-      px[i + 2] = height;
-    }
-    ctx.putImageData(data, 0, 0);
-    const tex = new CanvasTexture(canvas);
-    tex.colorSpace = LinearSRGBColorSpace;
-    tex.wrapS = ClampToEdgeWrapping;
-    tex.wrapT = ClampToEdgeWrapping;
-    tex.minFilter = LinearFilter;
-    tex.magFilter = LinearFilter;
-    tex.needsUpdate = true;
-    return tex;
-  } catch {
-    return source;
-  }
-}
-
-function Terrain({ colorMap, elevMap }: { colorMap: string; elevMap?: string }) {
-  const color = useTexture(colorMap);
-  const elev = useTexture(elevMap ?? colorMap);
-  color.colorSpace = SRGBColorSpace;
-  color.anisotropy = 8;
-  color.needsUpdate = true;
-
-  const height = useMemo(() => heatmapToHeight(elev), [elev]);
-
+import { useEffect, useMemo, useRef, useState } from "react";
+import { useFrame, useLoader } from "@react-three/fiber";
+import { OrbitControls, Edges } from "@react-three/drei";
+import { MathUtils, SRGBColorSpace, TextureLoader, type Group } from "three";
+import { SceneCanvas } from "./scene-canvas";
+import { Plinth, StudioLights } from "./studio-primitives";
+import { MediaImage } from "@/components/media-image";
+const TITLES = ["Orthomosaic", "Elevation visualization", "Capture coverage"];
+function CaptureLayer({
+  src,
+  index,
+  spread,
+  active,
+}: {
+  src: string;
+  index: number;
+  spread: number;
+  active: number;
+}) {
+  const source = useLoader(TextureLoader, src, (loader) => loader.setCrossOrigin("anonymous"));
+  const texture = useMemo(() => {
+    const t = source.clone();
+    t.colorSpace = SRGBColorSpace;
+    t.anisotropy = 8;
+    t.needsUpdate = true;
+    return t;
+  }, [source]);
+  useEffect(() => () => texture.dispose(), [texture]);
+  const group = useRef<Group>(null);
+  const aspect = source.image.width / source.image.height;
+  useFrame((_, dt) => {
+    if (group.current)
+      group.current.position.y = MathUtils.damp(
+        group.current.position.y,
+        spread > 0 ? index * spread * 0.85 : index === active ? 0.04 : -0.06 - index * 0.01,
+        6,
+        Math.min(dt, 0.05),
+      );
+  });
   return (
-    <group>
-      <mesh rotation={[-Math.PI / 2, 0, 0]} position={[0, 0, 0]} receiveShadow castShadow>
-        <planeGeometry args={[PLANE_WIDTH, PLANE_DEPTH, 160, 160]} />
-        <meshStandardMaterial
-          map={color}
-          displacementMap={height}
-          displacementScale={0.22}
-          displacementBias={-0.02}
-          roughness={0.92}
-          metalness={0.04}
-        />
+    <group ref={group} position={[0, index * 0.7, 0]} visible={spread > 0 || active === index}>
+      <mesh position={[0, -0.025, 0]} castShadow receiveShadow>
+        <boxGeometry args={[3.6 * aspect + 0.03, 0.045, 3.6 + 0.03]} />
+        <meshStandardMaterial color="#64776d" metalness={0.4} roughness={0.4} />
+        <Edges color="#e7eae0" />
       </mesh>
-      <mesh rotation={[-Math.PI / 2, 0, 0]} position={[0, -0.04, 0]}>
-        <planeGeometry args={[PLANE_WIDTH + 0.08, PLANE_DEPTH + 0.08]} />
-        <meshStandardMaterial color="#121512" roughness={0.7} metalness={0.15} />
+      <mesh rotation={[-Math.PI / 2, 0, 0]} receiveShadow>
+        <planeGeometry args={[3.6 * aspect, 3.6]} />
+        <meshStandardMaterial map={texture} roughness={0.83} metalness={0} />
       </mesh>
     </group>
   );
 }
-
-function Rig() {
-  const [auto, setAuto] = useState(true);
+function World({
+  maps,
+  spread,
+  active,
+  interactive,
+}: {
+  maps: string[];
+  spread: number;
+  active: number;
+  interactive: boolean;
+}) {
   return (
-    <OrbitControls
-      makeDefault
-      enableDamping
-      dampingFactor={0.08}
-      enablePan
-      panSpeed={0.55}
-      rotateSpeed={0.72}
-      zoomSpeed={0.85}
-      minDistance={1.35}
-      maxDistance={6.5}
-      minPolarAngle={0.18}
-      maxPolarAngle={Math.PI / 2.08}
-      autoRotate={auto}
-      autoRotateSpeed={0.55}
-      onStart={() => setAuto(false)}
-    />
+    <>
+      <StudioLights />
+      <Plinth width={3.3} depth={4} />
+      {maps.map((src, i) => (
+        <CaptureLayer key={src} src={src} index={i} spread={spread} active={active} />
+      ))}
+      <OrbitControls
+        makeDefault
+        enabled={interactive}
+        enableZoom={false}
+        enablePan={false}
+        enableDamping
+        minPolarAngle={0.1}
+        maxPolarAngle={Math.PI / 2.12}
+        target={[0, 0.5, 0]}
+      />
+    </>
   );
 }
-
 export function OrthoStage({
   colorMap,
   elevMap,
-  className = "aspect-[4/3]",
+  className,
 }: {
   colorMap: string;
   elevMap?: string;
   className?: string;
 }) {
+  const [spread, setSpread] = useState(0.8);
+  const [active, setActive] = useState(0);
+  const [interactive, setInteractive] = useState(false);
+  const [view, setView] = useState(0);
+  const maps = [colorMap, ...(elevMap ? [elevMap] : []), "/media/kiji-coverage.webp"];
   return (
-    <div className={`relative isolate ${className}`}>
-      <SceneCanvas
-        className="absolute inset-0 size-full cursor-grab active:cursor-grabbing"
-        camera={{ position: [1.55, 1.85, 2.15], fov: 40, near: 0.08, far: 24 }}
-        interactive
-        fallback={<img src={colorMap} alt="Orthomosaic of Kuzuri Kijiji, East Orange" className="size-full object-contain bg-ink" />}
-      >
-        <color attach="background" args={["#0a0e0a"]} />
-        <hemisphereLight args={["#e8eee4", "#1a2218", 0.85]} />
-        <directionalLight position={[2.4, 4.2, 1.6]} intensity={1.35} />
-        <directionalLight position={[-2, 1.4, -2]} intensity={0.35} />
-        <Suspense fallback={null}>
-          <Terrain colorMap={colorMap} elevMap={elevMap} />
-        </Suspense>
-        <Rig />
-      </SceneCanvas>
-      <p className="pointer-events-none absolute bottom-3 left-3 rounded-sm bg-ink/75 px-2 py-1 font-display text-[0.65rem] font-semibold tracking-[0.14em] text-green uppercase">
-        Drag to orbit · scroll to zoom
-      </p>
-    </div>
+    <section
+      className={`technical-studio ortho-study ${className ?? ""}`}
+      aria-label="Kuzuri Kijiji deliverable layers"
+    >
+      <header className="studio-header">
+        <div>
+          <p className="studio-eyebrow">DELIVERABLE STUDY / 02</p>
+          <h4>The anatomy of a site packet.</h4>
+        </div>
+        <span className="studio-stamp">KUZURI KIJIJI · NJ</span>
+      </header>
+      <div className="studio-toolbar" role="group" aria-label="Deliverable layer">
+        {maps.map((_, i) => (
+          <button
+            type="button"
+            key={i}
+            className="studio-button"
+            aria-pressed={active === i && spread === 0}
+            onClick={() => {
+              setActive(i);
+              setSpread(0);
+            }}
+          >
+            {TITLES[i]}
+          </button>
+        ))}
+        <button
+          type="button"
+          className="studio-button"
+          aria-pressed={spread > 0}
+          onClick={() => setSpread(spread > 0 ? 0 : 1)}
+        >
+          {spread > 0 ? "Assemble" : "Separate layers"}
+        </button>
+      </div>
+      <div className="studio-viewport">
+        <SceneCanvas
+          key={view}
+          interactive={interactive}
+          camera={{ position: [5.1, 5.6, 6.4], fov: 36, near: 0.1, far: 50 }}
+          fallback={<MediaImage src={maps[active]} className="size-full object-contain" />}
+        >
+          <World maps={maps} spread={spread} active={active} interactive={interactive} />
+        </SceneCanvas>
+        <span className="studio-compass">IMAGE TOP ↑</span>
+        <span className="studio-view-note">
+          {spread > 0
+            ? "Separate outputs from one capture · layer spacing is illustrative"
+            : TITLES[active] + " · source visualization"}
+        </span>
+      </div>
+      <div className="studio-controls">
+        <label>
+          Layer separation <strong>{Math.round(spread * 100)}%</strong>
+          <input
+            aria-label="Layer separation"
+            className="studio-range"
+            type="range"
+            min="0"
+            max="1"
+            step=".01"
+            value={spread}
+            onChange={(e) => setSpread(Number(e.target.value))}
+          />
+        </label>
+        <div className="mt-3 flex flex-wrap gap-2">
+          <button
+            type="button"
+            className="studio-button"
+            aria-pressed={interactive}
+            onClick={() => setInteractive(!interactive)}
+          >
+            {interactive ? "Finish exploring" : "Explore 3D"}
+          </button>
+          <button
+            type="button"
+            className="studio-button"
+            onClick={() => {
+              setView((v) => v + 1);
+              setInteractive(false);
+              setSpread(0.8);
+            }}
+          >
+            Reset view
+          </button>
+        </div>
+      </div>
+      <footer className="studio-source">
+        Orthomosaic, color elevation and coverage outputs. Layers retain their source aspect ratios;
+        their separation is explanatory, not a measured terrain surface. Calibrated elevations and
+        survey control are required for measurement.
+      </footer>
+    </section>
   );
 }

@@ -1,3 +1,5 @@
+import { MediaImage } from "@/components/media-image";
+import { seo } from "@/lib/seo";
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { ArrowUpRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -14,16 +16,13 @@ import { audiences, brand, services } from "@/data/site";
 
 export const Route = createFileRoute("/")({
   component: Home,
-  head: () => ({
-    title: "Baron Aerial Media — Altitude Changes Everything",
-    meta: [
-      {
-        name: "description",
-        content:
-          "FAA Part 107 aerial imaging from Newark, New Jersey. Listings, jobsites, claims, roofs, and site maps — planned against LAANC, Part 107 Waivers, SGI Waivers, and the site itself.",
-      },
-    ],
-  }),
+  head: () =>
+    seo({
+      title: "Baron Aerial Media — Altitude Changes Everything",
+      description:
+        "FAA Part 107 aerial imaging from Newark, New Jersey. Listings, jobsites, claims, roofs, and site maps — planned against LAANC, Part 107 Waivers, SGI Waivers, and the site itself.",
+      path: "/",
+    }),
 });
 
 function Home() {
@@ -31,27 +30,30 @@ function Home() {
 
   return (
     <PageShell tone="dark">
-      <section className="relative flex min-h-svh items-center overflow-hidden pt-24">
+      <section className="photo-hero relative isolate flex min-h-svh items-center overflow-hidden pt-24">
         <div className="absolute inset-0 -z-20 overflow-hidden">
-          <img
+          <MediaImage
             src="/media/city-dusk.webp"
+            loading="eager"
+            fetchPriority="high"
             alt="Dense city blocks, roads, and tree canopy at dusk — July 8, 2026"
             className="ken-burns"
           />
         </div>
-        <div className="absolute inset-0 -z-10 bg-[linear-gradient(90deg,var(--color-ink)_0%,rgba(10,14,10,0.78)_52%,rgba(10,14,10,0.28)_100%),linear-gradient(0deg,var(--color-ink)_4%,transparent_52%)]" />
+        <div className="hero-scrim absolute inset-0 -z-10" />
 
-        <div className="site-container stagger-in relative z-[2] grid max-w-3xl gap-6 py-16">
+        <div className="site-container stagger-in home-hero-content relative z-[2] grid gap-6 py-16">
           <p className="eyebrow">
             {brand.part107} · {brand.city}
           </p>
-          <h1 className="text-[clamp(2.7rem,7vw,5.4rem)] text-fg">{brand.tagline}</h1>
-          <p className="font-display text-xl font-medium text-green md:text-2xl">{brand.altTagline}.</p>
+          <h1 className="max-w-[14ch] text-[clamp(2.7rem,7vw,5rem)] text-fg">{brand.tagline}</h1>
+          <p className="font-display text-xl font-medium text-green md:text-2xl">
+            {brand.altTagline}.
+          </p>
           <p className="lead">
-            Owner-operated aerial imaging for listings, jobsites, claims, roofs, and site maps. We
-            take the goal, the site, and the window from you first — then screen Airspace Class,
-            LAANC, Part 107 Waivers, SGI Waivers, TFRs, and local permits. The flight is only half
-            the job. Processing and deliverables are the product your team files.
+            Aerial photographs, films, and site maps for property and project teams across
+            North Jersey. Tell us the site and the decision you need to make. We plan the
+            capture and deliver a clear, organized set your team can use.
           </p>
           <div className="mt-2 flex flex-wrap gap-3">
             <Button asChild>
@@ -62,8 +64,8 @@ function Home() {
             </Button>
           </div>
           <p className="text-sm text-muted">
-            Behind this headline: a July 8 dusk still of dense city fabric — roofs, roads, and canopy
-            in one frame. Two field films are one scroll down.
+            Explore the North Munn bridge documentation, Hainesport listing media, and Kuzuri Kijiji
+            mapping packet.
           </p>
         </div>
       </section>
@@ -71,7 +73,7 @@ function Home() {
       <ProcessStrip />
       <FieldFilm />
       <PreflightSection tone="dark" />
-      <FieldStills tone="dark" />
+      <FieldStills tone="dark" compact />
       <DeliverablesSection tone="dark" />
 
       <section className="border-t border-line py-20 md:py-28">
@@ -104,7 +106,10 @@ function Home() {
                 Pick the decision. We plan the flight around it.
               </h2>
             </div>
-            <Link to="/capabilities" className="inline-flex items-center gap-1 font-display text-sm font-semibold text-green">
+            <Link
+              to="/capabilities"
+              className="inline-flex items-center gap-1 font-display text-sm font-semibold text-green"
+            >
               All capabilities
               <ArrowUpRight className="size-4" />
             </Link>
@@ -113,24 +118,37 @@ function Home() {
         <div className="grid gap-4 md:grid-cols-2">
           {homeServices.slice(0, 2).map((s, i) => (
             <Reveal key={s.slug} delay={i * 80}>
-              <ImageCard slug={s.slug} image={s.image} title={s.name} body={s.summary} kicker={s.eyebrow} tall />
+              <ImageCard
+                slug={s.slug}
+                image={s.image}
+                title={s.name}
+                body={s.summary}
+                kicker={s.eyebrow}
+                tall
+              />
             </Reveal>
           ))}
           {homeServices.slice(2).map((s, i) => (
             <Reveal key={s.slug} delay={80 + i * 70}>
-              <ImageCard slug={s.slug} image={s.image} title={s.name} body={s.summary} kicker={s.eyebrow} />
+              <ImageCard
+                slug={s.slug}
+                image={s.image}
+                title={s.name}
+                body={s.summary}
+                kicker={s.eyebrow}
+              />
             </Reveal>
           ))}
         </div>
       </section>
 
-      <section className="relative min-h-[52vh] overflow-hidden">
-        <img
-          src="/media/about-panorama.webp"
-          alt="Coastal aerial with marina slips, a pier, and high-rises"
+      <section className="photo-hero relative isolate min-h-[52vh] overflow-hidden">
+        <MediaImage
+          src="/media/city-dusk.webp"
+          alt="City blocks, roads and tree canopy at dusk"
           className="ken-burns absolute inset-0"
         />
-        <div className="absolute inset-0 bg-gradient-to-r from-ink via-ink/70 to-ink/20" />
+        <div className="hero-scrim absolute inset-0" />
         <div className="site-container relative grid max-w-xl gap-4 py-24">
           <Reveal>
             <p className="eyebrow">{brand.tagline}</p>
@@ -138,9 +156,9 @@ function Home() {
               Start with the site and the goal — not a date on a calendar.
             </h2>
             <p className="lead">
-              The Mission Planner maps your objective to a workflow. The brief captures site, timing,
-              constraints, and outputs. Then we review LAANC, Part 107 Waivers, SGI Waivers, and whether
-              the shot is actually flyable.
+              The Mission Planner maps your objective to a workflow. The brief captures site,
+              timing, constraints, and outputs. Then we review LAANC, Part 107 Waivers, SGI Waivers,
+              and whether the shot is actually flyable.
             </p>
             <div className="mt-4">
               <Button asChild>

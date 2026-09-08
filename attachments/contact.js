@@ -53,7 +53,7 @@ export async function onRequestPost({ request, env }) {
 
     // Backup to KV if bound
     if (env.SUBMISSIONS) {
-      try { await env.SUBMISSIONS.put(`brief:${Date.now()}:${crypto.randomUUID()}`, JSON.stringify(data)); } catch (_) {}
+      try { await env.SUBMISSIONS.put(`brief:${Date.now()}:${crypto.randomUUID()}`, JSON.stringify(data)); } catch { /* Draft storage may be unavailable. */ }
     }
 
     // Email via Resend if configured

@@ -3,3 +3,8 @@ node_modules/
 .github_repo
 .env
 .env.*
+
+# Generated deployment output; build from source for each release.
+.vercel/output/
+.output/
+dist/

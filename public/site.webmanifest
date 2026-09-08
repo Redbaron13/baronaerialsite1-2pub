@@ -1,0 +1,26 @@
+{
+  "id": "/",
+  "name": "Baron Aerial Media",
+  "short_name": "Baron Aerial",
+  "description": "Commercial aerial media, mapping, and inspection. Altitude Changes Everything.",
+  "lang": "en-US",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "background_color": "#0a0e0a",
+  "theme_color": "#0a0e0a",
+  "icons": [
+    {
+      "src": "/brand/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "/brand/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any"
+    }
+  ]
+}

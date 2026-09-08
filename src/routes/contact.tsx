@@ -1,5 +1,6 @@
+import { seo } from "@/lib/seo";
 import { createFileRoute } from "@tanstack/react-router";
-import { useRef, useState, type FormEvent, type ReactNode } from "react";
+import { useCallback, useEffect, useRef, useState, type FormEvent, type ReactNode } from "react";
 import { Button } from "@/components/ui/button";
 import { PageHero, PageShell } from "@/components/page-shell";
 import { disclaimer, services } from "@/data/site";
@@ -8,19 +9,23 @@ import { cn } from "@/lib/utils";
 
 export const Route = createFileRoute("/contact")({
   component: ContactPage,
-  head: () => ({
-    title: "Plan a Drone Mission — Baron Aerial Media",
-    meta: [
-      {
-        name: "description",
-        content: "A short mission-discovery brief: objective, site, airspace, and deliverables.",
-      },
-    ],
-  }),
+  head: () =>
+    seo({
+      title: "Plan a Drone Mission — Baron Aerial Media",
+      description: "A short mission-discovery brief: objective, site, airspace, and deliverables.",
+      path: "/contact",
+    }),
 });
 
 const STEPS = ["Objective", "Site + Timing", "Outputs", "Contact"] as const;
-const DELIVERABLES = ["Photos", "Video", "3D model", "Orthomosaic", "Report", "Matterport"] as const;
+const DELIVERABLES = [
+  "Photos",
+  "Video",
+  "3D model",
+  "Orthomosaic",
+  "Report",
+  "Matterport",
+] as const;
 
 function ContactPage() {
   const [step, setStep] = useState(0);
@@ -28,6 +33,54 @@ function ContactPage() {
   const [note, setNote] = useState("");
   const [dels, setDels] = useState<string[]>([]);
   const formRef = useRef<HTMLFormElement>(null);
+  const submissionId = useRef("");
+  const loaded = useRef(false);
+  useEffect(() => {
+    submissionId.current = crypto.randomUUID();
+    try {
+      const saved = sessionStorage.getItem("bam-mission-draft-v1");
+      if (saved) {
+        const draft = JSON.parse(saved);
+        for (const [name, value] of Object.entries(draft.fields ?? {})) {
+          const field = formRef.current?.elements.namedItem(name);
+          if (
+            field instanceof HTMLInputElement ||
+            field instanceof HTMLTextAreaElement ||
+            field instanceof HTMLSelectElement
+          )
+            field.value = String(value);
+        }
+        setStep(Math.min(3, Math.max(0, Number(draft.step) || 0)));
+        setDels(
+          Array.isArray(draft.deliverables)
+            ? draft.deliverables.filter((d: string) =>
+                DELIVERABLES.includes(d as (typeof DELIVERABLES)[number]),
+              )
+            : [],
+        );
+        if (typeof draft.submissionId === "string") submissionId.current = draft.submissionId;
+      }
+    } catch {
+      /* Storage may be disabled; the form still works. */
+    }
+    loaded.current = true;
+  }, []);
+  const saveDraft = useCallback(() => {
+    if (!loaded.current || !formRef.current) return;
+    try {
+      const fields = Object.fromEntries(new FormData(formRef.current).entries());
+      delete fields._gotcha;
+      sessionStorage.setItem(
+        "bam-mission-draft-v1",
+        JSON.stringify({ fields, step, deliverables: dels, submissionId: submissionId.current }),
+      );
+    } catch {
+      /* Private browsing and full storage must not interrupt a brief. */
+    }
+  }, [step, dels]);
+  useEffect(() => {
+    saveDraft();
+  }, [saveDraft]);
 
   function validateStep(currentStep: number): boolean {
     const form = formRef.current;
@@ -59,6 +112,7 @@ function ContactPage() {
     try {
       const res = await submitBrief({
         data: {
+          submissionId: submissionId.current,
           gotcha: String(fd.get("_gotcha") || ""),
           missionType: String(fd.get("mission_type") || ""),
           location: String(fd.get("location") || ""),
@@ -75,9 +129,20 @@ function ContactPage() {
           company: String(fd.get("company") || ""),
         },
       });
+      if ("conflict" in res && res.conflict) {
+        submissionId.current = crypto.randomUUID();
+        saveDraft();
+      }
       if (res.ok) {
+        try {
+          sessionStorage.removeItem("bam-mission-draft-v1");
+        } catch {
+          /* optional storage */
+        }
         setStatus("ok");
-        setNote("Brief received. We’ll review objective, site, airspace, and outputs, then follow up.");
+        setNote(
+          "Brief received. We’ll review objective, site, airspace, and outputs, then follow up.",
+        );
       } else {
         setStatus("err");
         setNote(res.error || "Something went wrong.");
@@ -99,7 +164,11 @@ function ContactPage() {
 
       <section className="site-container grid items-start gap-8 pb-20 lg:grid-cols-[1.3fr_0.9fr]">
         {status === "ok" ? (
-          <div className="rounded-xl bg-fg p-8 shadow-[0_0_0_1px_var(--color-paper-line)]">
+          <div
+            role="status"
+            aria-live="polite"
+            className="rounded-xl bg-fg p-8 shadow-[0_0_0_1px_var(--color-paper-line)]"
+          >
             <p className="eyebrow">Brief sent</p>
             <h2 className="mt-2 text-3xl">We’ll review the mission.</h2>
             <p className="mt-3 text-ink-muted">{note}</p>
@@ -108,6 +177,7 @@ function ContactPage() {
           <form
             ref={formRef}
             onSubmit={onSubmit}
+            onChange={saveDraft}
             className="rounded-xl bg-fg p-6 shadow-[0_0_0_1px_var(--color-paper-line)] md:p-8"
           >
             <input
@@ -118,6 +188,12 @@ function ContactPage() {
               aria-hidden="true"
               className="absolute -left-[9999px] h-0 w-0 opacity-0"
             />
+            <p className="mb-4 text-xs text-ink-muted">
+              Draft saved in this browser tab until submission. Close the tab to discard it.
+            </p>
+            <p className="sr-only" role="status" aria-live="polite">
+              Step {step + 1} of 4: {STEPS[step]}
+            </p>
             <nav className="mb-6 flex flex-wrap gap-2" aria-label="Mission brief steps">
               {STEPS.map((label, i) => (
                 <button
@@ -136,116 +212,161 @@ function ContactPage() {
                     i === step ? "bg-green-deep text-fg" : "bg-paper-2 text-ink-muted",
                   )}
                 >
-                  <span className="grid size-5 place-items-center rounded-full bg-ink/10 text-[0.7rem]">{i + 1}</span>
+                  <span className="grid size-5 place-items-center rounded-full bg-ink/10 text-[0.7rem]">
+                    {i + 1}
+                  </span>
                   {label}
                 </button>
               ))}
             </nav>
 
             <div className={cn("grid gap-5", step !== 0 && "hidden")}>
-                <Field label="What type of mission are you planning?" htmlFor="mtype">
-                  <select id="mtype" name="mission_type" className="field-input">
-                    <option value="">Select one…</option>
-                    {services.map((s) => (
-                      <option key={s.slug}>{s.name}</option>
-                    ))}
-                    <option>Other</option>
-                  </select>
-                </Field>
-                <Field label="Where is the project located?" htmlFor="loc">
-                  <input id="loc" name="location" className="field-input" placeholder="Address, city, or general area" />
-                </Field>
-                <Field label="When do you need the mission performed?" htmlFor="timing">
-                  <select id="timing" name="timing" className="field-input">
-                    <option value="">Select one…</option>
-                    <option>Specific date</option>
-                    <option>Flexible window</option>
-                    <option>Recurring progress tracking</option>
-                  </select>
-                </Field>
-              </div>
+              <Field label="What type of mission are you planning?" htmlFor="mtype">
+                <select id="mtype" name="mission_type" className="field-input">
+                  <option value="">Select one…</option>
+                  {services.map((s) => (
+                    <option key={s.slug}>{s.name}</option>
+                  ))}
+                  <option>Other</option>
+                </select>
+              </Field>
+              <Field label="Where is the project located?" htmlFor="loc">
+                <input
+                  id="loc"
+                  name="location"
+                  className="field-input"
+                  placeholder="Address, city, or general area"
+                />
+              </Field>
+              <Field label="When do you need the mission performed?" htmlFor="timing">
+                <select id="timing" name="timing" className="field-input">
+                  <option value="">Select one…</option>
+                  <option>Specific date</option>
+                  <option>Flexible window</option>
+                  <option>Recurring progress tracking</option>
+                </select>
+              </Field>
+            </div>
 
             <div className={cn("grid gap-5", step !== 1 && "hidden")}>
-                <Field label="Tell us about the site" htmlFor="site">
-                  <textarea
-                    id="site"
-                    name="site_detail"
-                    rows={3}
-                    className="field-input"
-                    placeholder="Property size, structures, access, anything unusual…"
-                  />
-                </Field>
-                <Field label="Airspace, LAANC, waivers, or access constraints?" htmlFor="airspace">
-                  <input
-                    id="airspace"
-                    name="airspace"
-                    className="field-input"
-                    placeholder="Near EWR / TEB / LGA, LAANC grid, waiver or SGI likely, HOA, gated…"
-                  />
-                </Field>
-                <Field label="Target date or window" htmlFor="date">
-                  <input id="date" name="target_date" className="field-input" placeholder="e.g. week of Sep 8, or flexible" />
-                </Field>
-              </div>
+              <Field label="Tell us about the site" htmlFor="site">
+                <textarea
+                  id="site"
+                  name="site_detail"
+                  rows={3}
+                  className="field-input"
+                  placeholder="Property size, structures, access, anything unusual…"
+                />
+              </Field>
+              <Field label="Airspace, LAANC, waivers, or access constraints?" htmlFor="airspace">
+                <input
+                  id="airspace"
+                  name="airspace"
+                  className="field-input"
+                  placeholder="Near EWR / TEB / LGA, LAANC grid, waiver or SGI likely, HOA, gated…"
+                />
+              </Field>
+              <Field label="Target date or window" htmlFor="date">
+                <input
+                  id="date"
+                  name="target_date"
+                  className="field-input"
+                  placeholder="e.g. week of Sep 8, or flexible"
+                />
+              </Field>
+            </div>
 
             <div className={cn("grid gap-5", step !== 2 && "hidden")}>
-                <fieldset>
-                  <legend className="mb-2 font-display text-sm font-semibold text-ink-text">
-                    Which deliverables do you want?
-                  </legend>
-                  <div className="flex flex-wrap gap-2">
-                    {DELIVERABLES.map((d) => {
-                      const on = dels.includes(d);
-                      return (
-                        <label
-                          key={d}
-                          className={cn(
-                            "inline-flex min-h-11 cursor-pointer items-center gap-2 rounded-pill px-4 font-display text-sm font-semibold",
-                            on ? "bg-green-deep text-fg" : "bg-paper-2 text-ink-muted",
-                          )}
-                        >
-                          <input
-                            type="checkbox"
-                            className="size-4 accent-green-deep"
-                            checked={on}
-                            onChange={() =>
-                              setDels((cur) => (on ? cur.filter((x) => x !== d) : [...cur, d]))
-                            }
-                          />
-                          {d}
-                        </label>
-                      );
-                    })}
-                  </div>
-                </fieldset>
-                <Field label="How will the deliverables be used?" htmlFor="usage">
-                  <input
-                    id="usage"
-                    name="usage"
-                    className="field-input"
-                    placeholder="Listing, marketing, permitting, progress, insurance…"
-                  />
-                </Field>
-                <Field label="Budget range (optional)" htmlFor="budget">
-                  <input id="budget" name="budget" className="field-input" placeholder="Helps us recommend the right workflow" />
-                </Field>
-              </div>
+              <fieldset>
+                <legend className="mb-2 font-display text-sm font-semibold text-ink-text">
+                  Which deliverables do you want?
+                </legend>
+                <div className="flex flex-wrap gap-2">
+                  {DELIVERABLES.map((d) => {
+                    const on = dels.includes(d);
+                    return (
+                      <label
+                        key={d}
+                        className={cn(
+                          "inline-flex min-h-11 cursor-pointer items-center gap-2 rounded-pill px-4 font-display text-sm font-semibold",
+                          on ? "bg-green-deep text-fg" : "bg-paper-2 text-ink-muted",
+                        )}
+                      >
+                        <input
+                          type="checkbox"
+                          className="size-4 accent-green-deep"
+                          checked={on}
+                          onChange={() =>
+                            setDels((cur) => (on ? cur.filter((x) => x !== d) : [...cur, d]))
+                          }
+                        />
+                        {d}
+                      </label>
+                    );
+                  })}
+                </div>
+              </fieldset>
+              <Field label="How will the deliverables be used?" htmlFor="usage">
+                <input
+                  id="usage"
+                  name="usage"
+                  className="field-input"
+                  placeholder="Listing, marketing, permitting, progress, insurance…"
+                />
+              </Field>
+              <Field label="Budget range (optional)" htmlFor="budget">
+                <input
+                  id="budget"
+                  name="budget"
+                  className="field-input"
+                  placeholder="Helps us recommend the right workflow"
+                />
+              </Field>
+            </div>
 
             <div className={cn("grid gap-5", step !== 3 && "hidden")}>
-                <Field label="Your name" htmlFor="name">
-                  <input id="name" name="name" required className="field-input" placeholder="First and last" />
-                </Field>
-                <Field label="Email" htmlFor="email">
-                  <input id="email" name="email" type="email" required className="field-input" placeholder="you@company.com" />
-                </Field>
-                <Field label="Phone (optional)" htmlFor="phone">
-                  <input id="phone" name="phone" className="field-input" placeholder="(   )   -    " />
-                </Field>
-                <Field label="Company (optional)" htmlFor="company">
-                  <input id="company" name="company" className="field-input" placeholder="Company or brokerage" />
-                </Field>
-                <p className="text-sm text-paper-muted">{disclaimer}</p>
-              </div>
+              <Field label="Your name" htmlFor="name">
+                <input
+                  id="name"
+                  name="name"
+                  autoComplete="name"
+                  required
+                  className="field-input"
+                  placeholder="First and last"
+                />
+              </Field>
+              <Field label="Email" htmlFor="email">
+                <input
+                  id="email"
+                  name="email"
+                  autoComplete="email"
+                  type="email"
+                  required
+                  className="field-input"
+                  placeholder="you@company.com"
+                />
+              </Field>
+              <Field label="Phone (optional)" htmlFor="phone">
+                <input
+                  id="phone"
+                  name="phone"
+                  autoComplete="tel"
+                  type="tel"
+                  className="field-input"
+                  placeholder="(   )   -    "
+                />
+              </Field>
+              <Field label="Company (optional)" htmlFor="company">
+                <input
+                  id="company"
+                  name="company"
+                  autoComplete="organization"
+                  className="field-input"
+                  placeholder="Company or brokerage"
+                />
+              </Field>
+              <p className="text-sm text-paper-muted">{disclaimer}</p>
+            </div>
 
             <div className="mt-6 flex flex-wrap justify-between gap-3">
               <Button
@@ -266,7 +387,11 @@ function ContactPage() {
                 </Button>
               )}
             </div>
-            {status === "err" ? <p className="mt-4 text-sm text-red-700">{note}</p> : null}
+            {status === "err" ? (
+              <p role="alert" className="mt-4 text-sm text-red-700">
+                {note}
+              </p>
+            ) : null}
           </form>
         )}
 
@@ -274,8 +399,8 @@ function ContactPage() {
           <p className="eyebrow">What happens next</p>
           <h2 className="mt-2 text-2xl text-fg">A useful conversation starts with the mission.</h2>
           <p className="mt-3 text-sm">
-            We review your objective, location, timing, airspace, and desired outputs, then determine
-            what’s operationally feasible and which workflow fits.
+            We review your objective, location, timing, airspace, and desired outputs, then
+            determine what’s operationally feasible and which workflow fits.
           </p>
           <ol className="mt-6 grid gap-4">
             {[

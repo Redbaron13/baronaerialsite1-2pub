@@ -1,12 +1,20 @@
-import { useMemo, useState } from "react";
+import { MediaImage } from "@/components/media-image";
+import { useMemo, useRef, useState } from "react";
 import { Link } from "@tanstack/react-router";
 import { Reveal } from "@/components/reveal";
 import { FieldClip } from "@/components/field-film";
 import { fieldJobs } from "@/data/site";
 import { cn } from "@/lib/utils";
 
-export function FieldStills({ tone = "dark" }: { tone?: "dark" | "light" }) {
+export function FieldStills({
+  tone = "dark",
+  compact = false,
+}: {
+  tone?: "dark" | "light";
+  compact?: boolean;
+}) {
   const light = tone === "light";
+  const [expanded, setExpanded] = useState(!compact);
   const [density, setDensity] = useState<"all" | "half">("all");
   const [open, setOpen] = useState<{ job: string; index: number } | null>({
     job: fieldJobs[0]?.id ?? "",
@@ -18,12 +26,17 @@ export function FieldStills({ tone = "dark" }: { tone?: "dark" | "light" }) {
       <div className="site-container">
         <Reveal>
           <p className="eyebrow">Field timeline · elected capture</p>
-          <h2 className={cn("mt-3 max-w-[22ch] text-[clamp(1.9rem,4vw,3.1rem)]", light ? "text-ink-text" : "text-fg")}>
+          <h2
+            className={cn(
+              "mt-3 max-w-[22ch] text-[clamp(1.9rem,4vw,3.1rem)]",
+              light ? "text-ink-text" : "text-fg",
+            )}
+          >
             One job, one identifier. Stills and film stay together.
           </h2>
           <p className={cn("lead mt-4 max-w-[62ch]", light ? "text-ink-muted" : "text-fg-soft")}>
-            Frames from the same mission share a job ID (for example BAM-EO-CROSSINGS-202606). Videos
-            play as video. Photos are not tilted — only 3D models move in three dimensions.
+            Browse the views and deliverables from each assignment. Select a frame to explore the
+            site, then open its case study for the complete packet.
           </p>
         </Reveal>
 
@@ -48,7 +61,7 @@ export function FieldStills({ tone = "dark" }: { tone?: "dark" | "light" }) {
         </div>
 
         <ol className="mt-12 grid gap-14">
-          {fieldJobs.map((job, ji) => (
+          {(expanded ? fieldJobs : fieldJobs.slice(0, 1)).map((job, ji) => (
             <JobRow
               key={job.jobId}
               job={job}
@@ -60,6 +73,11 @@ export function FieldStills({ tone = "dark" }: { tone?: "dark" | "light" }) {
             />
           ))}
         </ol>
+        {!expanded && (
+          <button type="button" className="studio-button mt-8" onClick={() => setExpanded(true)}>
+            Explore all {fieldJobs.length} field packets
+          </button>
+        )}
       </div>
     </section>
   );
@@ -90,18 +108,26 @@ function JobRow({
     });
   }, [job.items, density]);
 
-  const selected = open?.job === job.id ? items[open.index] ?? items[0] : items[0];
+  const rail = useRef<HTMLDivElement>(null);
+  const selected = open?.job === job.id ? (items[open.index] ?? items[0]) : items[0];
 
   return (
-    <li>
+    <li className="min-w-0">
       <Reveal delay={delay}>
         <div className="mb-4 flex flex-wrap items-end justify-between gap-3">
           <div>
             <p className="font-display text-[0.68rem] font-semibold tracking-[0.16em] text-green-deep uppercase">
               {job.kicker} · {job.jobId}
             </p>
-            <h3 className={cn("mt-1 text-2xl", light ? "text-ink-text" : "text-fg")}>{job.title}</h3>
-            <p className={cn("mt-2 max-w-[62ch] text-sm leading-relaxed", light ? "text-ink-muted" : "text-fg-soft")}>
+            <h3 className={cn("mt-1 text-2xl", light ? "text-ink-text" : "text-fg")}>
+              {job.title}
+            </h3>
+            <p
+              className={cn(
+                "mt-2 max-w-[62ch] text-sm leading-relaxed",
+                light ? "text-ink-muted" : "text-fg-soft",
+              )}
+            >
               {job.blurb}
             </p>
           </div>
@@ -123,30 +149,59 @@ function JobRow({
                 alt={selected.caption}
               />
             ) : (
-              <img src={selected.src} alt={selected.caption} className="aspect-video w-full object-cover" />
+              <MediaImage
+                src={selected.src}
+                alt={selected.caption}
+                className="aspect-video w-full object-cover"
+              />
             )}
           </div>
         ) : null}
         {selected ? (
-          <p className={cn("mt-3 max-w-[70ch] font-display text-sm", light ? "text-ink-text" : "text-fg")}>
+          <p
+            className={cn(
+              "mt-3 max-w-[70ch] font-display text-sm",
+              light ? "text-ink-text" : "text-fg",
+            )}
+          >
             {selected.caption}
           </p>
         ) : null}
 
-        <div className="timeline-rail mt-4 flex gap-2 pb-2">
+        <div className="mt-4 flex justify-end gap-2">
+          <button
+            type="button"
+            className="studio-button"
+            aria-label={`Previous frames for ${job.title}`}
+            onClick={() => rail.current?.scrollBy({ left: -320, behavior: "smooth" })}
+          >
+            ←
+          </button>
+          <button
+            type="button"
+            className="studio-button"
+            aria-label={`Next frames for ${job.title}`}
+            onClick={() => rail.current?.scrollBy({ left: 320, behavior: "smooth" })}
+          >
+            →
+          </button>
+        </div>
+        <div ref={rail} className="timeline-rail mt-4 flex gap-2 pb-2">
           {items.map((item, i) => {
             const active = open?.job === job.id && open.index === i;
             return (
               <button
                 key={item.src + item.role}
                 type="button"
+                aria-label={item.caption}
+                aria-pressed={active}
                 onClick={() => onOpen({ job: job.id, index: i })}
                 className={cn(
                   "timeline-card relative w-36 shrink-0 overflow-hidden rounded-md min-h-11",
                   active ? "ring-2 ring-green" : "ring-1 ring-transparent",
                 )}
               >
-                <img
+                <MediaImage
                   src={item.kind === "video" ? (item.poster ?? item.src) : item.src}
                   alt=""
                   className="aspect-[16/10] w-full object-cover"
