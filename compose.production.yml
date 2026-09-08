@@ -4,6 +4,7 @@ services:
       context: .
       dockerfile: Dockerfile
     image: baronaerial-site:latest
+    pull_policy: never
     restart: unless-stopped
     environment:
       NODE_ENV: production
