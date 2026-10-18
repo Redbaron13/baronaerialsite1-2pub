@@ -42,7 +42,7 @@ The outbox uses a stable provider idempotency key. As with any external mail pro
 Use Node 22. Run:
 
 ```sh
-npm ci
+npm ci --legacy-peer-deps
 npm run typecheck
 npm test
 npm run build
