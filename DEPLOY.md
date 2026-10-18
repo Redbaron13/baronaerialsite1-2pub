@@ -57,6 +57,22 @@ BAM_CHROME_CHANNEL=chrome npm run verify:site
 
 The browser check uses installed Google Chrome, tests published routes and CSS, three viewport widths, menu keyboard behavior and draft restoration. It does not submit a real inquiry.
 
+## Continuous integration, previews, and recovery
+
+The GitHub Actions `CI` workflow runs for pull requests targeting `main`, pushes to `main`, and manual runs. It checks auth invariants, tests, lint, types, the production build, and the built site in a real browser. It needs no production credentials and does not submit inquiries or run database migrations. Cancelled runs for superseded commits are expected.
+
+Connect this repository to the Vercel project through Vercel's Git integration to get a separate preview deployment for each pull request and updates as new commits are pushed. Set `main` as the production branch, review the preview URL reported on the pull request, and protect `main` in GitHub so the CI validation check must pass before merging. CI validates the source and build; Vercel provides the shareable live preview and production deployment.
+
+### Save and restore site checkpoints
+
+Use **Actions → Create site checkpoint → Run workflow** to save a GitHub Release at the selected branch's exact commit. Choose:
+
+- `baseline` for the initial known-good site state (run once on `main` before ongoing feature work);
+- `staging` for a reviewed candidate; or
+- `production` after verifying a live release.
+
+Each run creates a uniquely named `checkpoint/<category>/...` tag and release containing the source ref and commit SHA. These are source checkpoints, not database backups or deployments. To restore the live site quickly, use Vercel's deployment rollback to promote a previous verified deployment. To make a lasting source correction, create a branch from the checkpoint's commit, apply a fix or revert, and merge through the same CI gate. Back up production data separately and review migrations before any rollback; reverting application code does not reverse database changes.
+
 ## Hosting
 
 The default Nitro preset is Vercel. Import the repository, select Node 22 and `npm run build`, and configure server secrets. Database migration and outbox scheduling are separate operational steps.

@@ -1,0 +1,43 @@
+name: Create site checkpoint
+
+on:
+  workflow_dispatch:
+    inputs:
+      category:
+        description: Classify this known-good site state
+        required: true
+        type: choice
+        options:
+          - baseline
+          - staging
+          - production
+
+permissions:
+  contents: write
+
+jobs:
+  checkpoint:
+    name: Save source checkpoint
+    runs-on: ubuntu-latest
+    steps:
+      - name: Create categorized GitHub release
+        env:
+          GH_TOKEN: ${{ github.token }}
+          CATEGORY: ${{ inputs.category }}
+          TARGET_SHA: ${{ github.sha }}
+          SOURCE_REF: ${{ github.ref_name }}
+          RUN_NUMBER: ${{ github.run_number }}
+        run: |
+          set -euo pipefail
+          timestamp="$(date -u +%Y%m%d-%H%M%S)"
+          tag="checkpoint/${CATEGORY}/${timestamp}-${RUN_NUMBER}"
+          title="${CATEGORY^} site checkpoint ${timestamp}"
+          notes="$(printf 'Category: %s\nSource ref: %s\nSource commit: %s\n' \
+            "$CATEGORY" "$SOURCE_REF" "$TARGET_SHA")"
+
+          gh release create "$tag" \
+            --target "$TARGET_SHA" \
+            --title "$title" \
+            --notes "$notes"
+
+          echo "Created $tag at $TARGET_SHA"
