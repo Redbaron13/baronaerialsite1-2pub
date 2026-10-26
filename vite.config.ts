@@ -184,7 +184,15 @@ export default defineConfig(({ command, isPreview }) => ({
     ...(command === "build" || isPreview
       ? [
           nitro({
-            preset: process.env.DEPLOY_TARGET === "docker" ? "node-server" : "vercel",
+            preset:
+              process.env.DEPLOY_TARGET === "docker"
+                ? "node-server"
+                : process.env.DEPLOY_TARGET === "cloudflare"
+                  ? "cloudflare-module"
+                  : "vercel",
+            ...(process.env.DEPLOY_TARGET === "cloudflare"
+              ? { cloudflare: { deployConfig: true, nodeCompat: true } }
+              : {}),
             serverDir: "./server",
           }),
         ]
