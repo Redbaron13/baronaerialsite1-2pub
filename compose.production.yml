@@ -30,6 +30,25 @@ services:
       start_period: 20s
       retries: 3
 
+  # Mission-brief notification outbox: emails a reference ID for each stored brief.
+  # Runs scripts/deliver-mission-briefs.mjs once a minute (DEPLOY.md step 5).
+  brief-outbox:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      target: operations
+    image: baronaerial-outbox:latest
+    pull_policy: never
+    restart: unless-stopped
+    command: ["sh", "-c", "while true; do node scripts/deliver-mission-briefs.mjs || echo '[brief-outbox] run failed'; sleep 60; done"]
+    environment:
+      DATABASE_URL: ${DATABASE_URL:-}
+      RESEND_API_KEY: ${RESEND_API_KEY:-}
+      MISSION_BRIEF_FROM: ${MISSION_BRIEF_FROM:-}
+      MISSION_BRIEF_TO: ${MISSION_BRIEF_TO:-}
+    networks:
+      - proxy
+
 networks:
   proxy:
     external: true

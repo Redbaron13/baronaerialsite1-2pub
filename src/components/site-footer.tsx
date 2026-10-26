@@ -3,6 +3,7 @@ import { BrandMark } from "@/components/brand-mark";
 import { brand } from "@/data/site";
 import { useTheme } from "@/lib/theme";
 import { cn } from "@/lib/utils";
+import { build, buildLabel, commitUrl } from "@/lib/build-info";
 
 export function SiteFooter({ tone }: { tone?: "dark" | "light" }) {
   const { theme } = useTheme();
@@ -102,6 +103,16 @@ export function SiteFooter({ tone }: { tone?: "dark" | "light" }) {
         </p>
         <p>
           {brand.part107} · {brand.city}
+        </p>
+        <p className="w-full font-mono text-[11px] opacity-60" data-build={build.sha ?? build.short}>
+          {commitUrl ? (
+            <a href={commitUrl} className="hover:text-green" rel="noreferrer" target="_blank">
+              {buildLabel}
+            </a>
+          ) : (
+            buildLabel
+          )}
+          {build.env.startsWith("preview") ? ` · PREVIEW${build.branch ? ` · ${build.branch}` : ""}` : null}
         </p>
       </div>
     </footer>

@@ -9,6 +9,22 @@ import { nitro } from "nitro/vite";
 // @ts-expect-error JS plugin alongside the TS vite config
 import { appEnvPlugin } from "./scripts/app-env-plugin.mjs";
 import { isMigrationFile } from "./scripts/migration-plan.mjs";
+// @ts-expect-error JS helper alongside the TS vite config
+import { buildInfo } from "./scripts/build-info.mjs";
+
+const BUILD_INFO = buildInfo();
+
+/** Serves the build stamp as /version.json so `curl` can answer "what is live". */
+function versionJsonPlugin(): Plugin {
+  return {
+    name: "bam:version-json",
+    apply: "build",
+    generateBundle() {
+      if (this.environment?.name !== "client") return;
+      this.emitFile({ type: "asset", fileName: "version.json", source: JSON.stringify(BUILD_INFO, null, 2) });
+    },
+  };
+}
 
 /** The files `src/lib/db.ts` globs — same directory, same non-recursive scope. */
 function hasGlobbedMigrations(root: string): boolean {
@@ -144,6 +160,7 @@ function authPopupPlugin(): Plugin {
 // The dev server starts once `src/router.tsx` and `src/routes/` exist — see
 // AGENTS.md § "First scaffold".
 export default defineConfig(({ command, isPreview }) => ({
+  define: { __BUILD_INFO__: JSON.stringify(BUILD_INFO) },
   server: {
     host: "0.0.0.0",
     port: 8080,
@@ -157,6 +174,7 @@ export default defineConfig(({ command, isPreview }) => ({
   resolve: { tsconfigPaths: true },
   plugins: [
     pgliteBootstrapPlugin(),
+    versionJsonPlugin(),
     // Before tanstackStart so /auth/popup never falls through to the SPA.
     authPopupPlugin(),
     // Dev-only /__app-env, read by scripts/check-auth-invariant.mjs.
