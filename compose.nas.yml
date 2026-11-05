@@ -1,0 +1,37 @@
+# Isolated local/staging stack; do not point DNS at this environment.
+services:
+  postgres:
+    image: postgres:16-alpine
+    environment:
+      POSTGRES_DB: ${POSTGRES_DB:-bam_site}
+      POSTGRES_USER: ${POSTGRES_USER:-bam_site}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:?Set POSTGRES_PASSWORD in .env}
+    volumes:
+      - site_postgres:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER:-bam_site} -d ${POSTGRES_DB:-bam_site}"]
+      interval: 5s
+      timeout: 3s
+      retries: 10
+  site:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "127.0.0.1:3000:3000"
+    environment:
+      NODE_ENV: production
+      HOST: 0.0.0.0
+      PORT: 3000
+      DATABASE_URL: postgresql://${POSTGRES_USER:-bam_site}:${POSTGRES_PASSWORD}@postgres:5432/${POSTGRES_DB:-bam_site}
+      RESEND_API_KEY: ""
+      MISSION_BRIEF_FROM: ""
+      MISSION_BRIEF_TO: ""
+      MISSION_BRIEF_RATE_SECRET: ${MISSION_BRIEF_RATE_SECRET:-}
+      MISSION_BRIEF_TRUST_PROXY: ""
+    depends_on:
+      postgres:
+        condition: service_healthy
+    restart: unless-stopped
+volumes:
+  site_postgres:
