@@ -1,0 +1,13 @@
+---
+description: Baron Aerial Media shared safety and development workflow
+alwaysApply: true
+---
+- Work in a feature branch and open a draft PR; never merge or deploy to Hetzner automatically.
+- Do not read, echo, commit, or copy live .env files, private keys, tokens, production database contents, or client media into prompts/logs.
+- Treat production and NAS development as separate security boundaries. Use synthetic fixture data.
+- Edit only the current repository unless explicitly tasked with coordinated changes.
+- Before PR: run relevant typecheck, tests, lint, build/Compose checks; report failures clearly rather than claiming success.
+- Migrations must be reviewed and applied separately; never run automatically in a Docker build or PR.
+- Entra ID: prefer OIDC; never assume GROK_AUTH_* is compatible with native Microsoft Entra.
+- AIR integration: consume only approved, versioned media export manifests, never unreviewed source media.
+- Prefer smallest changes, preserve reviewed photography provenance and avoid fabricated business/FAA claims.
