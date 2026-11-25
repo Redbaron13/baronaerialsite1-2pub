@@ -1,4 +1,5 @@
 import type { ReactNode } from "react";
+import { MobileQuoteBar } from "@/components/mobile-quote-bar";
 import { SiteFooter } from "@/components/site-footer";
 import { SiteHeader } from "@/components/site-header";
 import { useTheme } from "@/lib/theme";
@@ -21,6 +22,7 @@ export function PageShell({ children }: { children: ReactNode; tone?: "dark" | "
         {children}
       </main>
       <SiteFooter />
+      <MobileQuoteBar />
     </div>
   );
 }
@@ -32,7 +34,7 @@ export function PageHero({
 }: {
   eyebrow: string;
   title: string;
-  lead: string;
+  lead: ReactNode;
   tone?: "dark" | "light";
 }) {
   const { theme } = useTheme();

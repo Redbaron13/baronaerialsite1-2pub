@@ -2,6 +2,7 @@ import { MediaImage } from "@/components/media-image";
 import { Link } from "@tanstack/react-router";
 import { ArrowUpRight } from "lucide-react";
 import { Reveal } from "@/components/reveal";
+import { TrademarkText } from "@/components/trademark";
 import { OrthoStageLazy } from "@/components/webgl/lazy";
 import { FieldClip } from "@/components/field-film";
 import { brand, deliverableOptions } from "@/data/site";
@@ -23,7 +24,7 @@ export function DeliverablesSection({ tone = "dark" }: { tone?: "dark" | "light"
             Flying is half the job. This is the other half.
           </h2>
           <p className={cn("lead mt-4 max-w-[62ch]", light ? "text-ink-muted" : "text-fg-soft")}>
-            {brand.altTagline}. After the aircraft is down, frames are culled, aligned,
+            <TrademarkText text={brand.altTagline} />. After the aircraft is down, frames are culled, aligned,
             reconstructed, and packed to the specification in the brief. 3D site models and
             construction tracking live here — not as decoration, as the reason the flight was
             planned.
