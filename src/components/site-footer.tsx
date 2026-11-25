@@ -1,6 +1,7 @@
 import { Link } from "@tanstack/react-router";
 import { BrandMark } from "@/components/brand-mark";
-import { brand } from "@/data/site";
+import { TrademarkText } from "@/components/trademark";
+import { brand, nav, primaryCta } from "@/data/site";
 import { useTheme } from "@/lib/theme";
 import { cn } from "@/lib/utils";
 import { build, buildLabel, commitUrl } from "@/lib/build-info";
@@ -11,7 +12,7 @@ export function SiteFooter({ tone }: { tone?: "dark" | "light" }) {
   return (
     <footer
       className={cn(
-        "border-t",
+        "border-t max-lg:pb-24",
         light ? "border-paper-line bg-paper text-ink-muted" : "border-line/80 bg-ink text-muted",
       )}
     >
@@ -20,7 +21,9 @@ export function SiteFooter({ tone }: { tone?: "dark" | "light" }) {
           <Link to="/" aria-label="Baron Aerial Media — home" className="inline-flex">
             <BrandMark onDark={!light} withTagline />
           </Link>
-          <p className="mt-3 font-display text-sm tracking-wide text-green-deep">{brand.tagline}</p>
+          <p className="mt-3 font-display text-sm tracking-wide text-green-deep">
+            <TrademarkText text={brand.tagline} />
+          </p>
           <p className="mt-4 max-w-xs text-sm leading-relaxed">
             Planned aerial media and visual documentation. Owner-operated, {brand.part107}. {brand.city}.
           </p>
@@ -30,21 +33,13 @@ export function SiteFooter({ tone }: { tone?: "dark" | "light" }) {
             Explore
           </p>
           <ul className="grid gap-2 text-sm">
-            <li>
-              <Link to="/work" className="hover:text-green">
-                Work
-              </Link>
-            </li>
-            <li>
-              <Link to="/capabilities" className="hover:text-green">
-                Capabilities
-              </Link>
-            </li>
-            <li>
-              <Link to="/about" className="hover:text-green">
-                About
-              </Link>
-            </li>
+            {nav.map((item) => (
+              <li key={item.to}>
+                <Link to={item.to} className="hover:text-green">
+                  {item.label}
+                </Link>
+              </li>
+            ))}
           </ul>
         </div>
         <div>
@@ -58,8 +53,13 @@ export function SiteFooter({ tone }: { tone?: "dark" | "light" }) {
               </Link>
             </li>
             <li>
-              <Link to="/contact" className="hover:text-green">
-                Contact
+              <Link to={primaryCta.to} className="hover:text-green">
+                {primaryCta.label}
+              </Link>
+            </li>
+            <li>
+              <Link to="/trust" className="hover:text-green">
+                Airspace + Compliance
               </Link>
             </li>
             <li>

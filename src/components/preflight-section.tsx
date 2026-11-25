@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { Link } from "@tanstack/react-router";
 import { Reveal } from "@/components/reveal";
+import { TrademarkText } from "@/components/trademark";
 import { AirspaceChartLazy } from "@/components/webgl/lazy";
 import {
   planningSteps,
@@ -35,7 +36,7 @@ export function PreflightSection({ tone = "dark" }: { tone?: "dark" | "light" })
             The chart comes to life before the aircraft does.
           </h2>
           <p className={cn("lead mt-4 max-w-[62ch]", light ? "text-ink-muted" : "text-fg-soft")}>
-            {brand.tagline} — after the goal, the site, and the window are on the brief, and after
+            <TrademarkText text={brand.tagline} /> — after the goal, the site, and the window are on the brief, and after
             Airspace Class, LAANC, Part 107 Waivers, SGI Waivers, TFRs, National Security Events,
             and local permits line up. Open a stage. The 3D study uses a dated FAA UAS Facility Map
             snapshot around Newark Liberty. Current restrictions and an actual authorization still

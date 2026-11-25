@@ -4,6 +4,7 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import { Button } from "@/components/ui/button";
 import { CtaBand } from "@/components/cta-band";
 import { PageHero, PageShell } from "@/components/page-shell";
+import { TrademarkText } from "@/components/trademark";
 import { TiltCard } from "@/components/tilt-card";
 import { brand, process } from "@/data/site";
 
@@ -24,14 +25,19 @@ function AboutPage() {
       <PageHero
         eyebrow="Owner-operated"
         title="The flight is only one part of the work."
-        lead={`${brand.tagline}. ${brand.name} plans the capture, screens the operating environment, and organizes media around a real decision — not just a flight.`}
+        lead={
+          <>
+            <TrademarkText text={brand.tagline} />
+            {`. ${brand.name} plans the capture, screens the operating environment, and organizes media around a real decision — not just a flight.`}
+          </>
+        }
       />
 
       <section className="site-container grid items-start gap-10 pb-16 md:grid-cols-2">
         <div>
           <MediaImage
             src="/brand/logo-lockup.webp"
-            alt="Baron Aerial Media — Altitude Changes Everything"
+            alt={`${brand.name} — ${brand.tagline}`}
             className="mb-8 max-w-[16rem]"
           />
           <h2 className="text-[clamp(1.7rem,3vw,2.6rem)]">

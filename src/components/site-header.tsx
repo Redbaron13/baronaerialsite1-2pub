@@ -3,7 +3,7 @@ import { useEffect, useRef, useState } from "react";
 import { Menu, Moon, Sun, X } from "lucide-react";
 import { BrandMark } from "@/components/brand-mark";
 import { Button } from "@/components/ui/button";
-import { nav } from "@/data/site";
+import { nav, primaryCta } from "@/data/site";
 import { useTheme } from "@/lib/theme";
 import { cn } from "@/lib/utils";
 
@@ -71,7 +71,7 @@ export function SiteHeader() {
   return (
     <header
       className={cn(
-        "fixed inset-x-0 top-0 z-50 flex items-center justify-between gap-2 border-b px-[clamp(1.25rem,5vw,4rem)] transition-[background-color,backdrop-filter,padding,border-color] duration-300",
+        "fixed inset-x-0 top-0 z-50 flex items-center justify-between gap-2 border-b px-[clamp(1.25rem,5vw,4rem)] transition-[background-color,backdrop-filter,padding,border-color] duration-300 motion-reduce:transition-none",
         light
           ? scrolled || open
             ? "border-paper-line bg-paper/90 py-2.5 backdrop-blur-md"
@@ -94,7 +94,7 @@ export function SiteHeader() {
               to={item.to}
               aria-current={current ? "page" : undefined}
               className={cn(
-                "relative font-display text-[0.95rem] font-medium transition-colors after:absolute after:inset-x-0 after:-bottom-1 after:h-0.5 after:origin-left after:scale-x-0 after:bg-green after:transition-transform after:duration-300 hover:after:scale-x-100",
+                "relative font-display text-[0.95rem] font-medium transition-colors after:absolute after:inset-x-0 after:-bottom-1 after:h-0.5 after:origin-left after:scale-x-0 after:bg-green after:transition-transform after:duration-300 hover:after:scale-x-100 motion-reduce:transition-none motion-reduce:after:transition-none",
                 light
                   ? current
                     ? "text-ink-text after:scale-x-100"
@@ -135,9 +135,9 @@ export function SiteHeader() {
         >
           Contact
         </Link>
-        <Button asChild size="sm" className="inline-flex px-3 text-xs">
-          <Link to="/contact">
-            Plan a Mission
+        <Button asChild size="sm" className="inline-flex px-3 text-xs motion-reduce:transform-none">
+          <Link to={primaryCta.to}>
+            {primaryCta.label}
             <span aria-hidden="true">→</span>
           </Link>
         </Button>
@@ -193,7 +193,7 @@ export function SiteHeader() {
             Contact
           </Link>
           <Link to="/mission-planner" className="py-4 font-display font-semibold text-green">
-            Plan a Mission
+            Mission Planner
           </Link>
         </nav>
       ) : null}

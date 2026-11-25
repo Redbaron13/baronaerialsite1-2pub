@@ -1,6 +1,7 @@
 import { Link } from "@tanstack/react-router";
 import { Button } from "@/components/ui/button";
-import { brand } from "@/data/site";
+import { TrademarkText } from "@/components/trademark";
+import { brand, primaryCta } from "@/data/site";
 import { cn } from "@/lib/utils";
 
 export function CtaBand({ tone = "light" }: { tone?: "dark" | "light" }) {
@@ -15,16 +16,18 @@ export function CtaBand({ tone = "light" }: { tone?: "dark" | "light" }) {
             : "bg-ink-2 shadow-[0_0_0_1px_rgba(255,255,255,0.08)]",
         )}
       >
-        <p className="font-display text-lg font-medium text-green">{brand.tagline}</p>
+        <p className="font-display text-lg font-medium text-green">
+          <TrademarkText text={brand.tagline} />
+        </p>
         <h2 className={cn("max-w-[20ch] text-[clamp(1.8rem,3.5vw,2.8rem)]", light ? "text-ink-text" : "text-fg")}>
-          {brand.altTagline}.
+          <TrademarkText text={brand.altTagline} />.
         </h2>
         <p className={cn("lead text-center", light ? "text-ink-muted" : "text-fg-soft")}>
           Tell us the site and the decision the media has to support. We will scope the flight, the
           deliverables, and whether it is operationally feasible under Part 107.
         </p>
-        <Button asChild className="mt-2">
-          <Link to="/contact">Plan a Drone Mission</Link>
+        <Button asChild className="mt-2 motion-reduce:transform-none">
+          <Link to={primaryCta.to}>{primaryCta.label}</Link>
         </Button>
       </div>
     </section>

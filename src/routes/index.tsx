@@ -9,6 +9,7 @@ import { FieldFilm } from "@/components/field-film";
 import { FieldStills } from "@/components/field-stills";
 import { ImageCard } from "@/components/image-card";
 import { PageShell } from "@/components/page-shell";
+import { TrademarkText } from "@/components/trademark";
 import { PreflightSection } from "@/components/preflight-section";
 import { ProcessStrip } from "@/components/process-strip";
 import { Reveal } from "@/components/reveal";
@@ -18,7 +19,7 @@ export const Route = createFileRoute("/")({
   component: Home,
   head: () =>
     seo({
-      title: "Baron Aerial Media — Altitude Changes Everything",
+      title: `${brand.name} — ${brand.tagline}`,
       description:
         "FAA Part 107 aerial imaging from Newark, New Jersey. Listings, jobsites, claims, roofs, and site maps — planned against LAANC, Part 107 Waivers, SGI Waivers, and the site itself.",
       path: "/",
@@ -46,9 +47,11 @@ function Home() {
           <p className="eyebrow">
             {brand.part107} · {brand.city}
           </p>
-          <h1 className="max-w-[14ch] text-[clamp(2.7rem,7vw,5rem)] text-fg">{brand.tagline}</h1>
+          <h1 className="max-w-[14ch] text-[clamp(2.7rem,7vw,5rem)] text-fg">
+            <TrademarkText text={brand.tagline} />
+          </h1>
           <p className="font-display text-xl font-medium text-green md:text-2xl">
-            {brand.altTagline}.
+            <TrademarkText text={brand.altTagline} />.
           </p>
           <p className="lead">
             Aerial photographs, films, and site maps for property and project teams across
@@ -79,7 +82,9 @@ function Home() {
       <section className="border-t border-line py-20 md:py-28">
         <div className="site-container">
           <Reveal>
-            <p className="eyebrow">{brand.altTagline}</p>
+            <p className="eyebrow">
+              <TrademarkText text={brand.altTagline} />
+            </p>
             <h2 className="mt-3 max-w-[22ch] text-[clamp(1.9rem,4vw,3.1rem)] text-fg">
               What altitude is for, depending on who is asking.
             </h2>
@@ -151,7 +156,9 @@ function Home() {
         <div className="hero-scrim absolute inset-0" />
         <div className="site-container relative grid max-w-xl gap-4 py-24">
           <Reveal>
-            <p className="eyebrow">{brand.tagline}</p>
+            <p className="eyebrow">
+              <TrademarkText text={brand.tagline} />
+            </p>
             <h2 className="text-[clamp(1.9rem,4vw,3.1rem)] text-fg">
               Start with the site and the goal — not a date on a calendar.
             </h2>

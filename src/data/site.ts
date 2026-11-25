@@ -2,17 +2,23 @@ import { mediaAsset } from "./media";
 export const brand = {
   name: "Baron Aerial Media",
   short: "Baron Aerial",
-  tagline: "Altitude Changes Everything",
-  altTagline: "From Rooftops to Bottom Lines",
+  tagline: "Altitude Changes Everything™",
+  altTagline: "From Rooftops to Bottomlines™",
   city: "Newark, New Jersey",
   serviceArea: "North Jersey and the New York metro",
   part107: "FAA Part 107 Remote Pilot",
+  /** Public phone. Unset until a number is confirmed in this repo or on the live site. */
+  phone: undefined as string | undefined,
 };
+
+export const primaryCta = {
+  to: "/contact",
+  label: "Get a Quote",
+} as const;
 
 export const nav = [
   { to: "/work", label: "Work" },
-  { to: "/capabilities", label: "Capabilities" },
-  { to: "/trust", label: "Airspace + Compliance" },
+  { to: "/capabilities", label: "Services" },
   { to: "/about", label: "About" },
 ] as const;
 
